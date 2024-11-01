@@ -44,7 +44,7 @@ jobs:
 
   Terragrunt-Plan:
     runs-on: ubuntu-latest
-    needs: Terragrunt-SetupValidate
+    needs: Serverless-SetupValidate
             
     steps:
       - name: Git clone the repository

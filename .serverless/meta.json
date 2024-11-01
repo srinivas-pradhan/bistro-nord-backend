@@ -1,0 +1,103 @@
+{
+  "/Users/srinivas/Documents/repos/bistro-nord-backend": {
+    "versionSfCore": null,
+    "versionFramework": "4.4.7",
+    "isWithinCompose": false,
+    "isCompose": false,
+    "composeOrgName": null,
+    "composeResolverProviders": {
+      "default-aws-credential-resolver": "<REDACTED>"
+    },
+    "composeServiceName": null,
+    "servicePath": "/Users/srinivas/Documents/repos/bistro-nord-backend",
+    "serviceConfigFileName": "serverless.yml",
+    "service": {
+      "org": "srinivaspradhan",
+      "service": "bistro-nord-backend",
+      "provider": {
+        "name": "aws",
+        "runtime": "nodejs20.x",
+        "stage": "dev",
+        "region": "us-east-1",
+        "versionFunctions": true
+      },
+      "functions": {
+        "hello": {
+          "handler": "handler.hello",
+          "events": [
+            {
+              "httpApi": {
+                "path": "/",
+                "method": "get"
+              }
+            }
+          ],
+          "name": "bistro-nord-backend-dev-hello"
+        }
+      }
+    },
+    "serviceRawFile": "# \"org\" ensures this Service is used with the correct Serverless Framework Access Key.\norg: srinivaspradhan\n# \"service\" is the name of this project. This will also be added to your AWS resource names.\nservice: bistro-nord-backend\n\nprovider:\n  name: aws\n  runtime: nodejs20.x\n\nfunctions:\n  hello:\n    handler: handler.hello\n    events:\n      - httpApi:\n          path: /\n          method: get\n",
+    "command": [
+      "print"
+    ],
+    "options": {},
+    "error": null,
+    "params": {},
+    "machineId": "7ff66f7664d581deee354a0ff76b8407",
+    "stage": "dev",
+    "accessKeyV2": "<REDACTED>",
+    "accessKeyV1": "<REDACTED>",
+    "orgId": "371f691c-208e-40de-91ef-ed8aef83b89a",
+    "orgName": "srinivaspradhan",
+    "userId": "VtCrd1nLwWx73tDxJX",
+    "dashboard": {
+      "isEnabledForService": false,
+      "requiredAuthentication": false,
+      "orgFeaturesInUse": null,
+      "orgObservabilityIntegrations": null,
+      "serviceAppId": null,
+      "serviceProvider": null,
+      "instanceParameters": null
+    },
+    "userName": "srinivaspradhan",
+    "subscription": null,
+    "userEmail": "srinivas.pradhan@openlane.com",
+    "serviceProviderAwsRegion": "us-east-1",
+    "serviceProviderAwsCredentials": "<REDACTED>",
+    "serviceProviderAwsAccountId": "703866956858",
+    "projectType": "traditional",
+    "versionSf": "4.4.7",
+    "serviceProviderAwsCfStackName": "bistro-nord-backend-dev",
+    "integrations": {},
+    "serviceUniqueId": "arn:aws:cloudformation:us-east-1:703866956858:stack/bistro-nord-backend-dev/09913030-988f-11ef-bc02-0e285ee78315",
+    "serviceProviderAwsCfStackId": "arn:aws:cloudformation:us-east-1:703866956858:stack/bistro-nord-backend-dev/09913030-988f-11ef-bc02-0e285ee78315",
+    "serviceProviderAwsCfStackCreated": "2024-11-01T20:22:38.111Z",
+    "serviceProviderAwsCfStackUpdated": null,
+    "serviceProviderAwsCfStackStatus": "CREATE_COMPLETE",
+    "serviceProviderAwsCfStackOutputs": [
+      {
+        "OutputKey": "HelloLambdaFunctionQualifiedArn",
+        "OutputValue": "arn:aws:lambda:us-east-1:703866956858:function:bistro-nord-backend-dev-hello:2",
+        "Description": "Current Lambda function version",
+        "ExportName": "sls-bistro-nord-backend-dev-HelloLambdaFunctionQualifiedArn"
+      },
+      {
+        "OutputKey": "HttpApiId",
+        "OutputValue": "t8y8hj3v88",
+        "Description": "Id of the HTTP API",
+        "ExportName": "sls-bistro-nord-backend-dev-HttpApiId"
+      },
+      {
+        "OutputKey": "ServerlessDeploymentBucketName",
+        "OutputValue": "serverless-framework-deployments-us-east-1-5da0ce13-3bc7",
+        "ExportName": "sls-bistro-nord-backend-dev-ServerlessDeploymentBucketName"
+      },
+      {
+        "OutputKey": "HttpApiUrl",
+        "OutputValue": "https://t8y8hj3v88.execute-api.us-east-1.amazonaws.com",
+        "Description": "URL of the HTTP API",
+        "ExportName": "sls-bistro-nord-backend-dev-HttpApiUrl"
+      }
+    ]
+  }
+}

@@ -76,7 +76,7 @@ jobs:
         with:
             args: deploy
 
-  Serverless-Deploy:
+  Serverless-Remove:
     runs-on: ubuntu-latest
     needs: [ Serverless-SetupValidate, Serverless-Print ]
     if: | 

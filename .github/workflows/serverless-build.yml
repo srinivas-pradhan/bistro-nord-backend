@@ -11,8 +11,8 @@ on:
         type: choice
         description: Choose an action to execute.
         options:
-        - apply
-        - destroy
+        - deploy
+        - remove
 
 env:
   
@@ -47,16 +47,54 @@ jobs:
     steps:
       - name: Git clone the repository
         uses: actions/checkout@v4
-        
-    #   - name: configure aws credentials
-    #     uses: aws-actions/configure-aws-credentials@v1.7.0
-    #     with:
-    #       role-to-assume: arn:aws:iam::703866956858:role/GITHUB_OIDC_ROLE
-    #       role-session-name: GitHub_to_AWS_via_FederatedOIDC
-    #       aws-region: ${{ env.AWS_REGION }}
 
       - name: Enter dir and deploy
         uses: serverless/github-action@v3.2
         with:
             args: print
-    
+
+  Serverless-Deploy:
+    runs-on: ubuntu-latest
+    needs: [ Serverless-SetupValidate, Serverless-Print ]
+    if: | 
+      ( github.event_name == 'push' && github.ref == 'refs/heads/main' ) || 
+      ( github.event_name == 'workflow_dispatch' &&  github.event.inputs.choice == 'deploy')
+            
+    steps:
+      - name: Git clone the repository
+        uses: actions/checkout@v4
+            
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1.7.0
+        with:
+          role-to-assume: arn:aws:iam::703866956858:role/GITHUB_OIDC_ROLE
+          role-session-name: GitHub_to_AWS_via_FederatedOIDC
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Enter dir and deploy
+        uses: serverless/github-action@v3.2
+        with:
+            args: deploy
+
+  Serverless-Deploy:
+    runs-on: ubuntu-latest
+    needs: [ Serverless-SetupValidate, Serverless-Print ]
+    if: | 
+      ( github.event_name == 'workflow_dispatch' &&  github.event.inputs.choice == 'remove')
+                        
+    steps:
+      - name: Git clone the repository
+        uses: actions/checkout@v4
+                        
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1.7.0
+        with:
+          role-to-assume: arn:aws:iam::703866956858:role/GITHUB_OIDC_ROLE
+          role-session-name: GitHub_to_AWS_via_FederatedOIDC
+          aws-region: ${{ env.AWS_REGION }}
+            
+      - name: Enter dir and deploy
+        uses: serverless/github-action@v3.2
+        with:
+            args: remove
+            

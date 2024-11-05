@@ -14,6 +14,7 @@ on:
         - deploy
         - remove
 
+permissions: write-all
 env:
   
   AWS_REGION : "us-east-1"
@@ -55,8 +56,6 @@ jobs:
 
   Serverless-Deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     needs: [ Serverless-SetupValidate, Serverless-Print ]
     if: | 
       ( github.event_name == 'push' && github.ref == 'refs/heads/main' ) || 
@@ -86,8 +85,6 @@ jobs:
 
   Serverless-Remove:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     needs: [ Serverless-SetupValidate, Serverless-Print ]
     if: | 
       ( github.event_name == 'workflow_dispatch' &&  github.event.inputs.choice == 'remove')

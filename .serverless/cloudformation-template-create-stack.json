@@ -70,31 +70,12 @@
           ]
         }
       }
-    },
-    "CognitoUserPool": {
-      "Type": "AWS::Cognito::UserPool",
-      "Properties": {
-        "UserPoolName": "bistro-nord-backend-user-pool",
-        "UsernameAttributes": [
-          "email"
-        ],
-        "AutoVerifiedAttributes": [
-          "email"
-        ],
-        "UserPoolTags": {
-          "git": "https://github.com/srinivas-pradhan/bistro-nord-backend",
-          "env": "bistro-nord-backend"
-        }
-      }
     }
   },
   "Outputs": {
     "ServerlessDeploymentBucketName": {
       "Value": {
         "Ref": "ServerlessDeploymentBucket"
-      },
-      "Export": {
-        "Name": "sls-bistro-nord-backend-dev-ServerlessDeploymentBucketName"
       }
     }
   }

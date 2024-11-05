@@ -14,14 +14,12 @@ on:
         - deploy
         - remove
 
-permissions: write-all
 env:
   
   AWS_REGION : "us-east-1"
 
-permissions:
-      id-token: write
-      contents: read
+permissions: write-all
+
 
 jobs:
   Serverless-SetupValidate:

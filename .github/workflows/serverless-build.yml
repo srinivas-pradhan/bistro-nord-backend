@@ -78,7 +78,9 @@ jobs:
       
       - name: Commit Serverless Changes to Repo
         uses: stefanzweifel/git-auto-commit-action@v5.0.1
-            
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true            
 
   Serverless-Remove:
     runs-on: ubuntu-latest
@@ -101,4 +103,9 @@ jobs:
         uses: serverless/github-action@v3.2
         with:
             args: remove
-            
+
+      - name: Commit Serverless Changes to Repo
+        uses: stefanzweifel/git-auto-commit-action@v5.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true

@@ -1,15 +1,23 @@
     CognitoUserPool:
       Type: AWS::Cognito::UserPool
-      Properties:
-        UserPoolName: ${self:service}-user-pool
+      Properties: 
+        UserPoolName: ${file(./customvars.yml):serviceName}-${file(./customvars.yml):Cognito}
         UsernameAttributes:
           - email
         AutoVerifiedAttributes:
           - email
         UserPoolTags:
           git : https://github.com/srinivas-pradhan/bistro-nord-backend
-          env : ${self:service}
+          app : ${file(./customvars.yml):serviceName}
 
-    # CognitoUserPoolClient:
-    #   Type: AWS::Cognito::UserPoolClient
+    CognitoUserPoolClient:
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        ClientName: ${file(./customvars.yml):serviceName}-${file(./customvars.yml):Cognito}-client
+        UserPoolId:
+          Ref: CognitoUserPool
+        GenerateSecret: ${file(./customvars.yml):CognitoClientSecret}
+        ExplicitAuthFlows:
+          - ADMIN_NO_SRP_AUTH
+
 

@@ -10,6 +10,6 @@
           git : https://github.com/srinivas-pradhan/bistro-nord-backend
           env : ${self:service}
 
-    CognitoUserPoolClient:
-      Type: AWS::Cognito::UserPoolClient
+    # CognitoUserPoolClient:
+    #   Type: AWS::Cognito::UserPoolClient
 

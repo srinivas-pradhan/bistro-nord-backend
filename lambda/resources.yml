@@ -1,0 +1,7 @@
+
+hello:
+  handler: handler.hello
+  events:
+    - httpApi:
+        path: /
+        method: get

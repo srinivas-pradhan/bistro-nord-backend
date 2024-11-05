@@ -6,7 +6,169 @@
     "isCompose": false,
     "composeOrgName": null,
     "composeResolverProviders": {
-      "default-aws-credential-resolver": "<REDACTED>"
+      "default-aws-credential-resolver": "<REDACTED>",
+      "file": {
+        "instance": {
+          "credentials": "<REDACTED>",
+          "serviceConfigFile": {
+            "org": "srinivaspradhan",
+            "service": "bistro-nord-backend",
+            "provider": {
+              "name": "aws",
+              "runtime": "nodejs20.x",
+              "stage": "dev",
+              "region": "us-east-1",
+              "versionFunctions": true,
+              "compiledCloudFormationTemplate": {
+                "AWSTemplateFormatVersion": "2010-09-09",
+                "Description": "The AWS CloudFormation template for this Serverless application",
+                "Resources": {
+                  "CognitoUserPool": {
+                    "Type": "AWS::Cognito::UserPool",
+                    "Properties": {
+                      "UserPoolName": "bistro-nord-backend-user-pool",
+                      "UsernameAttributes": [
+                        "email"
+                      ],
+                      "AutoVerifiedAttributes": [
+                        "email"
+                      ],
+                      "UserPoolTags": {
+                        "git": "https://github.com/srinivas-pradhan/bistro-nord-backend",
+                        "env": "bistro-nord-backend"
+                      }
+                    }
+                  }
+                },
+                "Outputs": {
+                  "ServerlessDeploymentBucketName": {
+                    "Value": "serverless-framework-deployments-us-east-1-5da0ce13-3bc7",
+                    "Export": {
+                      "Name": "sls-bistro-nord-backend-dev-ServerlessDeploymentBucketName"
+                    }
+                  }
+                }
+              }
+            },
+            "resources": {
+              "Resources": {
+                "CognitoUserPool": {
+                  "Type": "AWS::Cognito::UserPool",
+                  "Properties": {
+                    "UserPoolName": "bistro-nord-backend-user-pool",
+                    "UsernameAttributes": [
+                      "email"
+                    ],
+                    "AutoVerifiedAttributes": [
+                      "email"
+                    ],
+                    "UserPoolTags": {
+                      "git": "https://github.com/srinivas-pradhan/bistro-nord-backend",
+                      "env": "bistro-nord-backend"
+                    }
+                  }
+                }
+              },
+              "Outputs": {}
+            }
+          },
+          "configFileDirPath": "/Users/srinivas/Documents/repos/bistro-nord-backend",
+          "config": {
+            "type": "file"
+          },
+          "options": {},
+          "stage": "dev",
+          "dashboard": null,
+          "logger": {
+            "namespace": "s:core:resolver:file",
+            "prefix": null,
+            "prefixColor": null
+          },
+          "_credentialsPromise": "<REDACTED>"
+        },
+        "resolvers": {}
+      },
+      "self": {
+        "instance": {
+          "credentials": "<REDACTED>",
+          "serviceConfigFile": {
+            "org": "srinivaspradhan",
+            "service": "bistro-nord-backend",
+            "provider": {
+              "name": "aws",
+              "runtime": "nodejs20.x",
+              "stage": "dev",
+              "region": "us-east-1",
+              "versionFunctions": true,
+              "compiledCloudFormationTemplate": {
+                "AWSTemplateFormatVersion": "2010-09-09",
+                "Description": "The AWS CloudFormation template for this Serverless application",
+                "Resources": {
+                  "CognitoUserPool": {
+                    "Type": "AWS::Cognito::UserPool",
+                    "Properties": {
+                      "UserPoolName": "bistro-nord-backend-user-pool",
+                      "UsernameAttributes": [
+                        "email"
+                      ],
+                      "AutoVerifiedAttributes": [
+                        "email"
+                      ],
+                      "UserPoolTags": {
+                        "git": "https://github.com/srinivas-pradhan/bistro-nord-backend",
+                        "env": "bistro-nord-backend"
+                      }
+                    }
+                  }
+                },
+                "Outputs": {
+                  "ServerlessDeploymentBucketName": {
+                    "Value": "serverless-framework-deployments-us-east-1-5da0ce13-3bc7",
+                    "Export": {
+                      "Name": "sls-bistro-nord-backend-dev-ServerlessDeploymentBucketName"
+                    }
+                  }
+                }
+              }
+            },
+            "resources": {
+              "Resources": {
+                "CognitoUserPool": {
+                  "Type": "AWS::Cognito::UserPool",
+                  "Properties": {
+                    "UserPoolName": "bistro-nord-backend-user-pool",
+                    "UsernameAttributes": [
+                      "email"
+                    ],
+                    "AutoVerifiedAttributes": [
+                      "email"
+                    ],
+                    "UserPoolTags": {
+                      "git": "https://github.com/srinivas-pradhan/bistro-nord-backend",
+                      "env": "bistro-nord-backend"
+                    }
+                  }
+                }
+              },
+              "Outputs": {}
+            }
+          },
+          "configFileDirPath": "/Users/srinivas/Documents/repos/bistro-nord-backend",
+          "config": {
+            "type": "self"
+          },
+          "options": {},
+          "stage": "dev",
+          "dashboard": null,
+          "logger": {
+            "namespace": "s:core:resolver:self",
+            "prefix": null,
+            "prefixColor": null
+          },
+          "_credentialsPromise": "<REDACTED>"
+        },
+        "resolvers": {}
+      }
     },
     "composeServiceName": null,
     "servicePath": "/Users/srinivas/Documents/repos/bistro-nord-backend",
@@ -19,31 +181,68 @@
         "runtime": "nodejs20.x",
         "stage": "dev",
         "region": "us-east-1",
-        "versionFunctions": true
-      },
-      "functions": {
-        "hello": {
-          "handler": "handler.hello",
-          "events": [
-            {
-              "httpApi": {
-                "path": "/",
-                "method": "get"
+        "versionFunctions": true,
+        "compiledCloudFormationTemplate": {
+          "AWSTemplateFormatVersion": "2010-09-09",
+          "Description": "The AWS CloudFormation template for this Serverless application",
+          "Resources": {
+            "CognitoUserPool": {
+              "Type": "AWS::Cognito::UserPool",
+              "Properties": {
+                "UserPoolName": "bistro-nord-backend-user-pool",
+                "UsernameAttributes": [
+                  "email"
+                ],
+                "AutoVerifiedAttributes": [
+                  "email"
+                ],
+                "UserPoolTags": {
+                  "git": "https://github.com/srinivas-pradhan/bistro-nord-backend",
+                  "env": "bistro-nord-backend"
+                }
               }
             }
-          ],
-          "name": "bistro-nord-backend-dev-hello"
+          },
+          "Outputs": {
+            "ServerlessDeploymentBucketName": {
+              "Value": "serverless-framework-deployments-us-east-1-5da0ce13-3bc7",
+              "Export": {
+                "Name": "sls-bistro-nord-backend-dev-ServerlessDeploymentBucketName"
+              }
+            }
+          }
         }
+      },
+      "resources": {
+        "Resources": {
+          "CognitoUserPool": {
+            "Type": "AWS::Cognito::UserPool",
+            "Properties": {
+              "UserPoolName": "bistro-nord-backend-user-pool",
+              "UsernameAttributes": [
+                "email"
+              ],
+              "AutoVerifiedAttributes": [
+                "email"
+              ],
+              "UserPoolTags": {
+                "git": "https://github.com/srinivas-pradhan/bistro-nord-backend",
+                "env": "bistro-nord-backend"
+              }
+            }
+          }
+        },
+        "Outputs": {}
       }
     },
-    "serviceRawFile": "# \"org\" ensures this Service is used with the correct Serverless Framework Access Key.\norg: srinivaspradhan\n# \"service\" is the name of this project. This will also be added to your AWS resource names.\nservice: bistro-nord-backend\n\nprovider:\n  name: aws\n  runtime: nodejs20.x\n\nfunctions:\n  hello:\n    handler: handler.hello\n    events:\n      - httpApi:\n          path: /\n          method: get\n",
+    "serviceRawFile": "# \"org\" ensures this Service is used with the correct Serverless Framework Access Key.\norg: srinivaspradhan\n# \"service\" is the name of this project. This will also be added to your AWS resource names.\nservice: bistro-nord-backend\n\nprovider:\n  name: aws\n  runtime: nodejs20.x\n\n  #  - ${file(./cognito/resources.yml)}\n  #  - ${file(./dynamodb/resources.yml)}\n  #  - ${file(./iam/resources.yml)}\n  # - ${file(./lambda/resources.yml)}\n\n# functions: \n#   - ${file(lambda/resources.yml)}\n\nresources:\n  Resources:\n    ${file(cognito/resources.yml)}\n",
     "command": [
-      "print"
+      "deploy"
     ],
     "options": {},
     "error": null,
     "params": {},
-    "machineId": "2759b01f590aeee5fa1f36edab96e08d",
+    "machineId": "879e902d933eda7df3c26851fe67b546",
     "stage": "dev",
     "accessKeyV2": "<REDACTED>",
     "accessKeyV1": "<REDACTED>",
@@ -69,34 +268,16 @@
     "versionSf": "4.4.7",
     "serviceProviderAwsCfStackName": "bistro-nord-backend-dev",
     "integrations": {},
-    "serviceUniqueId": "arn:aws:cloudformation:us-east-1:703866956858:stack/bistro-nord-backend-dev/09913030-988f-11ef-bc02-0e285ee78315",
-    "serviceProviderAwsCfStackId": "arn:aws:cloudformation:us-east-1:703866956858:stack/bistro-nord-backend-dev/09913030-988f-11ef-bc02-0e285ee78315",
-    "serviceProviderAwsCfStackCreated": "2024-11-01T20:22:38.111Z",
+    "serviceUniqueId": "arn:aws:cloudformation:us-east-1:703866956858:stack/bistro-nord-backend-dev/f9e3b3a0-9af1-11ef-b4cd-0ed13327b1af",
+    "serviceProviderAwsCfStackId": "arn:aws:cloudformation:us-east-1:703866956858:stack/bistro-nord-backend-dev/f9e3b3a0-9af1-11ef-b4cd-0ed13327b1af",
+    "serviceProviderAwsCfStackCreated": "2024-11-04T21:15:54.314Z",
     "serviceProviderAwsCfStackUpdated": null,
     "serviceProviderAwsCfStackStatus": "CREATE_COMPLETE",
     "serviceProviderAwsCfStackOutputs": [
       {
-        "OutputKey": "HelloLambdaFunctionQualifiedArn",
-        "OutputValue": "arn:aws:lambda:us-east-1:703866956858:function:bistro-nord-backend-dev-hello:2",
-        "Description": "Current Lambda function version",
-        "ExportName": "sls-bistro-nord-backend-dev-HelloLambdaFunctionQualifiedArn"
-      },
-      {
-        "OutputKey": "HttpApiId",
-        "OutputValue": "t8y8hj3v88",
-        "Description": "Id of the HTTP API",
-        "ExportName": "sls-bistro-nord-backend-dev-HttpApiId"
-      },
-      {
         "OutputKey": "ServerlessDeploymentBucketName",
         "OutputValue": "serverless-framework-deployments-us-east-1-5da0ce13-3bc7",
         "ExportName": "sls-bistro-nord-backend-dev-ServerlessDeploymentBucketName"
-      },
-      {
-        "OutputKey": "HttpApiUrl",
-        "OutputValue": "https://t8y8hj3v88.execute-api.us-east-1.amazonaws.com",
-        "Description": "URL of the HTTP API",
-        "ExportName": "sls-bistro-nord-backend-dev-HttpApiUrl"
       }
     ]
   }

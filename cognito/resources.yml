@@ -1,0 +1,15 @@
+    CognitoUserPool:
+      Type: AWS::Cognito::UserPool
+      Properties:
+        UserPoolName: ${self:service}-user-pool
+        UsernameAttributes:
+          - email
+        AutoVerifiedAttributes:
+          - email
+        UserPoolTags:
+          git : https://github.com/srinivas-pradhan/bistro-nord-backend
+          env : ${self:service}
+
+    CognitoUserPoolClient:
+      Type: AWS::Cognito::UserPoolClient
+

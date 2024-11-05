@@ -7,10 +7,14 @@ provider:
   name: aws
   runtime: nodejs20.x
 
-functions:
-  hello:
-    handler: handler.hello
-    events:
-      - httpApi:
-          path: /
-          method: get
+  #  - ${file(./cognito/resources.yml)}
+  #  - ${file(./dynamodb/resources.yml)}
+  #  - ${file(./iam/resources.yml)}
+  # - ${file(./lambda/resources.yml)}
+
+# functions: 
+#   - ${file(lambda/resources.yml)}
+
+resources:
+  Resources:
+    ${file(cognito/resources.yml)}

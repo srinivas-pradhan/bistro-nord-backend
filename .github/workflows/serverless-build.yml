@@ -77,11 +77,8 @@ jobs:
             args: deploy
       
       - name: Commit Serverless Changes to Repo
-        run: |
-          git config --global user.name 'Srinivas Pradhan'
-          git config --global user.email 'srinivas-pradhan@users.noreply.github.com'
-          git commit -am "Post Deploy Step to Commit Serverless framework changes"
-          git push
+        uses: stefanzweifel/git-auto-commit-action@v5.0.1
+            
 
   Serverless-Remove:
     runs-on: ubuntu-latest

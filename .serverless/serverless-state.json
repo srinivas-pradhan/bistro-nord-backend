@@ -86,7 +86,7 @@
           "CognitoUserPool": {
             "Type": "AWS::Cognito::UserPool",
             "Properties": {
-              "UserPoolName": "bistro-nord-backend-user-pool",
+              "UserPoolName": "Bistro-Nord-UserPool",
               "UsernameAttributes": [
                 "email"
               ],
@@ -95,8 +95,21 @@
               ],
               "UserPoolTags": {
                 "git": "https://github.com/srinivas-pradhan/bistro-nord-backend",
-                "env": "bistro-nord-backend"
+                "app": "Bistro-Nord"
               }
+            }
+          },
+          "CognitoUserPoolClient": {
+            "Type": "AWS::Cognito::UserPoolClient",
+            "Properties": {
+              "ClientName": "Bistro-Nord-UserPool-client",
+              "UserPoolId": {
+                "Ref": "CognitoUserPool"
+              },
+              "GenerateSecret": true,
+              "ExplicitAuthFlows": [
+                "ADMIN_NO_SRP_AUTH"
+              ]
             }
           }
         },
@@ -201,7 +214,7 @@
         "CognitoUserPool": {
           "Type": "AWS::Cognito::UserPool",
           "Properties": {
-            "UserPoolName": "bistro-nord-backend-user-pool",
+            "UserPoolName": "Bistro-Nord-UserPool",
             "UsernameAttributes": [
               "email"
             ],
@@ -210,8 +223,21 @@
             ],
             "UserPoolTags": {
               "git": "https://github.com/srinivas-pradhan/bistro-nord-backend",
-              "env": "bistro-nord-backend"
+              "app": "Bistro-Nord"
             }
+          }
+        },
+        "CognitoUserPoolClient": {
+          "Type": "AWS::Cognito::UserPoolClient",
+          "Properties": {
+            "ClientName": "Bistro-Nord-UserPool-client",
+            "UserPoolId": {
+              "Ref": "CognitoUserPool"
+            },
+            "GenerateSecret": true,
+            "ExplicitAuthFlows": [
+              "ADMIN_NO_SRP_AUTH"
+            ]
           }
         }
       },
@@ -235,7 +261,7 @@
     "isDashboardAppPreconfigured": false
   },
   "package": {
-    "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1730823371520-2024-11-05T16:16:11.520Z",
+    "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1730825575130-2024-11-05T16:52:55.130Z",
     "artifact": ""
   }
 }

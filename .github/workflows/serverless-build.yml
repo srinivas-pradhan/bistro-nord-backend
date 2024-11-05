@@ -1,4 +1,4 @@
-name: Terraform Execution Pipeline.
+name: Serverless Execution Pipeline.
 
 on:
   push:

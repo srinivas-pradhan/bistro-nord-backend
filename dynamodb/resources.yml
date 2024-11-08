@@ -20,6 +20,8 @@
             AttributeName: "Datetime"
             AttributeType: "RANGE"
         ProvisionedThroughput:
+            ReadCapacityUnits: 10
+            WriteCapacityUnits: 10
         Tags: 
           - git : ${file(./customvars.yml):gitrepo}
           - app : ${file(./customvars.yml):serviceName}

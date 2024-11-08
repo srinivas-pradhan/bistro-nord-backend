@@ -1,3 +1,6 @@
 serviceName: Bistro-Nord
 Cognito: UserPool
 CognitoClientSecret: true
+gitrepo: https://github.com/srinivas-pradhan/bistro-nord-backend
+DynamoDB:
+  BookTable: BookATable

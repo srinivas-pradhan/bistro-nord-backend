@@ -1,0 +1,25 @@
+    BookATableDynamoDBTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${file(./customvars.yml):DynamoDB.BookTable}
+        AttributeDefinitions:
+          -
+            AttributeName: "Email"
+            AttributeType: "S"
+          - 
+            AttributeName: "BookingId"
+            AttributeType: "S"
+          - 
+            AttributeName: "Datetime"
+            AttributeType: "N"
+        KeySchema:
+          -
+            AttributeName: "BookingId"
+            AttributeType: "HASH"
+          - 
+            AttributeName: "Datetime"
+            AttributeType: "RANGE"
+        ProvisionedThroughput:
+        Tags: 
+          - git : ${file(./customvars.yml):gitrepo}
+          - app : ${file(./customvars.yml):serviceName}

@@ -1,0 +1,253 @@
+{
+  "/Users/srinivas/Documents/repos/bistro-nord-backend": {
+    "versionSfCore": null,
+    "versionFramework": "4.4.7",
+    "isWithinCompose": false,
+    "isCompose": false,
+    "composeOrgName": null,
+    "composeResolverProviders": {
+      "default-aws-credential-resolver": "<REDACTED>",
+      "file": {
+        "instance": {
+          "credentials": "<REDACTED>",
+          "serviceConfigFile": {
+            "org": "srinivaspradhan",
+            "service": "bistro-nord-backend",
+            "provider": {
+              "name": "aws",
+              "runtime": "nodejs20.x",
+              "stage": "dev",
+              "region": "us-east-1",
+              "versionFunctions": true
+            },
+            "resources": {
+              "Resources": [
+                {
+                  "CognitoUserPool": {
+                    "Type": "AWS::Cognito::UserPool",
+                    "Properties": {
+                      "UserPoolName": "Bistro-Nord-UserPool",
+                      "UsernameAttributes": [
+                        "email"
+                      ],
+                      "AutoVerifiedAttributes": [
+                        "email"
+                      ],
+                      "UserPoolTags": {
+                        "git": "https://github.com/srinivas-pradhan/bistro-nord-backend",
+                        "app": "Bistro-Nord"
+                      }
+                    }
+                  },
+                  "CognitoUserPoolClient": {
+                    "Type": "AWS::Cognito::UserPoolClient",
+                    "Properties": {
+                      "ClientName": "Bistro-Nord-UserPool-client",
+                      "UserPoolId": {
+                        "Ref": "CognitoUserPool"
+                      },
+                      "GenerateSecret": "<REDACTED>",
+                      "ExplicitAuthFlows": [
+                        "ADMIN_NO_SRP_AUTH"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "BookATableDynamoDBTable": {
+                    "Type": "AWS::DynamoDB::Table",
+                    "Properties": {
+                      "TableName": "BookATable",
+                      "AttributeDefinitions": [
+                        {
+                          "AttributeName": "Email",
+                          "AttributeType": "S"
+                        },
+                        {
+                          "AttributeName": "BookingId",
+                          "AttributeType": "S"
+                        },
+                        {
+                          "AttributeName": "Datetime",
+                          "AttributeType": "N"
+                        }
+                      ],
+                      "KeySchema": [
+                        {
+                          "AttributeName": "BookingId",
+                          "AttributeType": "HASH"
+                        },
+                        {
+                          "AttributeName": "Datetime",
+                          "AttributeType": "RANGE"
+                        }
+                      ],
+                      "Tags": [
+                        {
+                          "git": "https://github.com/srinivas-pradhan/bistro-nord-backend"
+                        },
+                        {
+                          "app": "Bistro-Nord"
+                        }
+                      ],
+                      "ProvisionedThroughput": null
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "configFileDirPath": "/Users/srinivas/Documents/repos/bistro-nord-backend",
+          "config": {
+            "type": "file"
+          },
+          "options": {},
+          "stage": "dev",
+          "dashboard": null,
+          "logger": {
+            "namespace": "s:core:resolver:file",
+            "prefix": null,
+            "prefixColor": null
+          },
+          "_credentialsPromise": "<REDACTED>"
+        },
+        "resolvers": {}
+      }
+    },
+    "composeServiceName": null,
+    "servicePath": "/Users/srinivas/Documents/repos/bistro-nord-backend",
+    "serviceConfigFileName": "serverless.yml",
+    "service": {
+      "org": "srinivaspradhan",
+      "service": "bistro-nord-backend",
+      "provider": {
+        "name": "aws",
+        "runtime": "nodejs20.x",
+        "stage": "dev",
+        "region": "us-east-1",
+        "versionFunctions": true
+      },
+      "resources": {
+        "Resources": [
+          {
+            "CognitoUserPool": {
+              "Type": "AWS::Cognito::UserPool",
+              "Properties": {
+                "UserPoolName": "Bistro-Nord-UserPool",
+                "UsernameAttributes": [
+                  "email"
+                ],
+                "AutoVerifiedAttributes": [
+                  "email"
+                ],
+                "UserPoolTags": {
+                  "git": "https://github.com/srinivas-pradhan/bistro-nord-backend",
+                  "app": "Bistro-Nord"
+                }
+              }
+            },
+            "CognitoUserPoolClient": {
+              "Type": "AWS::Cognito::UserPoolClient",
+              "Properties": {
+                "ClientName": "Bistro-Nord-UserPool-client",
+                "UserPoolId": {
+                  "Ref": "CognitoUserPool"
+                },
+                "GenerateSecret": "<REDACTED>",
+                "ExplicitAuthFlows": [
+                  "ADMIN_NO_SRP_AUTH"
+                ]
+              }
+            }
+          },
+          {
+            "BookATableDynamoDBTable": {
+              "Type": "AWS::DynamoDB::Table",
+              "Properties": {
+                "TableName": "BookATable",
+                "AttributeDefinitions": [
+                  {
+                    "AttributeName": "Email",
+                    "AttributeType": "S"
+                  },
+                  {
+                    "AttributeName": "BookingId",
+                    "AttributeType": "S"
+                  },
+                  {
+                    "AttributeName": "Datetime",
+                    "AttributeType": "N"
+                  }
+                ],
+                "KeySchema": [
+                  {
+                    "AttributeName": "BookingId",
+                    "AttributeType": "HASH"
+                  },
+                  {
+                    "AttributeName": "Datetime",
+                    "AttributeType": "RANGE"
+                  }
+                ],
+                "Tags": [
+                  {
+                    "git": "https://github.com/srinivas-pradhan/bistro-nord-backend"
+                  },
+                  {
+                    "app": "Bistro-Nord"
+                  }
+                ],
+                "ProvisionedThroughput": null
+              }
+            }
+          }
+        ]
+      }
+    },
+    "serviceRawFile": "# \"org\" ensures this Service is used with the correct Serverless Framework Access Key.\norg: srinivaspradhan\n# \"service\" is the name of this project. This will also be added to your AWS resource names.\nservice: bistro-nord-backend\n\nprovider:\n  name: aws\n  runtime: nodejs20.x\n\n\n  #  - ${file(./cognito/resources.yml)}\n  #  - ${file(./dynamodb/resources.yml)}\n  #  - ${file(./iam/resources.yml)}\n  # - ${file(./lambda/resources.yml)}\n\n# functions: \n#   - ${file(lambda/resources.yml)}\n\nresources:\n  Resources:\n    - ${file(cognito/resources.yml)}\n    - ${file(dynamodb/resources.yml)}\n",
+    "command": [
+      "print"
+    ],
+    "options": {},
+    "error": null,
+    "params": {},
+    "machineId": "8289e2d3c80132a99424b952af19c318",
+    "stage": "dev",
+    "accessKeyV2": "<REDACTED>",
+    "accessKeyV1": "<REDACTED>",
+    "orgId": "371f691c-208e-40de-91ef-ed8aef83b89a",
+    "orgName": "srinivaspradhan",
+    "userId": "VtCrd1nLwWx73tDxJX",
+    "dashboard": {
+      "isEnabledForService": false,
+      "requiredAuthentication": false,
+      "orgFeaturesInUse": null,
+      "orgObservabilityIntegrations": null,
+      "serviceAppId": null,
+      "serviceProvider": null,
+      "instanceParameters": null
+    },
+    "userName": "srinivaspradhan",
+    "subscription": null,
+    "userEmail": "srinivas.pradhan@openlane.com",
+    "serviceProviderAwsRegion": "us-east-1",
+    "serviceProviderAwsCredentials": "<REDACTED>",
+    "serviceProviderAwsAccountId": "703866956858",
+    "projectType": "traditional",
+    "versionSf": "4.4.7",
+    "serviceProviderAwsCfStackName": "bistro-nord-backend-dev",
+    "integrations": {},
+    "serviceUniqueId": "arn:aws:cloudformation:us-east-1:703866956858:stack/bistro-nord-backend-dev/6774c400-9b96-11ef-b884-0ec83d2248e9",
+    "serviceProviderAwsCfStackId": "arn:aws:cloudformation:us-east-1:703866956858:stack/bistro-nord-backend-dev/6774c400-9b96-11ef-b884-0ec83d2248e9",
+    "serviceProviderAwsCfStackCreated": "2024-11-05T16:52:55.563Z",
+    "serviceProviderAwsCfStackUpdated": "2024-11-05T16:53:28.899Z",
+    "serviceProviderAwsCfStackStatus": "UPDATE_COMPLETE",
+    "serviceProviderAwsCfStackOutputs": [
+      {
+        "OutputKey": "ServerlessDeploymentBucketName",
+        "OutputValue": "bistro-nord-backend-dev-serverlessdeploymentbucket-8midunjrvv0p",
+        "ExportName": "sls-bistro-nord-backend-dev-ServerlessDeploymentBucketName"
+      }
+    ]
+  }
+}

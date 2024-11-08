@@ -7,7 +7,7 @@
         AutoVerifiedAttributes:
           - email
         UserPoolTags:
-          git : https://github.com/srinivas-pradhan/bistro-nord-backend
+          git : ${file(./customvars.yml):gitrepo}
           app : ${file(./customvars.yml):serviceName}
 
     CognitoUserPoolClient:

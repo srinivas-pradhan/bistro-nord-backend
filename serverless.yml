@@ -18,4 +18,5 @@ provider:
 
 resources:
   Resources:
-    ${file(cognito/resources.yml)}
+    - ${file(cognito/resources.yml)}
+    - ${file(dynamodb/resources.yml)}

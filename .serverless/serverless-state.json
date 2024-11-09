@@ -111,6 +111,46 @@
                 "ADMIN_NO_SRP_AUTH"
               ]
             }
+          },
+          "BookATableDynamoDBTable": {
+            "Type": "AWS::DynamoDB::Table",
+            "Properties": {
+              "TableName": "BookATable",
+              "AttributeDefinitions": [
+                {
+                  "AttributeName": "BookingId",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "Datetime",
+                  "AttributeType": "N"
+                }
+              ],
+              "KeySchema": [
+                {
+                  "AttributeName": "BookingId",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "Datetime",
+                  "KeyType": "RANGE"
+                }
+              ],
+              "ProvisionedThroughput": {
+                "ReadCapacityUnits": 10,
+                "WriteCapacityUnits": 10
+              },
+              "Tags": [
+                {
+                  "Key": "git",
+                  "Value": "https://github.com/srinivas-pradhan/bistro-nord-backend"
+                },
+                {
+                  "Key": "app",
+                  "Value": "Bistro-Nord"
+                }
+              ]
+            }
           }
         },
         "Outputs": {
@@ -239,6 +279,46 @@
               "ADMIN_NO_SRP_AUTH"
             ]
           }
+        },
+        "BookATableDynamoDBTable": {
+          "Type": "AWS::DynamoDB::Table",
+          "Properties": {
+            "TableName": "BookATable",
+            "AttributeDefinitions": [
+              {
+                "AttributeName": "BookingId",
+                "AttributeType": "S"
+              },
+              {
+                "AttributeName": "Datetime",
+                "AttributeType": "N"
+              }
+            ],
+            "KeySchema": [
+              {
+                "AttributeName": "BookingId",
+                "KeyType": "HASH"
+              },
+              {
+                "AttributeName": "Datetime",
+                "KeyType": "RANGE"
+              }
+            ],
+            "ProvisionedThroughput": {
+              "ReadCapacityUnits": 10,
+              "WriteCapacityUnits": 10
+            },
+            "Tags": [
+              {
+                "Key": "git",
+                "Value": "https://github.com/srinivas-pradhan/bistro-nord-backend"
+              },
+              {
+                "Key": "app",
+                "Value": "Bistro-Nord"
+              }
+            ]
+          }
         }
       },
       "Outputs": {}
@@ -255,13 +335,13 @@
         "$ref": "$[\"service\"][\"resources\"]"
       }
     },
+    "appId": null,
     "org": "srinivaspradhan",
-    "layers": {},
-    "isDashboardMonitoringPreconfigured": true,
-    "isDashboardAppPreconfigured": false
+    "orgId": null,
+    "layers": {}
   },
   "package": {
-    "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1730826233065-2024-11-05T17:03:53.065Z",
+    "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1731116623671-2024-11-09T01:43:43.671Z",
     "artifact": ""
   }
 }

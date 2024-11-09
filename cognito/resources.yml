@@ -1,23 +1,24 @@
-    CognitoUserPool:
-      Type: AWS::Cognito::UserPool
-      Properties: 
-        UserPoolName: ${file(./customvars.yml):serviceName}-${file(./customvars.yml):Cognito}
-        UsernameAttributes:
-          - email
-        AutoVerifiedAttributes:
-          - email
-        UserPoolTags:
-          git : ${file(./customvars.yml):gitrepo}
-          app : ${file(./customvars.yml):serviceName}
+Resources:
+  CognitoUserPool:
+    Type: AWS::Cognito::UserPool
+    Properties: 
+      UserPoolName: ${file(./customvars.yml):serviceName}-${file(./customvars.yml):Cognito}
+      UsernameAttributes:
+        - email
+      AutoVerifiedAttributes:
+        - email
+      UserPoolTags:
+        git : ${file(./customvars.yml):gitrepo}
+        app : ${file(./customvars.yml):serviceName}
 
-    CognitoUserPoolClient:
-      Type: AWS::Cognito::UserPoolClient
-      Properties:
-        ClientName: ${file(./customvars.yml):serviceName}-${file(./customvars.yml):Cognito}-client
-        UserPoolId:
-          Ref: CognitoUserPool
-        GenerateSecret: ${file(./customvars.yml):CognitoClientSecret}
-        ExplicitAuthFlows:
-          - ADMIN_NO_SRP_AUTH
+  CognitoUserPoolClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      ClientName: ${file(./customvars.yml):serviceName}-${file(./customvars.yml):Cognito}-client
+      UserPoolId:
+        Ref: CognitoUserPool
+      GenerateSecret: ${file(./customvars.yml):CognitoClientSecret}
+      ExplicitAuthFlows:
+        - ADMIN_NO_SRP_AUTH
 
 

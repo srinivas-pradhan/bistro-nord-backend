@@ -17,6 +17,5 @@ provider:
 #   - ${file(lambda/resources.yml)}
 
 resources:
-  Resources:
-    ${file(cognito/resources.yml)}
-    ${file(dynamodb/resources.yml)}
+  - ${file(cognito/resources.yml)}
+  - ${file(dynamodb/resources.yml)}

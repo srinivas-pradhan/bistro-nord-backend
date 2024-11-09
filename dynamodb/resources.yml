@@ -1,27 +1,29 @@
-    BookATableDynamoDBTable:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        TableName: ${file(./customvars.yml):DynamoDB.BookTable}
-        AttributeDefinitions:
-          -
-            AttributeName: "Email"
-            AttributeType: "S"
-          - 
-            AttributeName: "BookingId"
-            AttributeType: "S"
-          - 
-            AttributeName: "Datetime"
-            AttributeType: "N"
-        KeySchema:
-          -
-            AttributeName: "BookingId"
-            AttributeType: "HASH"
-          - 
-            AttributeName: "Datetime"
-            AttributeType: "RANGE"
-        ProvisionedThroughput:
-            ReadCapacityUnits: 10
-            WriteCapacityUnits: 10
-        Tags: 
-          - git : ${file(./customvars.yml):gitrepo}
-          - app : ${file(./customvars.yml):serviceName}
+Resources:
+  BookATableDynamoDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${file(./customvars.yml):DynamoDB.BookTable}
+      AttributeDefinitions:
+        - 
+          AttributeName: "BookingId"
+          AttributeType: "S"
+        - 
+          AttributeName: "Datetime"
+          AttributeType: "N"
+      KeySchema:
+        -
+          AttributeName: "BookingId"
+          KeyType: "HASH"
+        - 
+          AttributeName: "Datetime"
+          KeyType: "RANGE"
+      ProvisionedThroughput:
+        ReadCapacityUnits: 10
+        WriteCapacityUnits: 10
+      Tags: 
+        - 
+          "Key" : "git"
+          "Value" : ${file(./customvars.yml):gitrepo}
+        - 
+          "Key" : "app"
+          "Value" : ${file(./customvars.yml):serviceName}

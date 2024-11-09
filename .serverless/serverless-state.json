@@ -335,13 +335,13 @@
         "$ref": "$[\"service\"][\"resources\"]"
       }
     },
-    "appId": null,
     "org": "srinivaspradhan",
-    "orgId": null,
-    "layers": {}
+    "layers": {},
+    "isDashboardMonitoringPreconfigured": true,
+    "isDashboardAppPreconfigured": false
   },
   "package": {
-    "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1731116623671-2024-11-09T01:43:43.671Z",
+    "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1731116781873-2024-11-09T01:46:21.873Z",
     "artifact": ""
   }
 }

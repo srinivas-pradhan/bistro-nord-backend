@@ -173,7 +173,7 @@
               },
               "Policies": [
                 {
-                  "PolicyName": "myPolicyName",
+                  "PolicyName": "WriteDynamoDBPolicy",
                   "PolicyDocument": {
                     "Version": "2012-10-17",
                     "Statement": [
@@ -438,7 +438,7 @@
             },
             "Policies": [
               {
-                "PolicyName": "myPolicyName",
+                "PolicyName": "WriteDynamoDBPolicy",
                 "PolicyDocument": {
                   "Version": "2012-10-17",
                   "Statement": [
@@ -529,13 +529,13 @@
         "$ref": "$[\"service\"][\"resources\"]"
       }
     },
-    "appId": null,
     "org": "srinivaspradhan",
-    "orgId": null,
-    "layers": {}
+    "layers": {},
+    "isDashboardMonitoringPreconfigured": true,
+    "isDashboardAppPreconfigured": false
   },
   "package": {
-    "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1731331753013-2024-11-11T13:29:13.013Z",
+    "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1731332141121-2024-11-11T13:35:41.121Z",
     "artifact": ""
   }
 }

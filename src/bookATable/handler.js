@@ -1,4 +1,4 @@
-exports.hello = async (event) => {
+exports.BookATable = async (event) => {
   return {
     statusCode: 200,
     body: JSON.stringify({

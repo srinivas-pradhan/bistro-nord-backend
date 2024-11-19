@@ -193,9 +193,9 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/bistro-nord-backend/dev/1731976793585-2024-11-19T00:39:53.585Z/bistro-nord-backend.zip"
+                "S3Key": "serverless/bistro-nord-backend/dev/1731983518064-2024-11-19T02:31:58.064Z/bistro-nord-backend.zip"
               },
-              "Handler": "handler.hello",
+              "Handler": "src/bookATable/handler.BookATable",
               "Runtime": "nodejs20.x",
               "FunctionName": "bistro-nord-backend-dev-bookATable",
               "MemorySize": 1024,
@@ -211,14 +211,14 @@
               "BookATableLogGroup"
             ]
           },
-          "BookATableLambdaVersionZbDNNG4jue74fXJHnB5JXTLRq1VzfmKb3IM0fTEXp4": {
+          "BookATableLambdaVersion01thtquN4PtONsCPN54jXnJWoBu7jRUa9NwS4Tc": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "BookATableLambdaFunction"
               },
-              "CodeSha256": "+fOD93z3bRNR/jt2inm6yzcTJJ6tauJLpj+WSDPGKwU="
+              "CodeSha256": "He6yKdpZ38XkLYgR3PeSdStbT2gxaUWMrySy4CTQeI8="
             }
           },
           "HttpApi": {
@@ -564,7 +564,7 @@
           "BookATableLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "BookATableLambdaVersionZbDNNG4jue74fXJHnB5JXTLRq1VzfmKb3IM0fTEXp4"
+              "Ref": "BookATableLambdaVersion01thtquN4PtONsCPN54jXnJWoBu7jRUa9NwS4Tc"
             },
             "Export": {
               "Name": "sls-bistro-nord-backend-dev-BookATableLambdaFunctionQualifiedArn"
@@ -693,7 +693,7 @@
     "pluginsData": {},
     "functions": {
       "bookATable": {
-        "handler": "handler.hello",
+        "handler": "src/bookATable/handler.BookATable",
         "events": [
           {
             "httpApi": {
@@ -716,7 +716,7 @@
         "timeout": 6,
         "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "BookATableLambdaVersionZbDNNG4jue74fXJHnB5JXTLRq1VzfmKb3IM0fTEXp4"
+        "versionLogicalId": "BookATableLambdaVersion01thtquN4PtONsCPN54jXnJWoBu7jRUa9NwS4Tc"
       }
     },
     "resources": {
@@ -947,14 +947,14 @@
         "$ref": "$[\"service\"][\"resources\"]"
       }
     },
+    "appId": null,
     "org": "srinivaspradhan",
+    "orgId": null,
     "layers": {},
-    "isDashboardMonitoringPreconfigured": true,
-    "isDashboardAppPreconfigured": false,
-    "artifact": "/github/workspace/.serverless/bistro-nord-backend.zip"
+    "artifact": "/Users/srinivas/Documents/repos/bistro-nord-backend/.serverless/bistro-nord-backend.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1731976793585-2024-11-19T00:39:53.585Z",
+    "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1731983518064-2024-11-19T02:31:58.064Z",
     "artifact": "bistro-nord-backend.zip"
   }
 }

@@ -2,6 +2,75 @@
   "AWSTemplateFormatVersion": "2010-09-09",
   "Description": "The AWS CloudFormation template for this Serverless application",
   "Resources": {
+    "ServerlessDeploymentBucket": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "AES256"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "ServerlessDeploymentBucketPolicy": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {
+        "Bucket": {
+          "Ref": "ServerlessDeploymentBucket"
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:*",
+              "Effect": "Deny",
+              "Principal": "*",
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":s3:::",
+                      {
+                        "Ref": "ServerlessDeploymentBucket"
+                      },
+                      "/*"
+                    ]
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":s3:::",
+                      {
+                        "Ref": "ServerlessDeploymentBucket"
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "Condition": {
+                "Bool": {
+                  "aws:SecureTransport": false
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
     "BookATableLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
@@ -90,8 +159,10 @@
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
-          "S3Bucket": "serverless-framework-deployments-us-east-1-5da0ce13-3bc7",
-          "S3Key": "serverless/bistro-nord-backend/dev/1731975910916-2024-11-19T00:25:10.916Z/bistro-nord-backend.zip"
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/bistro-nord-backend/dev/1731976793585-2024-11-19T00:39:53.585Z/bistro-nord-backend.zip"
         },
         "Handler": "handler.hello",
         "Runtime": "nodejs20.x",
@@ -109,14 +180,14 @@
         "BookATableLogGroup"
       ]
     },
-    "BookATableLambdaVersionAIWPbP18SZB99WPetRkEhEDoEzZRWXKBEzPbBg6R158": {
+    "BookATableLambdaVersionZbDNNG4jue74fXJHnB5JXTLRq1VzfmKb3IM0fTEXp4": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "BookATableLambdaFunction"
         },
-        "CodeSha256": "NG5nAGsY+oHx1vEBi3it8IuxBIizF9WctDCa17cHiuQ="
+        "CodeSha256": "+fOD93z3bRNR/jt2inm6yzcTJJ6tauJLpj+WSDPGKwU="
       }
     },
     "HttpApi": {
@@ -458,7 +529,9 @@
   },
   "Outputs": {
     "ServerlessDeploymentBucketName": {
-      "Value": "serverless-framework-deployments-us-east-1-5da0ce13-3bc7",
+      "Value": {
+        "Ref": "ServerlessDeploymentBucket"
+      },
       "Export": {
         "Name": "sls-bistro-nord-backend-dev-ServerlessDeploymentBucketName"
       }
@@ -466,7 +539,7 @@
     "BookATableLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "BookATableLambdaVersionAIWPbP18SZB99WPetRkEhEDoEzZRWXKBEzPbBg6R158"
+        "Ref": "BookATableLambdaVersionZbDNNG4jue74fXJHnB5JXTLRq1VzfmKb3IM0fTEXp4"
       },
       "Export": {
         "Name": "sls-bistro-nord-backend-dev-BookATableLambdaFunctionQualifiedArn"

@@ -108,84 +108,6 @@
               "LogGroupName": "/aws/lambda/bistro-nord-backend-dev-bookATable"
             }
           },
-          "IamRoleLambdaExecution": {
-            "Type": "AWS::IAM::Role",
-            "Properties": {
-              "AssumeRolePolicyDocument": {
-                "Version": "2012-10-17",
-                "Statement": [
-                  {
-                    "Effect": "Allow",
-                    "Principal": {
-                      "Service": [
-                        "lambda.amazonaws.com"
-                      ]
-                    },
-                    "Action": [
-                      "sts:AssumeRole"
-                    ]
-                  }
-                ]
-              },
-              "Policies": [
-                {
-                  "PolicyName": {
-                    "Fn::Join": [
-                      "-",
-                      [
-                        "bistro-nord-backend",
-                        "dev",
-                        "lambda"
-                      ]
-                    ]
-                  },
-                  "PolicyDocument": {
-                    "Version": "2012-10-17",
-                    "Statement": [
-                      {
-                        "Effect": "Allow",
-                        "Action": [
-                          "logs:CreateLogStream",
-                          "logs:CreateLogGroup",
-                          "logs:TagResource"
-                        ],
-                        "Resource": [
-                          {
-                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/bistro-nord-backend-dev*:*"
-                          }
-                        ]
-                      },
-                      {
-                        "Effect": "Allow",
-                        "Action": [
-                          "logs:PutLogEvents"
-                        ],
-                        "Resource": [
-                          {
-                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/bistro-nord-backend-dev*:*:*"
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                }
-              ],
-              "Path": "/",
-              "RoleName": {
-                "Fn::Join": [
-                  "-",
-                  [
-                    "bistro-nord-backend",
-                    "dev",
-                    {
-                      "Ref": "AWS::Region"
-                    },
-                    "lambdaRole"
-                  ]
-                ]
-              }
-            }
-          },
           "BookATableLambdaFunction": {
             "Type": "AWS::Lambda::Function",
             "Properties": {
@@ -193,7 +115,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/bistro-nord-backend/dev/1731983518064-2024-11-19T02:31:58.064Z/bistro-nord-backend.zip"
+                "S3Key": "serverless/bistro-nord-backend/dev/1731989910618-2024-11-19T04:18:30.618Z/bistro-nord-backend.zip"
               },
               "Handler": "src/bookATable/handler.BookATable",
               "Runtime": "nodejs20.x",
@@ -202,23 +124,24 @@
               "Timeout": 6,
               "Role": {
                 "Fn::GetAtt": [
-                  "IamRoleLambdaExecution",
+                  "WriteDynamoDBRole",
                   "Arn"
                 ]
               }
             },
             "DependsOn": [
-              "BookATableLogGroup"
+              "BookATableLogGroup",
+              "WriteDynamoDBRole"
             ]
           },
-          "BookATableLambdaVersion01thtquN4PtONsCPN54jXnJWoBu7jRUa9NwS4Tc": {
+          "BookATableLambdaVersionYwSxEI0q790hkO2wB5NCBS2iM6XzV9vTCSel7EXa4": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "BookATableLambdaFunction"
               },
-              "CodeSha256": "He6yKdpZ38XkLYgR3PeSdStbT2gxaUWMrySy4CTQeI8="
+              "CodeSha256": "sZzIaGHhisPP0OSD7wxcWVaq90kI5NzWDkG9OYWD2tg="
             }
           },
           "HttpApi": {
@@ -564,7 +487,7 @@
           "BookATableLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "BookATableLambdaVersion01thtquN4PtONsCPN54jXnJWoBu7jRUa9NwS4Tc"
+              "Ref": "BookATableLambdaVersionYwSxEI0q790hkO2wB5NCBS2iM6XzV9vTCSel7EXa4"
             },
             "Export": {
               "Name": "sls-bistro-nord-backend-dev-BookATableLambdaFunctionQualifiedArn"
@@ -694,6 +617,9 @@
     "functions": {
       "bookATable": {
         "handler": "src/bookATable/handler.BookATable",
+        "role": {
+          "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"BookATableLambdaFunction\"][\"Properties\"][\"Role\"]"
+        },
         "events": [
           {
             "httpApi": {
@@ -716,7 +642,7 @@
         "timeout": 6,
         "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "BookATableLambdaVersion01thtquN4PtONsCPN54jXnJWoBu7jRUa9NwS4Tc"
+        "versionLogicalId": "BookATableLambdaVersionYwSxEI0q790hkO2wB5NCBS2iM6XzV9vTCSel7EXa4"
       }
     },
     "resources": {
@@ -954,7 +880,7 @@
     "artifact": "/Users/srinivas/Documents/repos/bistro-nord-backend/.serverless/bistro-nord-backend.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1731983518064-2024-11-19T02:31:58.064Z",
+    "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1731989910618-2024-11-19T04:18:30.618Z",
     "artifact": "bistro-nord-backend.zip"
   }
 }

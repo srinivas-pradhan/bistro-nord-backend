@@ -16,7 +16,7 @@ provider:
           - Ref: CognitoUserPoolClient
 
 functions:
-  ${file(lambda/resources.yml)}
+  - ${file(lambda/resources.yml)}
 
 resources:
   - ${file(cognito/resources.yml)}

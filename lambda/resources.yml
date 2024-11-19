@@ -1,7 +1,10 @@
-
-hello:
+bookATable:
   handler: handler.hello
   events:
     - httpApi:
-        path: /
-        method: get
+        method: POST
+        path: /bookATable
+        authorizer:
+          name: JwtAuthorizer
+          scopes:
+            - ServerAccessScope/write

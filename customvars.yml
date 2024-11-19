@@ -1,7 +1,8 @@
 serviceName: Bistro-Nord
+project: bistro-nord-backend
+gitrepo: https://github.com/srinivas-pradhan/bistro-nord-backend
 Cognito: UserPool
 CognitoClientSecret: true
-gitrepo: https://github.com/srinivas-pradhan/bistro-nord-backend
 DynamoDB:
   BookTable: BookATable
 IAM:

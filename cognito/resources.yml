@@ -20,5 +20,31 @@ Resources:
       GenerateSecret: ${file(./customvars.yml):CognitoClientSecret}
       ExplicitAuthFlows:
         - ADMIN_NO_SRP_AUTH
+      AllowedOAuthFlows:
+        - client_credentials
+      AllowedOAuthFlowsUserPoolClient: true
+      AllowedOAuthScopes: 
+        - ServerAccessScope/read
+        - ServerAccessScope/write
+      SupportedIdentityProviders:
+        - COGNITO
+      CallbackURLs:
+        - https://example.com/signout
 
+  UserPoolDomain: 
+    Type: AWS::Cognito::UserPoolDomain 
+    Properties:
+      UserPoolId: !Ref CognitoUserPool 
+      Domain: ${file(./customvars.yml):project}
 
+  UserPoolResourceServer: 
+    Type: AWS::Cognito::UserPoolResourceServer
+    Properties: 
+      UserPoolId: !Ref CognitoUserPool 
+      Identifier: ServerAccessScope 
+      Name: "ServerAccessScope" 
+      Scopes: 
+      - ScopeName: "read" 
+        ScopeDescription: "GET Calls SCOPE" 
+      - ScopeName: "write"
+        ScopeDescription: "POST PUT DELETE Calls SCOPE"

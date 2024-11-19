@@ -53,5 +53,4 @@ Resources:
                       - 'Fn::Join':
                         - '/'
                         -
-                          - 'table'
                           - Ref: BookATableDynamoDBTable

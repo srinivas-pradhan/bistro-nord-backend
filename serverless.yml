@@ -6,9 +6,17 @@ service: bistro-nord-backend
 provider:
   name: aws
   runtime: nodejs20.x
+  httpApi:
+    authorizers:
+      JwtAuthorizer:
+        type: jwt
+        identitySource: $request.header.Authorization
+        issuerUrl: !GetAtt CognitoUserPool.ProviderURL
+        audience:
+          - Ref: CognitoUserPoolClient
 
-# functions: 
-#   - ${file(lambda/resources.yml)}
+functions:
+  ${file(lambda/resources.yml)}
 
 resources:
   - ${file(cognito/resources.yml)}

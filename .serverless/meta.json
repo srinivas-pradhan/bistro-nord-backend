@@ -1,0 +1,2462 @@
+{
+  "/Users/srinivas/Documents/repos/bistro-nord-backend": {
+    "versionSfCore": null,
+    "versionFramework": "4.4.10",
+    "isWithinCompose": false,
+    "isCompose": false,
+    "composeOrgName": null,
+    "composeResolverProviders": {
+      "default-aws-credential-resolver": "<REDACTED>",
+      "file": {
+        "instance": {
+          "credentials": "<REDACTED>",
+          "serviceConfigFile": {
+            "org": "srinivaspradhan",
+            "service": "bistro-nord-backend",
+            "provider": {
+              "name": "aws",
+              "runtime": "nodejs20.x",
+              "httpApi": {
+                "authorizers": {
+                  "JwtAuthorizer": {
+                    "type": "jwt",
+                    "identitySource": "$request.header.Authorization",
+                    "issuerUrl": {
+                      "Fn::GetAtt": [
+                        "CognitoUserPool",
+                        "ProviderURL"
+                      ]
+                    },
+                    "audience": [
+                      {
+                        "Ref": "CognitoUserPoolClient"
+                      }
+                    ]
+                  }
+                }
+              },
+              "stage": "dev",
+              "region": "us-east-1",
+              "versionFunctions": true,
+              "compiledCloudFormationTemplate": {
+                "AWSTemplateFormatVersion": "2010-09-09",
+                "Description": "The AWS CloudFormation template for this Serverless application",
+                "Resources": {
+                  "BookATableLogGroup": {
+                    "Type": "AWS::Logs::LogGroup",
+                    "Properties": {
+                      "LogGroupName": "/aws/lambda/bistro-nord-backend-dev-bookATable"
+                    }
+                  },
+                  "IamRoleLambdaExecution": {
+                    "Type": "AWS::IAM::Role",
+                    "Properties": {
+                      "AssumeRolePolicyDocument": {
+                        "Version": "2012-10-17",
+                        "Statement": [
+                          {
+                            "Effect": "Allow",
+                            "Principal": {
+                              "Service": [
+                                "lambda.amazonaws.com"
+                              ]
+                            },
+                            "Action": [
+                              "sts:AssumeRole"
+                            ]
+                          }
+                        ]
+                      },
+                      "Policies": [
+                        {
+                          "PolicyName": {
+                            "Fn::Join": [
+                              "-",
+                              [
+                                "bistro-nord-backend",
+                                "dev",
+                                "lambda"
+                              ]
+                            ]
+                          },
+                          "PolicyDocument": {
+                            "Version": "2012-10-17",
+                            "Statement": [
+                              {
+                                "Effect": "Allow",
+                                "Action": [
+                                  "logs:CreateLogStream",
+                                  "logs:CreateLogGroup",
+                                  "logs:TagResource"
+                                ],
+                                "Resource": [
+                                  {
+                                    "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/bistro-nord-backend-dev*:*"
+                                  }
+                                ]
+                              },
+                              {
+                                "Effect": "Allow",
+                                "Action": [
+                                  "logs:PutLogEvents"
+                                ],
+                                "Resource": [
+                                  {
+                                    "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/bistro-nord-backend-dev*:*:*"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "Path": "/",
+                      "RoleName": {
+                        "Fn::Join": [
+                          "-",
+                          [
+                            "bistro-nord-backend",
+                            "dev",
+                            {
+                              "Ref": "AWS::Region"
+                            },
+                            "lambdaRole"
+                          ]
+                        ]
+                      }
+                    }
+                  },
+                  "BookATableLambdaFunction": {
+                    "Type": "AWS::Lambda::Function",
+                    "Properties": {
+                      "Code": {
+                        "S3Bucket": "serverless-framework-deployments-us-east-1-5da0ce13-3bc7",
+                        "S3Key": "serverless/bistro-nord-backend/dev/1731975910916-2024-11-19T00:25:10.916Z/bistro-nord-backend.zip"
+                      },
+                      "Handler": "handler.hello",
+                      "Runtime": "nodejs20.x",
+                      "FunctionName": "bistro-nord-backend-dev-bookATable",
+                      "MemorySize": 1024,
+                      "Timeout": 6,
+                      "Role": {
+                        "Fn::GetAtt": [
+                          "IamRoleLambdaExecution",
+                          "Arn"
+                        ]
+                      }
+                    },
+                    "DependsOn": [
+                      "BookATableLogGroup"
+                    ]
+                  },
+                  "BookATableLambdaVersionAIWPbP18SZB99WPetRkEhEDoEzZRWXKBEzPbBg6R158": {
+                    "Type": "AWS::Lambda::Version",
+                    "DeletionPolicy": "Retain",
+                    "Properties": {
+                      "FunctionName": {
+                        "Ref": "BookATableLambdaFunction"
+                      },
+                      "CodeSha256": "NG5nAGsY+oHx1vEBi3it8IuxBIizF9WctDCa17cHiuQ="
+                    }
+                  },
+                  "HttpApi": {
+                    "Type": "AWS::ApiGatewayV2::Api",
+                    "Properties": {
+                      "Name": "dev-bistro-nord-backend",
+                      "ProtocolType": "HTTP"
+                    }
+                  },
+                  "HttpApiStage": {
+                    "Type": "AWS::ApiGatewayV2::Stage",
+                    "Properties": {
+                      "ApiId": {
+                        "Ref": "HttpApi"
+                      },
+                      "StageName": "$default",
+                      "AutoDeploy": true,
+                      "DefaultRouteSettings": {
+                        "DetailedMetricsEnabled": false
+                      }
+                    }
+                  },
+                  "HttpApiAuthorizerJwtAuthorizer": {
+                    "Type": "AWS::ApiGatewayV2::Authorizer",
+                    "Properties": {
+                      "ApiId": {
+                        "Ref": "HttpApi"
+                      },
+                      "Name": "JwtAuthorizer",
+                      "IdentitySource": [
+                        "$request.header.Authorization"
+                      ],
+                      "AuthorizerType": "JWT",
+                      "JwtConfiguration": {
+                        "Audience": [
+                          {
+                            "Ref": "CognitoUserPoolClient"
+                          }
+                        ],
+                        "Issuer": {
+                          "Fn::GetAtt": [
+                            "CognitoUserPool",
+                            "ProviderURL"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "BookATableLambdaPermissionHttpApi": {
+                    "Type": "AWS::Lambda::Permission",
+                    "Properties": {
+                      "FunctionName": {
+                        "Fn::GetAtt": [
+                          "BookATableLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "Action": "lambda:InvokeFunction",
+                      "Principal": "apigateway.amazonaws.com",
+                      "SourceArn": {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "arn:",
+                            {
+                              "Ref": "AWS::Partition"
+                            },
+                            ":execute-api:",
+                            {
+                              "Ref": "AWS::Region"
+                            },
+                            ":",
+                            {
+                              "Ref": "AWS::AccountId"
+                            },
+                            ":",
+                            {
+                              "Ref": "HttpApi"
+                            },
+                            "/*"
+                          ]
+                        ]
+                      }
+                    }
+                  },
+                  "HttpApiIntegrationBookATable": {
+                    "Type": "AWS::ApiGatewayV2::Integration",
+                    "Properties": {
+                      "ApiId": {
+                        "Ref": "HttpApi"
+                      },
+                      "IntegrationType": "AWS_PROXY",
+                      "IntegrationUri": {
+                        "Fn::GetAtt": [
+                          "BookATableLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "PayloadFormatVersion": "2.0",
+                      "TimeoutInMillis": 30000
+                    }
+                  },
+                  "HttpApiRoutePostBookatable": {
+                    "Type": "AWS::ApiGatewayV2::Route",
+                    "Properties": {
+                      "ApiId": {
+                        "Ref": "HttpApi"
+                      },
+                      "RouteKey": "POST /bookATable",
+                      "Target": {
+                        "Fn::Join": [
+                          "/",
+                          [
+                            "integrations",
+                            {
+                              "Ref": "HttpApiIntegrationBookATable"
+                            }
+                          ]
+                        ]
+                      },
+                      "AuthorizationType": "JWT",
+                      "AuthorizerId": {
+                        "Ref": "HttpApiAuthorizerJwtAuthorizer"
+                      },
+                      "AuthorizationScopes": [
+                        "ServerAccessScope/write"
+                      ]
+                    },
+                    "DependsOn": "HttpApiIntegrationBookATable"
+                  },
+                  "CognitoUserPool": {
+                    "Type": "AWS::Cognito::UserPool",
+                    "Properties": {
+                      "UserPoolName": "Bistro-Nord-UserPool",
+                      "UsernameAttributes": [
+                        "email"
+                      ],
+                      "AutoVerifiedAttributes": [
+                        "email"
+                      ],
+                      "UserPoolTags": {
+                        "git": "https://github.com/srinivas-pradhan/bistro-nord-backend",
+                        "app": "Bistro-Nord"
+                      }
+                    }
+                  },
+                  "CognitoUserPoolClient": {
+                    "Type": "AWS::Cognito::UserPoolClient",
+                    "Properties": {
+                      "ClientName": "Bistro-Nord-UserPool-client",
+                      "UserPoolId": {
+                        "Ref": "CognitoUserPool"
+                      },
+                      "GenerateSecret": "<REDACTED>",
+                      "ExplicitAuthFlows": [
+                        "ADMIN_NO_SRP_AUTH"
+                      ],
+                      "AllowedOAuthFlows": [
+                        "client_credentials"
+                      ],
+                      "AllowedOAuthFlowsUserPoolClient": true,
+                      "AllowedOAuthScopes": [
+                        "ServerAccessScope/read",
+                        "ServerAccessScope/write"
+                      ],
+                      "SupportedIdentityProviders": [
+                        "COGNITO"
+                      ],
+                      "CallbackURLs": [
+                        "https://example.com/signout"
+                      ]
+                    }
+                  },
+                  "UserPoolDomain": {
+                    "Type": "AWS::Cognito::UserPoolDomain",
+                    "Properties": {
+                      "UserPoolId": {
+                        "Ref": "CognitoUserPool"
+                      },
+                      "Domain": "bistro-nord-backend"
+                    }
+                  },
+                  "UserPoolResourceServer": {
+                    "Type": "AWS::Cognito::UserPoolResourceServer",
+                    "Properties": {
+                      "UserPoolId": {
+                        "Ref": "CognitoUserPool"
+                      },
+                      "Identifier": "ServerAccessScope",
+                      "Name": "ServerAccessScope",
+                      "Scopes": [
+                        {
+                          "ScopeName": "read",
+                          "ScopeDescription": "GET Calls SCOPE"
+                        },
+                        {
+                          "ScopeName": "write",
+                          "ScopeDescription": "POST PUT DELETE Calls SCOPE"
+                        }
+                      ]
+                    }
+                  },
+                  "BookATableDynamoDBTable": {
+                    "Type": "AWS::DynamoDB::Table",
+                    "Properties": {
+                      "TableName": "BookATable",
+                      "AttributeDefinitions": [
+                        {
+                          "AttributeName": "BookingId",
+                          "AttributeType": "S"
+                        },
+                        {
+                          "AttributeName": "Datetime",
+                          "AttributeType": "N"
+                        }
+                      ],
+                      "KeySchema": [
+                        {
+                          "AttributeName": "BookingId",
+                          "KeyType": "HASH"
+                        },
+                        {
+                          "AttributeName": "Datetime",
+                          "KeyType": "RANGE"
+                        }
+                      ],
+                      "ProvisionedThroughput": {
+                        "ReadCapacityUnits": 10,
+                        "WriteCapacityUnits": 10
+                      },
+                      "Tags": [
+                        {
+                          "Key": "git",
+                          "Value": "https://github.com/srinivas-pradhan/bistro-nord-backend"
+                        },
+                        {
+                          "Key": "app",
+                          "Value": "Bistro-Nord"
+                        }
+                      ]
+                    }
+                  },
+                  "WriteDynamoDBRole": {
+                    "Type": "AWS::IAM::Role",
+                    "Properties": {
+                      "Path": "/bistro-nord/bistro-nord-backend/lambda-role/",
+                      "RoleName": "WriteDynamoDBRole",
+                      "AssumeRolePolicyDocument": {
+                        "Version": "2012-10-17",
+                        "Statement": [
+                          {
+                            "Effect": "Allow",
+                            "Principal": {
+                              "Service": [
+                                "lambda.amazonaws.com"
+                              ]
+                            },
+                            "Action": "sts:AssumeRole"
+                          }
+                        ]
+                      },
+                      "Policies": [
+                        {
+                          "PolicyName": "WriteDynamoDBPolicy",
+                          "PolicyDocument": {
+                            "Version": "2012-10-17",
+                            "Statement": [
+                              {
+                                "Effect": "Allow",
+                                "Action": [
+                                  "logs:CreateLogGroup",
+                                  "logs:CreateLogStream",
+                                  "logs:PutLogEvents",
+                                  "logs:TagResource"
+                                ],
+                                "Resource": [
+                                  {
+                                    "Fn::Join": [
+                                      ":",
+                                      [
+                                        "arn:aws:logs",
+                                        {
+                                          "Ref": "AWS::Region"
+                                        },
+                                        {
+                                          "Ref": "AWS::AccountId"
+                                        },
+                                        "log-group:/aws/lambda/*:*:*"
+                                      ]
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "Effect": "Allow",
+                                "Action": [
+                                  "dynamodb:BatchGetItem",
+                                  "dynamodb:BatchWriteItem",
+                                  "dynamodb:ConditionCheckItem",
+                                  "dynamodb:PutItem",
+                                  "dynamodb:DescribeTable",
+                                  "dynamodb:DeleteItem",
+                                  "dynamodb:GetItem",
+                                  "dynamodb:Scan",
+                                  "dynamodb:Query",
+                                  "dynamodb:UpdateItem"
+                                ],
+                                "Resource": {
+                                  "Fn::Join": [
+                                    ":",
+                                    [
+                                      "arn:aws:dynamodb",
+                                      {
+                                        "Ref": "AWS::Region"
+                                      },
+                                      {
+                                        "Ref": "AWS::AccountId"
+                                      },
+                                      {
+                                        "Fn::Join": [
+                                          "/",
+                                          [
+                                            {
+                                              "Ref": "BookATableDynamoDBTable"
+                                            }
+                                          ]
+                                        ]
+                                      }
+                                    ]
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                "Outputs": {
+                  "ServerlessDeploymentBucketName": {
+                    "Value": "serverless-framework-deployments-us-east-1-5da0ce13-3bc7",
+                    "Export": {
+                      "Name": "sls-bistro-nord-backend-dev-ServerlessDeploymentBucketName"
+                    }
+                  },
+                  "BookATableLambdaFunctionQualifiedArn": {
+                    "Description": "Current Lambda function version",
+                    "Value": {
+                      "Ref": "BookATableLambdaVersionAIWPbP18SZB99WPetRkEhEDoEzZRWXKBEzPbBg6R158"
+                    },
+                    "Export": {
+                      "Name": "sls-bistro-nord-backend-dev-BookATableLambdaFunctionQualifiedArn"
+                    }
+                  },
+                  "HttpApiId": {
+                    "Description": "Id of the HTTP API",
+                    "Value": {
+                      "Ref": "HttpApi"
+                    },
+                    "Export": {
+                      "Name": "sls-bistro-nord-backend-dev-HttpApiId"
+                    }
+                  },
+                  "HttpApiUrl": {
+                    "Description": "URL of the HTTP API",
+                    "Value": {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "https://",
+                          {
+                            "Ref": "HttpApi"
+                          },
+                          ".execute-api.",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          ".",
+                          {
+                            "Ref": "AWS::URLSuffix"
+                          }
+                        ]
+                      ]
+                    },
+                    "Export": {
+                      "Name": "sls-bistro-nord-backend-dev-HttpApiUrl"
+                    }
+                  }
+                }
+              },
+              "vpc": {}
+            },
+            "functions": {
+              "bookATable": {
+                "handler": "handler.hello",
+                "events": [
+                  {
+                    "httpApi": {
+                      "method": "POST",
+                      "path": "/bookATable",
+                      "authorizer": {
+                        "name": "JwtAuthorizer",
+                        "scopes": [
+                          "ServerAccessScope/write"
+                        ]
+                      }
+                    },
+                    "resolvedMethod": "POST",
+                    "resolvedPath": "/bookATable"
+                  }
+                ],
+                "name": "bistro-nord-backend-dev-bookATable",
+                "package": {},
+                "memory": 1024,
+                "timeout": 6,
+                "runtime": "nodejs20.x",
+                "vpc": {},
+                "versionLogicalId": "BookATableLambdaVersionAIWPbP18SZB99WPetRkEhEDoEzZRWXKBEzPbBg6R158"
+              }
+            },
+            "resources": {
+              "Resources": {
+                "CognitoUserPool": {
+                  "Type": "AWS::Cognito::UserPool",
+                  "Properties": {
+                    "UserPoolName": "Bistro-Nord-UserPool",
+                    "UsernameAttributes": [
+                      "email"
+                    ],
+                    "AutoVerifiedAttributes": [
+                      "email"
+                    ],
+                    "UserPoolTags": {
+                      "git": "https://github.com/srinivas-pradhan/bistro-nord-backend",
+                      "app": "Bistro-Nord"
+                    }
+                  }
+                },
+                "CognitoUserPoolClient": {
+                  "Type": "AWS::Cognito::UserPoolClient",
+                  "Properties": {
+                    "ClientName": "Bistro-Nord-UserPool-client",
+                    "UserPoolId": {
+                      "Ref": "CognitoUserPool"
+                    },
+                    "GenerateSecret": "<REDACTED>",
+                    "ExplicitAuthFlows": [
+                      "ADMIN_NO_SRP_AUTH"
+                    ],
+                    "AllowedOAuthFlows": [
+                      "client_credentials"
+                    ],
+                    "AllowedOAuthFlowsUserPoolClient": true,
+                    "AllowedOAuthScopes": [
+                      "ServerAccessScope/read",
+                      "ServerAccessScope/write"
+                    ],
+                    "SupportedIdentityProviders": [
+                      "COGNITO"
+                    ],
+                    "CallbackURLs": [
+                      "https://example.com/signout"
+                    ]
+                  }
+                },
+                "UserPoolDomain": {
+                  "Type": "AWS::Cognito::UserPoolDomain",
+                  "Properties": {
+                    "UserPoolId": {
+                      "Ref": "CognitoUserPool"
+                    },
+                    "Domain": "bistro-nord-backend"
+                  }
+                },
+                "UserPoolResourceServer": {
+                  "Type": "AWS::Cognito::UserPoolResourceServer",
+                  "Properties": {
+                    "UserPoolId": {
+                      "Ref": "CognitoUserPool"
+                    },
+                    "Identifier": "ServerAccessScope",
+                    "Name": "ServerAccessScope",
+                    "Scopes": [
+                      {
+                        "ScopeName": "read",
+                        "ScopeDescription": "GET Calls SCOPE"
+                      },
+                      {
+                        "ScopeName": "write",
+                        "ScopeDescription": "POST PUT DELETE Calls SCOPE"
+                      }
+                    ]
+                  }
+                },
+                "BookATableDynamoDBTable": {
+                  "Type": "AWS::DynamoDB::Table",
+                  "Properties": {
+                    "TableName": "BookATable",
+                    "AttributeDefinitions": [
+                      {
+                        "AttributeName": "BookingId",
+                        "AttributeType": "S"
+                      },
+                      {
+                        "AttributeName": "Datetime",
+                        "AttributeType": "N"
+                      }
+                    ],
+                    "KeySchema": [
+                      {
+                        "AttributeName": "BookingId",
+                        "KeyType": "HASH"
+                      },
+                      {
+                        "AttributeName": "Datetime",
+                        "KeyType": "RANGE"
+                      }
+                    ],
+                    "ProvisionedThroughput": {
+                      "ReadCapacityUnits": 10,
+                      "WriteCapacityUnits": 10
+                    },
+                    "Tags": [
+                      {
+                        "Key": "git",
+                        "Value": "https://github.com/srinivas-pradhan/bistro-nord-backend"
+                      },
+                      {
+                        "Key": "app",
+                        "Value": "Bistro-Nord"
+                      }
+                    ]
+                  }
+                },
+                "WriteDynamoDBRole": {
+                  "Type": "AWS::IAM::Role",
+                  "Properties": {
+                    "Path": "/bistro-nord/bistro-nord-backend/lambda-role/",
+                    "RoleName": "WriteDynamoDBRole",
+                    "AssumeRolePolicyDocument": {
+                      "Version": "2012-10-17",
+                      "Statement": [
+                        {
+                          "Effect": "Allow",
+                          "Principal": {
+                            "Service": [
+                              "lambda.amazonaws.com"
+                            ]
+                          },
+                          "Action": "sts:AssumeRole"
+                        }
+                      ]
+                    },
+                    "Policies": [
+                      {
+                        "PolicyName": "WriteDynamoDBPolicy",
+                        "PolicyDocument": {
+                          "Version": "2012-10-17",
+                          "Statement": [
+                            {
+                              "Effect": "Allow",
+                              "Action": [
+                                "logs:CreateLogGroup",
+                                "logs:CreateLogStream",
+                                "logs:PutLogEvents",
+                                "logs:TagResource"
+                              ],
+                              "Resource": [
+                                {
+                                  "Fn::Join": [
+                                    ":",
+                                    [
+                                      "arn:aws:logs",
+                                      {
+                                        "Ref": "AWS::Region"
+                                      },
+                                      {
+                                        "Ref": "AWS::AccountId"
+                                      },
+                                      "log-group:/aws/lambda/*:*:*"
+                                    ]
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "Effect": "Allow",
+                              "Action": [
+                                "dynamodb:BatchGetItem",
+                                "dynamodb:BatchWriteItem",
+                                "dynamodb:ConditionCheckItem",
+                                "dynamodb:PutItem",
+                                "dynamodb:DescribeTable",
+                                "dynamodb:DeleteItem",
+                                "dynamodb:GetItem",
+                                "dynamodb:Scan",
+                                "dynamodb:Query",
+                                "dynamodb:UpdateItem"
+                              ],
+                              "Resource": {
+                                "Fn::Join": [
+                                  ":",
+                                  [
+                                    "arn:aws:dynamodb",
+                                    {
+                                      "Ref": "AWS::Region"
+                                    },
+                                    {
+                                      "Ref": "AWS::AccountId"
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "/",
+                                        [
+                                          {
+                                            "Ref": "BookATableDynamoDBTable"
+                                          }
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "Outputs": {}
+            }
+          },
+          "configFileDirPath": "/Users/srinivas/Documents/repos/bistro-nord-backend",
+          "config": {
+            "type": "file"
+          },
+          "options": {},
+          "stage": "dev",
+          "dashboard": null,
+          "logger": {
+            "namespace": "s:core:resolver:file",
+            "prefix": null,
+            "prefixColor": null
+          },
+          "_credentialsPromise": "<REDACTED>"
+        },
+        "resolvers": {}
+      },
+      "sls": {
+        "instance": {
+          "credentials": "<REDACTED>",
+          "serviceConfigFile": {
+            "org": "srinivaspradhan",
+            "service": "bistro-nord-backend",
+            "provider": {
+              "name": "aws",
+              "runtime": "nodejs20.x",
+              "httpApi": {
+                "authorizers": {
+                  "JwtAuthorizer": {
+                    "type": "jwt",
+                    "identitySource": "$request.header.Authorization",
+                    "issuerUrl": {
+                      "Fn::GetAtt": [
+                        "CognitoUserPool",
+                        "ProviderURL"
+                      ]
+                    },
+                    "audience": [
+                      {
+                        "Ref": "CognitoUserPoolClient"
+                      }
+                    ]
+                  }
+                }
+              },
+              "stage": "dev",
+              "region": "us-east-1",
+              "versionFunctions": true,
+              "compiledCloudFormationTemplate": {
+                "AWSTemplateFormatVersion": "2010-09-09",
+                "Description": "The AWS CloudFormation template for this Serverless application",
+                "Resources": {
+                  "BookATableLogGroup": {
+                    "Type": "AWS::Logs::LogGroup",
+                    "Properties": {
+                      "LogGroupName": "/aws/lambda/bistro-nord-backend-dev-bookATable"
+                    }
+                  },
+                  "IamRoleLambdaExecution": {
+                    "Type": "AWS::IAM::Role",
+                    "Properties": {
+                      "AssumeRolePolicyDocument": {
+                        "Version": "2012-10-17",
+                        "Statement": [
+                          {
+                            "Effect": "Allow",
+                            "Principal": {
+                              "Service": [
+                                "lambda.amazonaws.com"
+                              ]
+                            },
+                            "Action": [
+                              "sts:AssumeRole"
+                            ]
+                          }
+                        ]
+                      },
+                      "Policies": [
+                        {
+                          "PolicyName": {
+                            "Fn::Join": [
+                              "-",
+                              [
+                                "bistro-nord-backend",
+                                "dev",
+                                "lambda"
+                              ]
+                            ]
+                          },
+                          "PolicyDocument": {
+                            "Version": "2012-10-17",
+                            "Statement": [
+                              {
+                                "Effect": "Allow",
+                                "Action": [
+                                  "logs:CreateLogStream",
+                                  "logs:CreateLogGroup",
+                                  "logs:TagResource"
+                                ],
+                                "Resource": [
+                                  {
+                                    "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/bistro-nord-backend-dev*:*"
+                                  }
+                                ]
+                              },
+                              {
+                                "Effect": "Allow",
+                                "Action": [
+                                  "logs:PutLogEvents"
+                                ],
+                                "Resource": [
+                                  {
+                                    "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/bistro-nord-backend-dev*:*:*"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "Path": "/",
+                      "RoleName": {
+                        "Fn::Join": [
+                          "-",
+                          [
+                            "bistro-nord-backend",
+                            "dev",
+                            {
+                              "Ref": "AWS::Region"
+                            },
+                            "lambdaRole"
+                          ]
+                        ]
+                      }
+                    }
+                  },
+                  "BookATableLambdaFunction": {
+                    "Type": "AWS::Lambda::Function",
+                    "Properties": {
+                      "Code": {
+                        "S3Bucket": "serverless-framework-deployments-us-east-1-5da0ce13-3bc7",
+                        "S3Key": "serverless/bistro-nord-backend/dev/1731975910916-2024-11-19T00:25:10.916Z/bistro-nord-backend.zip"
+                      },
+                      "Handler": "handler.hello",
+                      "Runtime": "nodejs20.x",
+                      "FunctionName": "bistro-nord-backend-dev-bookATable",
+                      "MemorySize": 1024,
+                      "Timeout": 6,
+                      "Role": {
+                        "Fn::GetAtt": [
+                          "IamRoleLambdaExecution",
+                          "Arn"
+                        ]
+                      }
+                    },
+                    "DependsOn": [
+                      "BookATableLogGroup"
+                    ]
+                  },
+                  "BookATableLambdaVersionAIWPbP18SZB99WPetRkEhEDoEzZRWXKBEzPbBg6R158": {
+                    "Type": "AWS::Lambda::Version",
+                    "DeletionPolicy": "Retain",
+                    "Properties": {
+                      "FunctionName": {
+                        "Ref": "BookATableLambdaFunction"
+                      },
+                      "CodeSha256": "NG5nAGsY+oHx1vEBi3it8IuxBIizF9WctDCa17cHiuQ="
+                    }
+                  },
+                  "HttpApi": {
+                    "Type": "AWS::ApiGatewayV2::Api",
+                    "Properties": {
+                      "Name": "dev-bistro-nord-backend",
+                      "ProtocolType": "HTTP"
+                    }
+                  },
+                  "HttpApiStage": {
+                    "Type": "AWS::ApiGatewayV2::Stage",
+                    "Properties": {
+                      "ApiId": {
+                        "Ref": "HttpApi"
+                      },
+                      "StageName": "$default",
+                      "AutoDeploy": true,
+                      "DefaultRouteSettings": {
+                        "DetailedMetricsEnabled": false
+                      }
+                    }
+                  },
+                  "HttpApiAuthorizerJwtAuthorizer": {
+                    "Type": "AWS::ApiGatewayV2::Authorizer",
+                    "Properties": {
+                      "ApiId": {
+                        "Ref": "HttpApi"
+                      },
+                      "Name": "JwtAuthorizer",
+                      "IdentitySource": [
+                        "$request.header.Authorization"
+                      ],
+                      "AuthorizerType": "JWT",
+                      "JwtConfiguration": {
+                        "Audience": [
+                          {
+                            "Ref": "CognitoUserPoolClient"
+                          }
+                        ],
+                        "Issuer": {
+                          "Fn::GetAtt": [
+                            "CognitoUserPool",
+                            "ProviderURL"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "BookATableLambdaPermissionHttpApi": {
+                    "Type": "AWS::Lambda::Permission",
+                    "Properties": {
+                      "FunctionName": {
+                        "Fn::GetAtt": [
+                          "BookATableLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "Action": "lambda:InvokeFunction",
+                      "Principal": "apigateway.amazonaws.com",
+                      "SourceArn": {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "arn:",
+                            {
+                              "Ref": "AWS::Partition"
+                            },
+                            ":execute-api:",
+                            {
+                              "Ref": "AWS::Region"
+                            },
+                            ":",
+                            {
+                              "Ref": "AWS::AccountId"
+                            },
+                            ":",
+                            {
+                              "Ref": "HttpApi"
+                            },
+                            "/*"
+                          ]
+                        ]
+                      }
+                    }
+                  },
+                  "HttpApiIntegrationBookATable": {
+                    "Type": "AWS::ApiGatewayV2::Integration",
+                    "Properties": {
+                      "ApiId": {
+                        "Ref": "HttpApi"
+                      },
+                      "IntegrationType": "AWS_PROXY",
+                      "IntegrationUri": {
+                        "Fn::GetAtt": [
+                          "BookATableLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "PayloadFormatVersion": "2.0",
+                      "TimeoutInMillis": 30000
+                    }
+                  },
+                  "HttpApiRoutePostBookatable": {
+                    "Type": "AWS::ApiGatewayV2::Route",
+                    "Properties": {
+                      "ApiId": {
+                        "Ref": "HttpApi"
+                      },
+                      "RouteKey": "POST /bookATable",
+                      "Target": {
+                        "Fn::Join": [
+                          "/",
+                          [
+                            "integrations",
+                            {
+                              "Ref": "HttpApiIntegrationBookATable"
+                            }
+                          ]
+                        ]
+                      },
+                      "AuthorizationType": "JWT",
+                      "AuthorizerId": {
+                        "Ref": "HttpApiAuthorizerJwtAuthorizer"
+                      },
+                      "AuthorizationScopes": [
+                        "ServerAccessScope/write"
+                      ]
+                    },
+                    "DependsOn": "HttpApiIntegrationBookATable"
+                  },
+                  "CognitoUserPool": {
+                    "Type": "AWS::Cognito::UserPool",
+                    "Properties": {
+                      "UserPoolName": "Bistro-Nord-UserPool",
+                      "UsernameAttributes": [
+                        "email"
+                      ],
+                      "AutoVerifiedAttributes": [
+                        "email"
+                      ],
+                      "UserPoolTags": {
+                        "git": "https://github.com/srinivas-pradhan/bistro-nord-backend",
+                        "app": "Bistro-Nord"
+                      }
+                    }
+                  },
+                  "CognitoUserPoolClient": {
+                    "Type": "AWS::Cognito::UserPoolClient",
+                    "Properties": {
+                      "ClientName": "Bistro-Nord-UserPool-client",
+                      "UserPoolId": {
+                        "Ref": "CognitoUserPool"
+                      },
+                      "GenerateSecret": "<REDACTED>",
+                      "ExplicitAuthFlows": [
+                        "ADMIN_NO_SRP_AUTH"
+                      ],
+                      "AllowedOAuthFlows": [
+                        "client_credentials"
+                      ],
+                      "AllowedOAuthFlowsUserPoolClient": true,
+                      "AllowedOAuthScopes": [
+                        "ServerAccessScope/read",
+                        "ServerAccessScope/write"
+                      ],
+                      "SupportedIdentityProviders": [
+                        "COGNITO"
+                      ],
+                      "CallbackURLs": [
+                        "https://example.com/signout"
+                      ]
+                    }
+                  },
+                  "UserPoolDomain": {
+                    "Type": "AWS::Cognito::UserPoolDomain",
+                    "Properties": {
+                      "UserPoolId": {
+                        "Ref": "CognitoUserPool"
+                      },
+                      "Domain": "bistro-nord-backend"
+                    }
+                  },
+                  "UserPoolResourceServer": {
+                    "Type": "AWS::Cognito::UserPoolResourceServer",
+                    "Properties": {
+                      "UserPoolId": {
+                        "Ref": "CognitoUserPool"
+                      },
+                      "Identifier": "ServerAccessScope",
+                      "Name": "ServerAccessScope",
+                      "Scopes": [
+                        {
+                          "ScopeName": "read",
+                          "ScopeDescription": "GET Calls SCOPE"
+                        },
+                        {
+                          "ScopeName": "write",
+                          "ScopeDescription": "POST PUT DELETE Calls SCOPE"
+                        }
+                      ]
+                    }
+                  },
+                  "BookATableDynamoDBTable": {
+                    "Type": "AWS::DynamoDB::Table",
+                    "Properties": {
+                      "TableName": "BookATable",
+                      "AttributeDefinitions": [
+                        {
+                          "AttributeName": "BookingId",
+                          "AttributeType": "S"
+                        },
+                        {
+                          "AttributeName": "Datetime",
+                          "AttributeType": "N"
+                        }
+                      ],
+                      "KeySchema": [
+                        {
+                          "AttributeName": "BookingId",
+                          "KeyType": "HASH"
+                        },
+                        {
+                          "AttributeName": "Datetime",
+                          "KeyType": "RANGE"
+                        }
+                      ],
+                      "ProvisionedThroughput": {
+                        "ReadCapacityUnits": 10,
+                        "WriteCapacityUnits": 10
+                      },
+                      "Tags": [
+                        {
+                          "Key": "git",
+                          "Value": "https://github.com/srinivas-pradhan/bistro-nord-backend"
+                        },
+                        {
+                          "Key": "app",
+                          "Value": "Bistro-Nord"
+                        }
+                      ]
+                    }
+                  },
+                  "WriteDynamoDBRole": {
+                    "Type": "AWS::IAM::Role",
+                    "Properties": {
+                      "Path": "/bistro-nord/bistro-nord-backend/lambda-role/",
+                      "RoleName": "WriteDynamoDBRole",
+                      "AssumeRolePolicyDocument": {
+                        "Version": "2012-10-17",
+                        "Statement": [
+                          {
+                            "Effect": "Allow",
+                            "Principal": {
+                              "Service": [
+                                "lambda.amazonaws.com"
+                              ]
+                            },
+                            "Action": "sts:AssumeRole"
+                          }
+                        ]
+                      },
+                      "Policies": [
+                        {
+                          "PolicyName": "WriteDynamoDBPolicy",
+                          "PolicyDocument": {
+                            "Version": "2012-10-17",
+                            "Statement": [
+                              {
+                                "Effect": "Allow",
+                                "Action": [
+                                  "logs:CreateLogGroup",
+                                  "logs:CreateLogStream",
+                                  "logs:PutLogEvents",
+                                  "logs:TagResource"
+                                ],
+                                "Resource": [
+                                  {
+                                    "Fn::Join": [
+                                      ":",
+                                      [
+                                        "arn:aws:logs",
+                                        {
+                                          "Ref": "AWS::Region"
+                                        },
+                                        {
+                                          "Ref": "AWS::AccountId"
+                                        },
+                                        "log-group:/aws/lambda/*:*:*"
+                                      ]
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "Effect": "Allow",
+                                "Action": [
+                                  "dynamodb:BatchGetItem",
+                                  "dynamodb:BatchWriteItem",
+                                  "dynamodb:ConditionCheckItem",
+                                  "dynamodb:PutItem",
+                                  "dynamodb:DescribeTable",
+                                  "dynamodb:DeleteItem",
+                                  "dynamodb:GetItem",
+                                  "dynamodb:Scan",
+                                  "dynamodb:Query",
+                                  "dynamodb:UpdateItem"
+                                ],
+                                "Resource": {
+                                  "Fn::Join": [
+                                    ":",
+                                    [
+                                      "arn:aws:dynamodb",
+                                      {
+                                        "Ref": "AWS::Region"
+                                      },
+                                      {
+                                        "Ref": "AWS::AccountId"
+                                      },
+                                      {
+                                        "Fn::Join": [
+                                          "/",
+                                          [
+                                            {
+                                              "Ref": "BookATableDynamoDBTable"
+                                            }
+                                          ]
+                                        ]
+                                      }
+                                    ]
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                "Outputs": {
+                  "ServerlessDeploymentBucketName": {
+                    "Value": "serverless-framework-deployments-us-east-1-5da0ce13-3bc7",
+                    "Export": {
+                      "Name": "sls-bistro-nord-backend-dev-ServerlessDeploymentBucketName"
+                    }
+                  },
+                  "BookATableLambdaFunctionQualifiedArn": {
+                    "Description": "Current Lambda function version",
+                    "Value": {
+                      "Ref": "BookATableLambdaVersionAIWPbP18SZB99WPetRkEhEDoEzZRWXKBEzPbBg6R158"
+                    },
+                    "Export": {
+                      "Name": "sls-bistro-nord-backend-dev-BookATableLambdaFunctionQualifiedArn"
+                    }
+                  },
+                  "HttpApiId": {
+                    "Description": "Id of the HTTP API",
+                    "Value": {
+                      "Ref": "HttpApi"
+                    },
+                    "Export": {
+                      "Name": "sls-bistro-nord-backend-dev-HttpApiId"
+                    }
+                  },
+                  "HttpApiUrl": {
+                    "Description": "URL of the HTTP API",
+                    "Value": {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "https://",
+                          {
+                            "Ref": "HttpApi"
+                          },
+                          ".execute-api.",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          ".",
+                          {
+                            "Ref": "AWS::URLSuffix"
+                          }
+                        ]
+                      ]
+                    },
+                    "Export": {
+                      "Name": "sls-bistro-nord-backend-dev-HttpApiUrl"
+                    }
+                  }
+                }
+              },
+              "vpc": {}
+            },
+            "functions": {
+              "bookATable": {
+                "handler": "handler.hello",
+                "events": [
+                  {
+                    "httpApi": {
+                      "method": "POST",
+                      "path": "/bookATable",
+                      "authorizer": {
+                        "name": "JwtAuthorizer",
+                        "scopes": [
+                          "ServerAccessScope/write"
+                        ]
+                      }
+                    },
+                    "resolvedMethod": "POST",
+                    "resolvedPath": "/bookATable"
+                  }
+                ],
+                "name": "bistro-nord-backend-dev-bookATable",
+                "package": {},
+                "memory": 1024,
+                "timeout": 6,
+                "runtime": "nodejs20.x",
+                "vpc": {},
+                "versionLogicalId": "BookATableLambdaVersionAIWPbP18SZB99WPetRkEhEDoEzZRWXKBEzPbBg6R158"
+              }
+            },
+            "resources": {
+              "Resources": {
+                "CognitoUserPool": {
+                  "Type": "AWS::Cognito::UserPool",
+                  "Properties": {
+                    "UserPoolName": "Bistro-Nord-UserPool",
+                    "UsernameAttributes": [
+                      "email"
+                    ],
+                    "AutoVerifiedAttributes": [
+                      "email"
+                    ],
+                    "UserPoolTags": {
+                      "git": "https://github.com/srinivas-pradhan/bistro-nord-backend",
+                      "app": "Bistro-Nord"
+                    }
+                  }
+                },
+                "CognitoUserPoolClient": {
+                  "Type": "AWS::Cognito::UserPoolClient",
+                  "Properties": {
+                    "ClientName": "Bistro-Nord-UserPool-client",
+                    "UserPoolId": {
+                      "Ref": "CognitoUserPool"
+                    },
+                    "GenerateSecret": "<REDACTED>",
+                    "ExplicitAuthFlows": [
+                      "ADMIN_NO_SRP_AUTH"
+                    ],
+                    "AllowedOAuthFlows": [
+                      "client_credentials"
+                    ],
+                    "AllowedOAuthFlowsUserPoolClient": true,
+                    "AllowedOAuthScopes": [
+                      "ServerAccessScope/read",
+                      "ServerAccessScope/write"
+                    ],
+                    "SupportedIdentityProviders": [
+                      "COGNITO"
+                    ],
+                    "CallbackURLs": [
+                      "https://example.com/signout"
+                    ]
+                  }
+                },
+                "UserPoolDomain": {
+                  "Type": "AWS::Cognito::UserPoolDomain",
+                  "Properties": {
+                    "UserPoolId": {
+                      "Ref": "CognitoUserPool"
+                    },
+                    "Domain": "bistro-nord-backend"
+                  }
+                },
+                "UserPoolResourceServer": {
+                  "Type": "AWS::Cognito::UserPoolResourceServer",
+                  "Properties": {
+                    "UserPoolId": {
+                      "Ref": "CognitoUserPool"
+                    },
+                    "Identifier": "ServerAccessScope",
+                    "Name": "ServerAccessScope",
+                    "Scopes": [
+                      {
+                        "ScopeName": "read",
+                        "ScopeDescription": "GET Calls SCOPE"
+                      },
+                      {
+                        "ScopeName": "write",
+                        "ScopeDescription": "POST PUT DELETE Calls SCOPE"
+                      }
+                    ]
+                  }
+                },
+                "BookATableDynamoDBTable": {
+                  "Type": "AWS::DynamoDB::Table",
+                  "Properties": {
+                    "TableName": "BookATable",
+                    "AttributeDefinitions": [
+                      {
+                        "AttributeName": "BookingId",
+                        "AttributeType": "S"
+                      },
+                      {
+                        "AttributeName": "Datetime",
+                        "AttributeType": "N"
+                      }
+                    ],
+                    "KeySchema": [
+                      {
+                        "AttributeName": "BookingId",
+                        "KeyType": "HASH"
+                      },
+                      {
+                        "AttributeName": "Datetime",
+                        "KeyType": "RANGE"
+                      }
+                    ],
+                    "ProvisionedThroughput": {
+                      "ReadCapacityUnits": 10,
+                      "WriteCapacityUnits": 10
+                    },
+                    "Tags": [
+                      {
+                        "Key": "git",
+                        "Value": "https://github.com/srinivas-pradhan/bistro-nord-backend"
+                      },
+                      {
+                        "Key": "app",
+                        "Value": "Bistro-Nord"
+                      }
+                    ]
+                  }
+                },
+                "WriteDynamoDBRole": {
+                  "Type": "AWS::IAM::Role",
+                  "Properties": {
+                    "Path": "/bistro-nord/bistro-nord-backend/lambda-role/",
+                    "RoleName": "WriteDynamoDBRole",
+                    "AssumeRolePolicyDocument": {
+                      "Version": "2012-10-17",
+                      "Statement": [
+                        {
+                          "Effect": "Allow",
+                          "Principal": {
+                            "Service": [
+                              "lambda.amazonaws.com"
+                            ]
+                          },
+                          "Action": "sts:AssumeRole"
+                        }
+                      ]
+                    },
+                    "Policies": [
+                      {
+                        "PolicyName": "WriteDynamoDBPolicy",
+                        "PolicyDocument": {
+                          "Version": "2012-10-17",
+                          "Statement": [
+                            {
+                              "Effect": "Allow",
+                              "Action": [
+                                "logs:CreateLogGroup",
+                                "logs:CreateLogStream",
+                                "logs:PutLogEvents",
+                                "logs:TagResource"
+                              ],
+                              "Resource": [
+                                {
+                                  "Fn::Join": [
+                                    ":",
+                                    [
+                                      "arn:aws:logs",
+                                      {
+                                        "Ref": "AWS::Region"
+                                      },
+                                      {
+                                        "Ref": "AWS::AccountId"
+                                      },
+                                      "log-group:/aws/lambda/*:*:*"
+                                    ]
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "Effect": "Allow",
+                              "Action": [
+                                "dynamodb:BatchGetItem",
+                                "dynamodb:BatchWriteItem",
+                                "dynamodb:ConditionCheckItem",
+                                "dynamodb:PutItem",
+                                "dynamodb:DescribeTable",
+                                "dynamodb:DeleteItem",
+                                "dynamodb:GetItem",
+                                "dynamodb:Scan",
+                                "dynamodb:Query",
+                                "dynamodb:UpdateItem"
+                              ],
+                              "Resource": {
+                                "Fn::Join": [
+                                  ":",
+                                  [
+                                    "arn:aws:dynamodb",
+                                    {
+                                      "Ref": "AWS::Region"
+                                    },
+                                    {
+                                      "Ref": "AWS::AccountId"
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "/",
+                                        [
+                                          {
+                                            "Ref": "BookATableDynamoDBTable"
+                                          }
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "Outputs": {}
+            }
+          },
+          "configFileDirPath": "/Users/srinivas/Documents/repos/bistro-nord-backend",
+          "config": {
+            "type": "sls"
+          },
+          "options": {},
+          "stage": "dev",
+          "dashboard": null,
+          "logger": {
+            "namespace": "s:core:resolver:sls",
+            "prefix": null,
+            "prefixColor": null
+          },
+          "_credentialsPromise": "<REDACTED>"
+        },
+        "resolvers": {}
+      }
+    },
+    "composeServiceName": null,
+    "servicePath": "/Users/srinivas/Documents/repos/bistro-nord-backend",
+    "serviceConfigFileName": "serverless.yml",
+    "service": {
+      "org": "srinivaspradhan",
+      "service": "bistro-nord-backend",
+      "provider": {
+        "name": "aws",
+        "runtime": "nodejs20.x",
+        "httpApi": {
+          "authorizers": {
+            "JwtAuthorizer": {
+              "type": "jwt",
+              "identitySource": "$request.header.Authorization",
+              "issuerUrl": {
+                "Fn::GetAtt": [
+                  "CognitoUserPool",
+                  "ProviderURL"
+                ]
+              },
+              "audience": [
+                {
+                  "Ref": "CognitoUserPoolClient"
+                }
+              ]
+            }
+          }
+        },
+        "stage": "dev",
+        "region": "us-east-1",
+        "versionFunctions": true,
+        "compiledCloudFormationTemplate": {
+          "AWSTemplateFormatVersion": "2010-09-09",
+          "Description": "The AWS CloudFormation template for this Serverless application",
+          "Resources": {
+            "BookATableLogGroup": {
+              "Type": "AWS::Logs::LogGroup",
+              "Properties": {
+                "LogGroupName": "/aws/lambda/bistro-nord-backend-dev-bookATable"
+              }
+            },
+            "IamRoleLambdaExecution": {
+              "Type": "AWS::IAM::Role",
+              "Properties": {
+                "AssumeRolePolicyDocument": {
+                  "Version": "2012-10-17",
+                  "Statement": [
+                    {
+                      "Effect": "Allow",
+                      "Principal": {
+                        "Service": [
+                          "lambda.amazonaws.com"
+                        ]
+                      },
+                      "Action": [
+                        "sts:AssumeRole"
+                      ]
+                    }
+                  ]
+                },
+                "Policies": [
+                  {
+                    "PolicyName": {
+                      "Fn::Join": [
+                        "-",
+                        [
+                          "bistro-nord-backend",
+                          "dev",
+                          "lambda"
+                        ]
+                      ]
+                    },
+                    "PolicyDocument": {
+                      "Version": "2012-10-17",
+                      "Statement": [
+                        {
+                          "Effect": "Allow",
+                          "Action": [
+                            "logs:CreateLogStream",
+                            "logs:CreateLogGroup",
+                            "logs:TagResource"
+                          ],
+                          "Resource": [
+                            {
+                              "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/bistro-nord-backend-dev*:*"
+                            }
+                          ]
+                        },
+                        {
+                          "Effect": "Allow",
+                          "Action": [
+                            "logs:PutLogEvents"
+                          ],
+                          "Resource": [
+                            {
+                              "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/bistro-nord-backend-dev*:*:*"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "Path": "/",
+                "RoleName": {
+                  "Fn::Join": [
+                    "-",
+                    [
+                      "bistro-nord-backend",
+                      "dev",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      "lambdaRole"
+                    ]
+                  ]
+                }
+              }
+            },
+            "BookATableLambdaFunction": {
+              "Type": "AWS::Lambda::Function",
+              "Properties": {
+                "Code": {
+                  "S3Bucket": "serverless-framework-deployments-us-east-1-5da0ce13-3bc7",
+                  "S3Key": "serverless/bistro-nord-backend/dev/1731975910916-2024-11-19T00:25:10.916Z/bistro-nord-backend.zip"
+                },
+                "Handler": "handler.hello",
+                "Runtime": "nodejs20.x",
+                "FunctionName": "bistro-nord-backend-dev-bookATable",
+                "MemorySize": 1024,
+                "Timeout": 6,
+                "Role": {
+                  "Fn::GetAtt": [
+                    "IamRoleLambdaExecution",
+                    "Arn"
+                  ]
+                }
+              },
+              "DependsOn": [
+                "BookATableLogGroup"
+              ]
+            },
+            "BookATableLambdaVersionAIWPbP18SZB99WPetRkEhEDoEzZRWXKBEzPbBg6R158": {
+              "Type": "AWS::Lambda::Version",
+              "DeletionPolicy": "Retain",
+              "Properties": {
+                "FunctionName": {
+                  "Ref": "BookATableLambdaFunction"
+                },
+                "CodeSha256": "NG5nAGsY+oHx1vEBi3it8IuxBIizF9WctDCa17cHiuQ="
+              }
+            },
+            "HttpApi": {
+              "Type": "AWS::ApiGatewayV2::Api",
+              "Properties": {
+                "Name": "dev-bistro-nord-backend",
+                "ProtocolType": "HTTP"
+              }
+            },
+            "HttpApiStage": {
+              "Type": "AWS::ApiGatewayV2::Stage",
+              "Properties": {
+                "ApiId": {
+                  "Ref": "HttpApi"
+                },
+                "StageName": "$default",
+                "AutoDeploy": true,
+                "DefaultRouteSettings": {
+                  "DetailedMetricsEnabled": false
+                }
+              }
+            },
+            "HttpApiAuthorizerJwtAuthorizer": {
+              "Type": "AWS::ApiGatewayV2::Authorizer",
+              "Properties": {
+                "ApiId": {
+                  "Ref": "HttpApi"
+                },
+                "Name": "JwtAuthorizer",
+                "IdentitySource": [
+                  "$request.header.Authorization"
+                ],
+                "AuthorizerType": "JWT",
+                "JwtConfiguration": {
+                  "Audience": [
+                    {
+                      "Ref": "CognitoUserPoolClient"
+                    }
+                  ],
+                  "Issuer": {
+                    "Fn::GetAtt": [
+                      "CognitoUserPool",
+                      "ProviderURL"
+                    ]
+                  }
+                }
+              }
+            },
+            "BookATableLambdaPermissionHttpApi": {
+              "Type": "AWS::Lambda::Permission",
+              "Properties": {
+                "FunctionName": {
+                  "Fn::GetAtt": [
+                    "BookATableLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "Action": "lambda:InvokeFunction",
+                "Principal": "apigateway.amazonaws.com",
+                "SourceArn": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":execute-api:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":",
+                      {
+                        "Ref": "HttpApi"
+                      },
+                      "/*"
+                    ]
+                  ]
+                }
+              }
+            },
+            "HttpApiIntegrationBookATable": {
+              "Type": "AWS::ApiGatewayV2::Integration",
+              "Properties": {
+                "ApiId": {
+                  "Ref": "HttpApi"
+                },
+                "IntegrationType": "AWS_PROXY",
+                "IntegrationUri": {
+                  "Fn::GetAtt": [
+                    "BookATableLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "PayloadFormatVersion": "2.0",
+                "TimeoutInMillis": 30000
+              }
+            },
+            "HttpApiRoutePostBookatable": {
+              "Type": "AWS::ApiGatewayV2::Route",
+              "Properties": {
+                "ApiId": {
+                  "Ref": "HttpApi"
+                },
+                "RouteKey": "POST /bookATable",
+                "Target": {
+                  "Fn::Join": [
+                    "/",
+                    [
+                      "integrations",
+                      {
+                        "Ref": "HttpApiIntegrationBookATable"
+                      }
+                    ]
+                  ]
+                },
+                "AuthorizationType": "JWT",
+                "AuthorizerId": {
+                  "Ref": "HttpApiAuthorizerJwtAuthorizer"
+                },
+                "AuthorizationScopes": [
+                  "ServerAccessScope/write"
+                ]
+              },
+              "DependsOn": "HttpApiIntegrationBookATable"
+            },
+            "CognitoUserPool": {
+              "Type": "AWS::Cognito::UserPool",
+              "Properties": {
+                "UserPoolName": "Bistro-Nord-UserPool",
+                "UsernameAttributes": [
+                  "email"
+                ],
+                "AutoVerifiedAttributes": [
+                  "email"
+                ],
+                "UserPoolTags": {
+                  "git": "https://github.com/srinivas-pradhan/bistro-nord-backend",
+                  "app": "Bistro-Nord"
+                }
+              }
+            },
+            "CognitoUserPoolClient": {
+              "Type": "AWS::Cognito::UserPoolClient",
+              "Properties": {
+                "ClientName": "Bistro-Nord-UserPool-client",
+                "UserPoolId": {
+                  "Ref": "CognitoUserPool"
+                },
+                "GenerateSecret": "<REDACTED>",
+                "ExplicitAuthFlows": [
+                  "ADMIN_NO_SRP_AUTH"
+                ],
+                "AllowedOAuthFlows": [
+                  "client_credentials"
+                ],
+                "AllowedOAuthFlowsUserPoolClient": true,
+                "AllowedOAuthScopes": [
+                  "ServerAccessScope/read",
+                  "ServerAccessScope/write"
+                ],
+                "SupportedIdentityProviders": [
+                  "COGNITO"
+                ],
+                "CallbackURLs": [
+                  "https://example.com/signout"
+                ]
+              }
+            },
+            "UserPoolDomain": {
+              "Type": "AWS::Cognito::UserPoolDomain",
+              "Properties": {
+                "UserPoolId": {
+                  "Ref": "CognitoUserPool"
+                },
+                "Domain": "bistro-nord-backend"
+              }
+            },
+            "UserPoolResourceServer": {
+              "Type": "AWS::Cognito::UserPoolResourceServer",
+              "Properties": {
+                "UserPoolId": {
+                  "Ref": "CognitoUserPool"
+                },
+                "Identifier": "ServerAccessScope",
+                "Name": "ServerAccessScope",
+                "Scopes": [
+                  {
+                    "ScopeName": "read",
+                    "ScopeDescription": "GET Calls SCOPE"
+                  },
+                  {
+                    "ScopeName": "write",
+                    "ScopeDescription": "POST PUT DELETE Calls SCOPE"
+                  }
+                ]
+              }
+            },
+            "BookATableDynamoDBTable": {
+              "Type": "AWS::DynamoDB::Table",
+              "Properties": {
+                "TableName": "BookATable",
+                "AttributeDefinitions": [
+                  {
+                    "AttributeName": "BookingId",
+                    "AttributeType": "S"
+                  },
+                  {
+                    "AttributeName": "Datetime",
+                    "AttributeType": "N"
+                  }
+                ],
+                "KeySchema": [
+                  {
+                    "AttributeName": "BookingId",
+                    "KeyType": "HASH"
+                  },
+                  {
+                    "AttributeName": "Datetime",
+                    "KeyType": "RANGE"
+                  }
+                ],
+                "ProvisionedThroughput": {
+                  "ReadCapacityUnits": 10,
+                  "WriteCapacityUnits": 10
+                },
+                "Tags": [
+                  {
+                    "Key": "git",
+                    "Value": "https://github.com/srinivas-pradhan/bistro-nord-backend"
+                  },
+                  {
+                    "Key": "app",
+                    "Value": "Bistro-Nord"
+                  }
+                ]
+              }
+            },
+            "WriteDynamoDBRole": {
+              "Type": "AWS::IAM::Role",
+              "Properties": {
+                "Path": "/bistro-nord/bistro-nord-backend/lambda-role/",
+                "RoleName": "WriteDynamoDBRole",
+                "AssumeRolePolicyDocument": {
+                  "Version": "2012-10-17",
+                  "Statement": [
+                    {
+                      "Effect": "Allow",
+                      "Principal": {
+                        "Service": [
+                          "lambda.amazonaws.com"
+                        ]
+                      },
+                      "Action": "sts:AssumeRole"
+                    }
+                  ]
+                },
+                "Policies": [
+                  {
+                    "PolicyName": "WriteDynamoDBPolicy",
+                    "PolicyDocument": {
+                      "Version": "2012-10-17",
+                      "Statement": [
+                        {
+                          "Effect": "Allow",
+                          "Action": [
+                            "logs:CreateLogGroup",
+                            "logs:CreateLogStream",
+                            "logs:PutLogEvents",
+                            "logs:TagResource"
+                          ],
+                          "Resource": [
+                            {
+                              "Fn::Join": [
+                                ":",
+                                [
+                                  "arn:aws:logs",
+                                  {
+                                    "Ref": "AWS::Region"
+                                  },
+                                  {
+                                    "Ref": "AWS::AccountId"
+                                  },
+                                  "log-group:/aws/lambda/*:*:*"
+                                ]
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "Effect": "Allow",
+                          "Action": [
+                            "dynamodb:BatchGetItem",
+                            "dynamodb:BatchWriteItem",
+                            "dynamodb:ConditionCheckItem",
+                            "dynamodb:PutItem",
+                            "dynamodb:DescribeTable",
+                            "dynamodb:DeleteItem",
+                            "dynamodb:GetItem",
+                            "dynamodb:Scan",
+                            "dynamodb:Query",
+                            "dynamodb:UpdateItem"
+                          ],
+                          "Resource": {
+                            "Fn::Join": [
+                              ":",
+                              [
+                                "arn:aws:dynamodb",
+                                {
+                                  "Ref": "AWS::Region"
+                                },
+                                {
+                                  "Ref": "AWS::AccountId"
+                                },
+                                {
+                                  "Fn::Join": [
+                                    "/",
+                                    [
+                                      {
+                                        "Ref": "BookATableDynamoDBTable"
+                                      }
+                                    ]
+                                  ]
+                                }
+                              ]
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "Outputs": {
+            "ServerlessDeploymentBucketName": {
+              "Value": "serverless-framework-deployments-us-east-1-5da0ce13-3bc7",
+              "Export": {
+                "Name": "sls-bistro-nord-backend-dev-ServerlessDeploymentBucketName"
+              }
+            },
+            "BookATableLambdaFunctionQualifiedArn": {
+              "Description": "Current Lambda function version",
+              "Value": {
+                "Ref": "BookATableLambdaVersionAIWPbP18SZB99WPetRkEhEDoEzZRWXKBEzPbBg6R158"
+              },
+              "Export": {
+                "Name": "sls-bistro-nord-backend-dev-BookATableLambdaFunctionQualifiedArn"
+              }
+            },
+            "HttpApiId": {
+              "Description": "Id of the HTTP API",
+              "Value": {
+                "Ref": "HttpApi"
+              },
+              "Export": {
+                "Name": "sls-bistro-nord-backend-dev-HttpApiId"
+              }
+            },
+            "HttpApiUrl": {
+              "Description": "URL of the HTTP API",
+              "Value": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "https://",
+                    {
+                      "Ref": "HttpApi"
+                    },
+                    ".execute-api.",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ".",
+                    {
+                      "Ref": "AWS::URLSuffix"
+                    }
+                  ]
+                ]
+              },
+              "Export": {
+                "Name": "sls-bistro-nord-backend-dev-HttpApiUrl"
+              }
+            }
+          }
+        },
+        "vpc": {}
+      },
+      "functions": {
+        "bookATable": {
+          "handler": "handler.hello",
+          "events": [
+            {
+              "httpApi": {
+                "method": "POST",
+                "path": "/bookATable",
+                "authorizer": {
+                  "name": "JwtAuthorizer",
+                  "scopes": [
+                    "ServerAccessScope/write"
+                  ]
+                }
+              },
+              "resolvedMethod": "POST",
+              "resolvedPath": "/bookATable"
+            }
+          ],
+          "name": "bistro-nord-backend-dev-bookATable",
+          "package": {},
+          "memory": 1024,
+          "timeout": 6,
+          "runtime": "nodejs20.x",
+          "vpc": {},
+          "versionLogicalId": "BookATableLambdaVersionAIWPbP18SZB99WPetRkEhEDoEzZRWXKBEzPbBg6R158"
+        }
+      },
+      "resources": {
+        "Resources": {
+          "CognitoUserPool": {
+            "Type": "AWS::Cognito::UserPool",
+            "Properties": {
+              "UserPoolName": "Bistro-Nord-UserPool",
+              "UsernameAttributes": [
+                "email"
+              ],
+              "AutoVerifiedAttributes": [
+                "email"
+              ],
+              "UserPoolTags": {
+                "git": "https://github.com/srinivas-pradhan/bistro-nord-backend",
+                "app": "Bistro-Nord"
+              }
+            }
+          },
+          "CognitoUserPoolClient": {
+            "Type": "AWS::Cognito::UserPoolClient",
+            "Properties": {
+              "ClientName": "Bistro-Nord-UserPool-client",
+              "UserPoolId": {
+                "Ref": "CognitoUserPool"
+              },
+              "GenerateSecret": "<REDACTED>",
+              "ExplicitAuthFlows": [
+                "ADMIN_NO_SRP_AUTH"
+              ],
+              "AllowedOAuthFlows": [
+                "client_credentials"
+              ],
+              "AllowedOAuthFlowsUserPoolClient": true,
+              "AllowedOAuthScopes": [
+                "ServerAccessScope/read",
+                "ServerAccessScope/write"
+              ],
+              "SupportedIdentityProviders": [
+                "COGNITO"
+              ],
+              "CallbackURLs": [
+                "https://example.com/signout"
+              ]
+            }
+          },
+          "UserPoolDomain": {
+            "Type": "AWS::Cognito::UserPoolDomain",
+            "Properties": {
+              "UserPoolId": {
+                "Ref": "CognitoUserPool"
+              },
+              "Domain": "bistro-nord-backend"
+            }
+          },
+          "UserPoolResourceServer": {
+            "Type": "AWS::Cognito::UserPoolResourceServer",
+            "Properties": {
+              "UserPoolId": {
+                "Ref": "CognitoUserPool"
+              },
+              "Identifier": "ServerAccessScope",
+              "Name": "ServerAccessScope",
+              "Scopes": [
+                {
+                  "ScopeName": "read",
+                  "ScopeDescription": "GET Calls SCOPE"
+                },
+                {
+                  "ScopeName": "write",
+                  "ScopeDescription": "POST PUT DELETE Calls SCOPE"
+                }
+              ]
+            }
+          },
+          "BookATableDynamoDBTable": {
+            "Type": "AWS::DynamoDB::Table",
+            "Properties": {
+              "TableName": "BookATable",
+              "AttributeDefinitions": [
+                {
+                  "AttributeName": "BookingId",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "Datetime",
+                  "AttributeType": "N"
+                }
+              ],
+              "KeySchema": [
+                {
+                  "AttributeName": "BookingId",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "Datetime",
+                  "KeyType": "RANGE"
+                }
+              ],
+              "ProvisionedThroughput": {
+                "ReadCapacityUnits": 10,
+                "WriteCapacityUnits": 10
+              },
+              "Tags": [
+                {
+                  "Key": "git",
+                  "Value": "https://github.com/srinivas-pradhan/bistro-nord-backend"
+                },
+                {
+                  "Key": "app",
+                  "Value": "Bistro-Nord"
+                }
+              ]
+            }
+          },
+          "WriteDynamoDBRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+              "Path": "/bistro-nord/bistro-nord-backend/lambda-role/",
+              "RoleName": "WriteDynamoDBRole",
+              "AssumeRolePolicyDocument": {
+                "Version": "2012-10-17",
+                "Statement": [
+                  {
+                    "Effect": "Allow",
+                    "Principal": {
+                      "Service": [
+                        "lambda.amazonaws.com"
+                      ]
+                    },
+                    "Action": "sts:AssumeRole"
+                  }
+                ]
+              },
+              "Policies": [
+                {
+                  "PolicyName": "WriteDynamoDBPolicy",
+                  "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "logs:CreateLogGroup",
+                          "logs:CreateLogStream",
+                          "logs:PutLogEvents",
+                          "logs:TagResource"
+                        ],
+                        "Resource": [
+                          {
+                            "Fn::Join": [
+                              ":",
+                              [
+                                "arn:aws:logs",
+                                {
+                                  "Ref": "AWS::Region"
+                                },
+                                {
+                                  "Ref": "AWS::AccountId"
+                                },
+                                "log-group:/aws/lambda/*:*:*"
+                              ]
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "dynamodb:BatchGetItem",
+                          "dynamodb:BatchWriteItem",
+                          "dynamodb:ConditionCheckItem",
+                          "dynamodb:PutItem",
+                          "dynamodb:DescribeTable",
+                          "dynamodb:DeleteItem",
+                          "dynamodb:GetItem",
+                          "dynamodb:Scan",
+                          "dynamodb:Query",
+                          "dynamodb:UpdateItem"
+                        ],
+                        "Resource": {
+                          "Fn::Join": [
+                            ":",
+                            [
+                              "arn:aws:dynamodb",
+                              {
+                                "Ref": "AWS::Region"
+                              },
+                              {
+                                "Ref": "AWS::AccountId"
+                              },
+                              {
+                                "Fn::Join": [
+                                  "/",
+                                  [
+                                    {
+                                      "Ref": "BookATableDynamoDBTable"
+                                    }
+                                  ]
+                                ]
+                              }
+                            ]
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "Outputs": {}
+      }
+    },
+    "serviceRawFile": "# \"org\" ensures this Service is used with the correct Serverless Framework Access Key.\norg: srinivaspradhan\n# \"service\" is the name of this project. This will also be added to your AWS resource names.\nservice: bistro-nord-backend\n\nprovider:\n  name: aws\n  runtime: nodejs20.x\n  httpApi:\n    authorizers:\n      JwtAuthorizer:\n        type: jwt\n        identitySource: $request.header.Authorization\n        issuerUrl: !GetAtt CognitoUserPool.ProviderURL\n        audience:\n          - Ref: CognitoUserPoolClient\n\nfunctions:\n  ${file(lambda/resources.yml)}\n\nresources:\n  - ${file(cognito/resources.yml)}\n  - ${file(dynamodb/resources.yml)}\n  - ${file(iam/resources.yml)}\n",
+    "command": [
+      "deploy"
+    ],
+    "options": {},
+    "error": null,
+    "params": {},
+    "machineId": "305b29bb7289c8a31134ec1bc263d161",
+    "stage": "dev",
+    "accessKeyV2": "<REDACTED>",
+    "accessKeyV1": "<REDACTED>",
+    "orgId": "371f691c-208e-40de-91ef-ed8aef83b89a",
+    "orgName": "srinivaspradhan",
+    "userId": "VtCrd1nLwWx73tDxJX",
+    "dashboard": {
+      "isEnabledForService": false,
+      "requiredAuthentication": false,
+      "orgFeaturesInUse": null,
+      "orgObservabilityIntegrations": null,
+      "serviceAppId": null,
+      "serviceProvider": null,
+      "instanceParameters": null
+    },
+    "userName": "srinivaspradhan",
+    "subscription": null,
+    "userEmail": "srinivas.pradhan@openlane.com",
+    "serviceProviderAwsRegion": "us-east-1",
+    "serviceProviderAwsCredentials": "<REDACTED>",
+    "serviceProviderAwsAccountId": "703866956858",
+    "projectType": "traditional",
+    "versionSf": "4.4.10",
+    "serviceProviderAwsCfStackName": "bistro-nord-backend-dev",
+    "integrations": {},
+    "serviceUniqueId": "arn:aws:cloudformation:us-east-1:703866956858:stack/bistro-nord-backend-dev/d5b180e0-a602-11ef-b999-12ebddb2c7d5",
+    "serviceProviderAwsCfStackId": "arn:aws:cloudformation:us-east-1:703866956858:stack/bistro-nord-backend-dev/d5b180e0-a602-11ef-b999-12ebddb2c7d5",
+    "serviceProviderAwsCfStackCreated": "2024-11-18T23:14:17.850Z",
+    "serviceProviderAwsCfStackUpdated": "2024-11-19T00:25:13.948Z",
+    "serviceProviderAwsCfStackStatus": "UPDATE_COMPLETE",
+    "serviceProviderAwsCfStackOutputs": [
+      {
+        "OutputKey": "BookATableLambdaFunctionQualifiedArn",
+        "OutputValue": "arn:aws:lambda:us-east-1:703866956858:function:bistro-nord-backend-dev-bookATable:2",
+        "Description": "Current Lambda function version",
+        "ExportName": "sls-bistro-nord-backend-dev-BookATableLambdaFunctionQualifiedArn"
+      },
+      {
+        "OutputKey": "HttpApiId",
+        "OutputValue": "v45swtdinc",
+        "Description": "Id of the HTTP API",
+        "ExportName": "sls-bistro-nord-backend-dev-HttpApiId"
+      },
+      {
+        "OutputKey": "ServerlessDeploymentBucketName",
+        "OutputValue": "serverless-framework-deployments-us-east-1-5da0ce13-3bc7",
+        "ExportName": "sls-bistro-nord-backend-dev-ServerlessDeploymentBucketName"
+      },
+      {
+        "OutputKey": "HttpApiUrl",
+        "OutputValue": "https://v45swtdinc.execute-api.us-east-1.amazonaws.com",
+        "Description": "URL of the HTTP API",
+        "ExportName": "sls-bistro-nord-backend-dev-HttpApiUrl"
+      }
+    ]
+  }
+}

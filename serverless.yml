@@ -14,6 +14,14 @@ provider:
         issuerUrl: !GetAtt CognitoUserPool.ProviderURL
         audience:
           - Ref: CognitoUserPoolClient
+package:
+  patterns:
+    - '!package.zip'
+
+layers:
+  awssdk:
+    path: aws-sdk-layer
+    description: SDK Layer for AWS Node Package.
 
 functions:
   - ${file(lambda/resources.yml)}

@@ -1,6 +1,8 @@
 bookATable:
   handler: src/bookATable/handler.BookATable
   role: !GetAtt WriteDynamoDBRole.Arn
+  layers:
+    - { Ref: AwssdkLambdaLayer }
   events:
     - httpApi:
         method: POST

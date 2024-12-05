@@ -115,7 +115,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/bistro-nord-backend/dev/1733358165782-2024-12-05T00:22:45.782Z/awssdk.zip"
+                "S3Key": "serverless/bistro-nord-backend/dev/1733359026433-2024-12-05T00:37:06.433Z/awssdk.zip"
               },
               "LayerName": "awssdk",
               "Description": "SDK Layer for AWS Node Package."
@@ -128,13 +128,18 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/bistro-nord-backend/dev/1733358165782-2024-12-05T00:22:45.782Z/bistro-nord-backend.zip"
+                "S3Key": "serverless/bistro-nord-backend/dev/1733359026433-2024-12-05T00:37:06.433Z/bistro-nord-backend.zip"
               },
               "Handler": "src/bookATable/handler.BookATable",
               "Runtime": "nodejs20.x",
               "FunctionName": "bistro-nord-backend-dev-bookATable",
               "MemorySize": 1024,
               "Timeout": 6,
+              "Environment": {
+                "Variables": {
+                  "TABLE_NAME": "BookATable"
+                }
+              },
               "Role": {
                 "Fn::GetAtt": [
                   "WriteDynamoDBRole",
@@ -152,14 +157,14 @@
               "WriteDynamoDBRole"
             ]
           },
-          "BookATableLambdaVersionsDbmF3f7qOJTdUwR4psbDYgg12tahH2NFRyHf48U": {
+          "BookATableLambdaVersionp1kKhXHh68MylKzR4eoK1QxNL2poIFo2A6V8ekHUB50": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "BookATableLambdaFunction"
               },
-              "CodeSha256": "HxX/8hurFKjlzPQXZlcOyvkTnmhH2H5WPuckifPJui8="
+              "CodeSha256": "u+ckEOElkN+LOfCSOE5yKH0//QRD58MlpQDhM0VDvFg="
             }
           },
           "HttpApi": {
@@ -529,7 +534,7 @@
           },
           "AwssdkLambdaLayerS3Key": {
             "Description": "Current Lambda layer S3Key",
-            "Value": "serverless/bistro-nord-backend/dev/1733358165782-2024-12-05T00:22:45.782Z/awssdk.zip",
+            "Value": "serverless/bistro-nord-backend/dev/1733359026433-2024-12-05T00:37:06.433Z/awssdk.zip",
             "Export": {
               "Name": "sls-bistro-nord-backend-dev-AwssdkLambdaLayerS3Key"
             }
@@ -537,7 +542,7 @@
           "BookATableLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "BookATableLambdaVersionsDbmF3f7qOJTdUwR4psbDYgg12tahH2NFRyHf48U"
+              "Ref": "BookATableLambdaVersionp1kKhXHh68MylKzR4eoK1QxNL2poIFo2A6V8ekHUB50"
             },
             "Export": {
               "Name": "sls-bistro-nord-backend-dev-BookATableLambdaFunctionQualifiedArn"
@@ -670,6 +675,9 @@
         "role": {
           "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"BookATableLambdaFunction\"][\"Properties\"][\"Role\"]"
         },
+        "environment": {
+          "TABLE_NAME": "BookATable"
+        },
         "layers": {
           "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"BookATableLambdaFunction\"][\"Properties\"][\"Layers\"]"
         },
@@ -695,7 +703,7 @@
         "timeout": 6,
         "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "BookATableLambdaVersionsDbmF3f7qOJTdUwR4psbDYgg12tahH2NFRyHf48U"
+        "versionLogicalId": "BookATableLambdaVersionp1kKhXHh68MylKzR4eoK1QxNL2poIFo2A6V8ekHUB50"
       }
     },
     "resources": {
@@ -934,7 +942,7 @@
         ],
         "artifactsS3KeyDirname": "serverless/bistro-nord-backend/dev/code-artifacts",
         "artifact": "/github/workspace/.serverless/bistro-nord-backend.zip",
-        "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1733358165782-2024-12-05T00:22:45.782Z"
+        "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1733359026433-2024-12-05T00:37:06.433Z"
       },
       "layers": {
         "awssdk": {
@@ -961,7 +969,7 @@
     "artifact": "/github/workspace/.serverless/bistro-nord-backend.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1733358165782-2024-12-05T00:22:45.782Z",
+    "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1733359026433-2024-12-05T00:37:06.433Z",
     "artifact": "bistro-nord-backend.zip"
   }
 }

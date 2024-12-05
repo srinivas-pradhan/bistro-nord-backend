@@ -16,7 +16,8 @@ export const BookATable = async (event) => {
     statusCode: 200,
     body: JSON.stringify({
       message: {
-        "REGION": process.env.AWS_DEFAULT_REGION
+        "REGION": process.env.AWS_DEFAULT_REGION,
+        "DYNAMO_TABLE": process.env.TABLE_NAME
       },
     }),
   };

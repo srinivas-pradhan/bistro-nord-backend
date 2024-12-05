@@ -1,6 +1,8 @@
 bookATable:
   handler: src/bookATable/handler.BookATable
   role: !GetAtt WriteDynamoDBRole.Arn
+  environment:
+      TABLE_NAME: ${file(./customvars.yml):DynamoDB.BookTable}
   layers:
     - { Ref: AwssdkLambdaLayer }
   events:

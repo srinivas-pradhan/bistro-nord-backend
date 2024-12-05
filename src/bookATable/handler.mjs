@@ -1,4 +1,4 @@
-import { BookTableDB } from "@src/core/dynamodb";
+import { BookTableDB } from "@opt/nodejs/core/dynamodb.js";
 
 export const BookATable = async (event) => {
   const client = new DynamoDBClient({ region: process.env.AWS_DEFAULT_REGION });

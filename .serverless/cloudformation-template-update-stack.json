@@ -77,6 +77,19 @@
         "LogGroupName": "/aws/lambda/bistro-nord-backend-dev-bookATable"
       }
     },
+    "CoreLambdaLayer": {
+      "Type": "AWS::Lambda::LayerVersion",
+      "Properties": {
+        "Content": {
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/bistro-nord-backend/dev/1733420052820-2024-12-05T17:34:12.820Z/core.zip"
+        },
+        "LayerName": "core",
+        "Description": "Core Code from this project bistro-nord-backend."
+      }
+    },
     "AwssdkLambdaLayer": {
       "Type": "AWS::Lambda::LayerVersion",
       "Properties": {
@@ -97,7 +110,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/bistro-nord-backend/dev/1733419353321-2024-12-05T17:22:33.321Z/bistro-nord-backend.zip"
+          "S3Key": "serverless/bistro-nord-backend/dev/1733420052820-2024-12-05T17:34:12.820Z/bistro-nord-backend.zip"
         },
         "Handler": "src/bookATable/handler.BookATable",
         "Runtime": "nodejs20.x",
@@ -118,6 +131,9 @@
         "Layers": [
           {
             "Ref": "AwssdkLambdaLayer"
+          },
+          {
+            "Ref": "CoreLambdaLayer"
           }
         ]
       },
@@ -126,14 +142,14 @@
         "WriteDynamoDBRole"
       ]
     },
-    "BookATableLambdaVersionagPTLIqtW3zTnoFyzsh5lP9LmJ24J5gHC3oi0Qs4": {
+    "BookATableLambdaVersionrltNfbjQjRpQ38LXCKKpnLyVDruUzZRQjzwhUQitRN4": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "BookATableLambdaFunction"
         },
-        "CodeSha256": "aGg74DIl73QhPXPAAdaHJNhbsymEz6OHW33Uig4Qcvg="
+        "CodeSha256": "SVR0EUsVeWaAAtEnxt8oVLDJE4991encEbz2tHMiYJ4="
       }
     },
     "HttpApi": {
@@ -491,6 +507,29 @@
         "Name": "sls-bistro-nord-backend-dev-ServerlessDeploymentBucketName"
       }
     },
+    "CoreLambdaLayerQualifiedArn": {
+      "Description": "Current Lambda layer version",
+      "Value": {
+        "Ref": "CoreLambdaLayer"
+      },
+      "Export": {
+        "Name": "sls-bistro-nord-backend-dev-CoreLambdaLayerQualifiedArn"
+      }
+    },
+    "CoreLambdaLayerHash": {
+      "Description": "Current Lambda layer hash",
+      "Value": "48f7e954e967530dabd6357d585de49e81916a48",
+      "Export": {
+        "Name": "sls-bistro-nord-backend-dev-CoreLambdaLayerHash"
+      }
+    },
+    "CoreLambdaLayerS3Key": {
+      "Description": "Current Lambda layer S3Key",
+      "Value": "serverless/bistro-nord-backend/dev/1733420052820-2024-12-05T17:34:12.820Z/core.zip",
+      "Export": {
+        "Name": "sls-bistro-nord-backend-dev-CoreLambdaLayerS3Key"
+      }
+    },
     "AwssdkLambdaLayerQualifiedArn": {
       "Description": "Current Lambda layer version",
       "Value": {
@@ -517,7 +556,7 @@
     "BookATableLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "BookATableLambdaVersionagPTLIqtW3zTnoFyzsh5lP9LmJ24J5gHC3oi0Qs4"
+        "Ref": "BookATableLambdaVersionrltNfbjQjRpQ38LXCKKpnLyVDruUzZRQjzwhUQitRN4"
       },
       "Export": {
         "Name": "sls-bistro-nord-backend-dev-BookATableLambdaFunctionQualifiedArn"

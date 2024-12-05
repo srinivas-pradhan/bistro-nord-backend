@@ -6,16 +6,18 @@
 //     }),
 //   };
 // };
-import { DynamoDBClient, ListTablesCommand } from "@aws-sdk/client-dynamodb";
+import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
 
 export const BookATable = async (event) => {
-  const client = new DynamoDBClient({ region: "us-east-1" });
-  const command = new ListTablesCommand({});
-  const results = await client.send(command);
+  const client = new DynamoDBClient({ region: process.env.AWS_DEFAULT_REGION });
+  // const command = new PutItemCommand({});
+  // const results = await client.send(command);
   return {
     statusCode: 200,
     body: JSON.stringify({
-      message: JSON.parse(results),
+      message: {
+        "REGION": process.env.AWS_DEFAULT_REGION
+      },
     }),
   };
 };

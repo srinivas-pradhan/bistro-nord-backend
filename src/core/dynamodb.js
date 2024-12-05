@@ -1,18 +1,18 @@
-// import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
-import { DynamoDBClient, ListTablesCommand } from "@aws-sdk/client-dynamodb"; // ES Modules import
+import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
 
-exports.BookATable = async (event) => {
-    const client = new DynamoDBClient();
-    const input = { // ListTablesInput
-        ExclusiveStartTableName: "BookATable",
-        Limit: Number("3"),
-    };
-    const command = new ListTablesCommand(input);
-    return {
-      statusCode: 200,
-      body: JSON.stringify({
-        message: JSON.parse(command),
-      }),
-    };
-  };
+export const BookTableDB = async (db_name, curr_region, data={}) => {
+  const client = new DynamoDBClient({ region: curr_region });
+  const command = new PutItemCommand({
+    Item : {
+      'BookingId' : "O12345",
+      'Datetime' : 1733410897 
+    }
+  });
+  try {
+    const results = await client.send(command);
+    return results
+  } catch (error) {
+    console.log(error)
+  }
 
+}

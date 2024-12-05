@@ -23,9 +23,9 @@ layers:
     path: aws-sdk-layer
     description: SDK Layer for AWS Node Package.
   core:
-      path: src/core
+      path: src
       description: Core Code from this project bistro-nord-backend.
-      
+
 functions:
   - ${file(lambda/resources.yml)}
 

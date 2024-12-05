@@ -7,4 +7,5 @@ DynamoDB:
   BookTable: BookATable
 IAM:
   WriteBookTableRole: WriteDynamoDBRole
+  CloudWatchPolicy: CloudWatchLogPolicy
   WriteBookTablePolicy: WriteDynamoDBPolicy

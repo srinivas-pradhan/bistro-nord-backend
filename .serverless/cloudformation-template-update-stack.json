@@ -84,7 +84,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/bistro-nord-backend/dev/1733485453516-2024-12-06T11:44:13.516Z/awssdk.zip"
+          "S3Key": "serverless/bistro-nord-backend/dev/1733485824582-2024-12-06T11:50:24.582Z/awssdk.zip"
         },
         "LayerName": "awssdk",
         "Description": "SDK Layer for AWS Node Package."
@@ -97,7 +97,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/bistro-nord-backend/dev/1733485592596-2024-12-06T11:46:32.596Z/bistro-nord-backend.zip"
+          "S3Key": "serverless/bistro-nord-backend/dev/1733485824582-2024-12-06T11:50:24.582Z/bistro-nord-backend.zip"
         },
         "Handler": "src/bookATable/handler.BookATable",
         "Runtime": "nodejs20.x",
@@ -126,14 +126,14 @@
         "WriteDynamoDBRole"
       ]
     },
-    "BookATableLambdaVersiongagYMcLK5IMy1fowstTkn2MTwvIlauGaM2PWdqvzY74": {
+    "BookATableLambdaVersionFGnO1pMbUHRfgQdFMp79wZaObmzh7HIxdxFINnNuhZc": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "BookATableLambdaFunction"
         },
-        "CodeSha256": "YMfb7MrSVHmw+2g5NawrDJfhR84rlO0FFaC6tR3zE4M="
+        "CodeSha256": "+LCscrVXXAH6m0/8YxSlbprJRzPRqxQOvl+8P2mIc8o="
       }
     },
     "HttpApi": {
@@ -502,14 +502,14 @@
     },
     "AwssdkLambdaLayerHash": {
       "Description": "Current Lambda layer hash",
-      "Value": "9090ffc640c2752c8d15c74d161c366e05e9e0a0",
+      "Value": "5d2e57a1fb287f498a33ec98bb0a8668a4630b0e",
       "Export": {
         "Name": "sls-bistro-nord-backend-dev-AwssdkLambdaLayerHash"
       }
     },
     "AwssdkLambdaLayerS3Key": {
       "Description": "Current Lambda layer S3Key",
-      "Value": "serverless/bistro-nord-backend/dev/1733485453516-2024-12-06T11:44:13.516Z/awssdk.zip",
+      "Value": "serverless/bistro-nord-backend/dev/1733485824582-2024-12-06T11:50:24.582Z/awssdk.zip",
       "Export": {
         "Name": "sls-bistro-nord-backend-dev-AwssdkLambdaLayerS3Key"
       }
@@ -517,7 +517,7 @@
     "BookATableLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "BookATableLambdaVersiongagYMcLK5IMy1fowstTkn2MTwvIlauGaM2PWdqvzY74"
+        "Ref": "BookATableLambdaVersionFGnO1pMbUHRfgQdFMp79wZaObmzh7HIxdxFINnNuhZc"
       },
       "Export": {
         "Name": "sls-bistro-nord-backend-dev-BookATableLambdaFunctionQualifiedArn"

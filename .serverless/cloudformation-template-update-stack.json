@@ -2,6 +2,75 @@
   "AWSTemplateFormatVersion": "2010-09-09",
   "Description": "The AWS CloudFormation template for this Serverless application",
   "Resources": {
+    "ServerlessDeploymentBucket": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "AES256"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "ServerlessDeploymentBucketPolicy": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {
+        "Bucket": {
+          "Ref": "ServerlessDeploymentBucket"
+        },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:*",
+              "Effect": "Deny",
+              "Principal": "*",
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":s3:::",
+                      {
+                        "Ref": "ServerlessDeploymentBucket"
+                      },
+                      "/*"
+                    ]
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":s3:::",
+                      {
+                        "Ref": "ServerlessDeploymentBucket"
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "Condition": {
+                "Bool": {
+                  "aws:SecureTransport": false
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
     "BookATableLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
@@ -12,15 +81,10 @@
       "Type": "AWS::Lambda::LayerVersion",
       "Properties": {
         "Content": {
-<<<<<<< Updated upstream
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/bistro-nord-backend/dev/1733431577720-2024-12-05T20:46:17.720Z/awssdk.zip"
-=======
-          "S3Bucket": "serverless-framework-deployments-us-east-1-5da0ce13-3bc7",
-          "S3Key": "serverless/bistro-nord-backend/dev/1733484826848-2024-12-06T11:33:46.848Z/awssdk.zip"
->>>>>>> Stashed changes
+          "S3Key": "serverless/bistro-nord-backend/dev/1733485128980-2024-12-06T11:38:48.980Z/awssdk.zip"
         },
         "LayerName": "awssdk",
         "Description": "SDK Layer for AWS Node Package."
@@ -30,15 +94,10 @@
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
-<<<<<<< Updated upstream
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/bistro-nord-backend/dev/1733431577720-2024-12-05T20:46:17.720Z/bistro-nord-backend.zip"
-=======
-          "S3Bucket": "serverless-framework-deployments-us-east-1-5da0ce13-3bc7",
-          "S3Key": "serverless/bistro-nord-backend/dev/1733484906817-2024-12-06T11:35:06.817Z/bistro-nord-backend.zip"
->>>>>>> Stashed changes
+          "S3Key": "serverless/bistro-nord-backend/dev/1733485128980-2024-12-06T11:38:48.980Z/bistro-nord-backend.zip"
         },
         "Handler": "src/bookATable/handler.BookATable",
         "Runtime": "nodejs20.x",
@@ -67,22 +126,14 @@
         "WriteDynamoDBRole"
       ]
     },
-<<<<<<< Updated upstream
-    "BookATableLambdaVersionech6TBG0oJcDLS433Ug3XK93BV4ti2Y8abush6W0": {
-=======
-    "BookATableLambdaVersionCcN4d9Z27ywR7G2sqOQwZnD8lzVoLjz7pHOtTlpqqI": {
->>>>>>> Stashed changes
+    "BookATableLambdaVersion4FnUTT681SywRuUlkw0IrdPakOx2WOM4LZ1nt9ABU": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "BookATableLambdaFunction"
         },
-<<<<<<< Updated upstream
-        "CodeSha256": "hJ+awClrFJuXPWZ2GqktNAcq2lYTZ5MsDxFOPfoiuC4="
-=======
-        "CodeSha256": "cY1qU0f9XVFFI9LEF99/pXos0FXTA9jgXNgMrBEyhEE="
->>>>>>> Stashed changes
+        "CodeSha256": "Nw1ld0J1WmKHe8tJpjjIlyNzGHLatJmrzhuX+4YvDfA="
       }
     },
     "HttpApi": {
@@ -432,7 +483,9 @@
   },
   "Outputs": {
     "ServerlessDeploymentBucketName": {
-      "Value": "serverless-framework-deployments-us-east-1-5da0ce13-3bc7",
+      "Value": {
+        "Ref": "ServerlessDeploymentBucket"
+      },
       "Export": {
         "Name": "sls-bistro-nord-backend-dev-ServerlessDeploymentBucketName"
       }
@@ -448,22 +501,14 @@
     },
     "AwssdkLambdaLayerHash": {
       "Description": "Current Lambda layer hash",
-<<<<<<< Updated upstream
       "Value": "5d2e57a1fb287f498a33ec98bb0a8668a4630b0e",
-=======
-      "Value": "3404e1ce6dd41fed2c56368c97b0b9107c40cbd7",
->>>>>>> Stashed changes
       "Export": {
         "Name": "sls-bistro-nord-backend-dev-AwssdkLambdaLayerHash"
       }
     },
     "AwssdkLambdaLayerS3Key": {
       "Description": "Current Lambda layer S3Key",
-<<<<<<< Updated upstream
-      "Value": "serverless/bistro-nord-backend/dev/1733431577720-2024-12-05T20:46:17.720Z/awssdk.zip",
-=======
-      "Value": "serverless/bistro-nord-backend/dev/1733484826848-2024-12-06T11:33:46.848Z/awssdk.zip",
->>>>>>> Stashed changes
+      "Value": "serverless/bistro-nord-backend/dev/1733485128980-2024-12-06T11:38:48.980Z/awssdk.zip",
       "Export": {
         "Name": "sls-bistro-nord-backend-dev-AwssdkLambdaLayerS3Key"
       }
@@ -471,11 +516,7 @@
     "BookATableLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-<<<<<<< Updated upstream
-        "Ref": "BookATableLambdaVersionech6TBG0oJcDLS433Ug3XK93BV4ti2Y8abush6W0"
-=======
-        "Ref": "BookATableLambdaVersionCcN4d9Z27ywR7G2sqOQwZnD8lzVoLjz7pHOtTlpqqI"
->>>>>>> Stashed changes
+        "Ref": "BookATableLambdaVersion4FnUTT681SywRuUlkw0IrdPakOx2WOM4LZ1nt9ABU"
       },
       "Export": {
         "Name": "sls-bistro-nord-backend-dev-BookATableLambdaFunctionQualifiedArn"

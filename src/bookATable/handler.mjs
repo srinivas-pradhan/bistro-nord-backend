@@ -23,7 +23,7 @@ export const BookATable = async (event) => {
         "S": "OTTA12345"
       },
       "Datetime": {
-        "S": "1733410897"
+        "N": 1733410897
       }
     },
     "TableName": process.env.TABLE_NAME

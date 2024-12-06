@@ -2,29 +2,35 @@ import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
 
 export const BookATable = async (event) => {
   const client = new DynamoDBClient({ region: process.env.AWS_DEFAULT_REGION });
-  const input = {
-    "Item": {
-      "AlbumTitle": {
-        "S": "Somewhat Famous"
-      },
-      "Artist": {
-        "S": "No One You Know"
-      },
-      "SongTitle": {
-        "S": "Call Me Today"
-      }
-    },
-    "ReturnConsumedCapacity": "TOTAL",
-    "TableName": process.env.TABLE_NAME
-  };
+  // Check if the same user has same reservation, time, location already in place.
+    // Logic - Find bookingDatetime reference using BookingDateTime and then find the userID
+
+  //If so - return relevant error code and cancel adding the booking.
+  // If not then
+  // Get the LastID using the GetItemCommand
+  // Increment the LASTID + 1 and then set that as the new booking ID.
+  // Add the data to the DynamoDB table.
+ 
   const command = new PutItemCommand({
     "Item" : {
       "BookingId": {
-        "S": "OTTA12345"
+        "S": "10000"
       },
-      "Datetime": {
-        "N": 1733410897
-      }
+      "BookingRef": {
+        "S": "OTTA_srinivaspradhan@gmail.com_1735752600"
+      },
+      "BookingNumber": {
+        "N": "OTTA_10000"
+      },
+      "RestaurantID": {
+        "S": "OTTA"
+      },
+      "BookingDateTime": {
+        "S": "1735752600"
+      },
+      "UserID": {
+        "S": "srinivaspradhan@gmail.com"
+      },
     },
     "TableName": process.env.TABLE_NAME
   });
@@ -39,32 +45,5 @@ export const BookATable = async (event) => {
   } catch (error) {
     console.log(error)
   }
-  // return {
-  //   statusCode: 200,
-  //   body: JSON.stringify({
-  //     message: {
-  //       "REGION": process.env.AWS_DEFAULT_REGION,
-  //       "DYNAMO_TABLE": process.env.TABLE_NAME,
-  //       "event": event
-  //     },
-  //   }),
-  // };
+
 };
-// import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
-
-// const BookTableDB = async (db_name, curr_region, data={}) => {
-//   const client = new DynamoDBClient({ region: curr_region });
-//   const command = new PutItemCommand({
-//     Item : {
-//       'BookingId' : "O12345",
-//       'Datetime' : 1733410897 
-//     }
-//   });
-//   try {
-//     const results = await client.send(command);
-//     return results
-//   } catch (error) {
-//     console.log(error)
-//   }
-
-// }

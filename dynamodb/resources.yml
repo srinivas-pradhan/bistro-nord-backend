@@ -8,14 +8,14 @@ Resources:
           AttributeName: "BookingId"
           AttributeType: "S"
         - 
-          AttributeName: "Datetime"
-          AttributeType: "N"
+          AttributeName: "BookingRef"
+          AttributeType: "S"
       KeySchema:
         -
           AttributeName: "BookingId"
           KeyType: "HASH"
         - 
-          AttributeName: "Datetime"
+          AttributeName: "BookingRef"
           KeyType: "RANGE"
       ProvisionedThroughput:
         ReadCapacityUnits: 10

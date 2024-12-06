@@ -5,7 +5,6 @@ bookATable:
       TABLE_NAME: ${file(./customvars.yml):DynamoDB.BookTable}
   layers:
     - { Ref: AwssdkLambdaLayer }
-    - { Ref: CoreLambdaLayer }
   events:
     - httpApi:
         method: POST

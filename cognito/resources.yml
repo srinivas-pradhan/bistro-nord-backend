@@ -15,7 +15,7 @@ Resources:
     Type: AWS::Cognito::UserPoolClient
     Properties:
       ClientName: ${file(./customvars.yml):serviceName}-${file(./customvars.yml):Cognito}-client
-      # AccessTokenValidity: 1440
+      AccessTokenValidity: 24
       UserPoolId:
         Ref: CognitoUserPool
       GenerateSecret: ${file(./customvars.yml):CognitoClientSecret}

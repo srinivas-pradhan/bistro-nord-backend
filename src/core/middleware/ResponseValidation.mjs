@@ -12,4 +12,4 @@ export const BookATableSchema = {
         type: "object",
       },
     },
-  };
+};

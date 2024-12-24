@@ -1,11 +1,23 @@
-import { 
-  DynamoDBClient, 
-  PutItemCommand, 
-  GetItemCommand 
-} from "@aws-sdk/client-dynamodb";
-import { Hello } from '../core/hello.mjs';
+import { ValidateDate } from '../core/middleware/utils/GenericUtils.mjs';
+import { BookATableSchema as Request } from '../core/middleware/RequestValidation.mjs';
+import { BookATableSchema as Response } from "../core/middleware/ResponseValidation.mjs";
+import { init as DDB } from "../core/dynamodb/dynamoInteractor.mjs";
+import { Exception } from "../core/middleware/Exception.mjs";
 
-export const BookATable = async (event) => {
+import middy from "@middy/core";
+import validator from "@middy/validator";
+import httpErrorHandler from "@middy/http-error-handler";
+import jsonBodyParser from "@middy/http-json-body-parser";
+
+
+const BookATable = async (event) => {
+  const  {
+    fname,
+    lname,
+    email,
+    datetime, // Convert this to unix time
+    count
+  } = event.body
   // const client = new DynamoDBClient({ region: process.env.AWS_DEFAULT_REGION });
   
   // Check if the same user has same reservation, time, location already in place.
@@ -41,8 +53,6 @@ export const BookATable = async (event) => {
   //   "TableName": process.env.TABLE_NAME
   // });
   try {
-    // const results = await client.send(command);
-    Hello()
     return {
       statusCode: 201,
       body: JSON.stringify({
@@ -54,3 +64,15 @@ export const BookATable = async (event) => {
   }
 
 };
+
+const TableBookHandler = middy(BookATable)
+  .use(jsonBodyParser())
+  .use(
+    validator({
+      Request,
+      Response
+    })
+  )
+  .use(httpErrorHandler());
+
+export { TableBookHandler };

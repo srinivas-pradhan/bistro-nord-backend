@@ -128,7 +128,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/bistro-nord-backend/dev/1735056629358-2024-12-24T16:10:29.358Z/middysdk.zip"
+                "S3Key": "serverless/bistro-nord-backend/dev/1735170247141-2024-12-25T23:44:07.141Z/middysdk.zip"
               },
               "LayerName": "middysdk",
               "Description": "Middy Layer for JS Middleware Setup."
@@ -141,7 +141,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/bistro-nord-backend/dev/1735169773902-2024-12-25T23:36:13.902Z/bistro-nord-backend.zip"
+                "S3Key": "serverless/bistro-nord-backend/dev/1735170247141-2024-12-25T23:44:07.141Z/bistro-nord-backend.zip"
               },
               "Handler": "src/bookATable/handler.TableBookHandler",
               "Runtime": "nodejs20.x",
@@ -173,7 +173,7 @@
               "WriteDynamoDBRole"
             ]
           },
-          "BookATableLambdaVersionGjGHkBIwcvvco5EJAz4d9vGoT5cqcra8rgTEagLLNv0": {
+          "BookATableLambdaVersionCFEnKXMS3R75jB5D8ixFoDSwI3Gza5X1PYPq0vgMk": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
@@ -567,14 +567,14 @@
           },
           "MiddysdkLambdaLayerHash": {
             "Description": "Current Lambda layer hash",
-            "Value": "84628b6ea026dceaf960f18cb26e20e69d7de426",
+            "Value": "b381d179b50619891a1c0c90cd08671dd7426304",
             "Export": {
               "Name": "sls-bistro-nord-backend-dev-MiddysdkLambdaLayerHash"
             }
           },
           "MiddysdkLambdaLayerS3Key": {
             "Description": "Current Lambda layer S3Key",
-            "Value": "serverless/bistro-nord-backend/dev/1735056629358-2024-12-24T16:10:29.358Z/middysdk.zip",
+            "Value": "serverless/bistro-nord-backend/dev/1735170247141-2024-12-25T23:44:07.141Z/middysdk.zip",
             "Export": {
               "Name": "sls-bistro-nord-backend-dev-MiddysdkLambdaLayerS3Key"
             }
@@ -582,7 +582,7 @@
           "BookATableLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "BookATableLambdaVersionGjGHkBIwcvvco5EJAz4d9vGoT5cqcra8rgTEagLLNv0"
+              "Ref": "BookATableLambdaVersionCFEnKXMS3R75jB5D8ixFoDSwI3Gza5X1PYPq0vgMk"
             },
             "Export": {
               "Name": "sls-bistro-nord-backend-dev-BookATableLambdaFunctionQualifiedArn"
@@ -743,7 +743,7 @@
         "timeout": 6,
         "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "BookATableLambdaVersionGjGHkBIwcvvco5EJAz4d9vGoT5cqcra8rgTEagLLNv0"
+        "versionLogicalId": "BookATableLambdaVersionCFEnKXMS3R75jB5D8ixFoDSwI3Gza5X1PYPq0vgMk"
       }
     },
     "resources": {
@@ -983,7 +983,7 @@
         ],
         "artifactsS3KeyDirname": "serverless/bistro-nord-backend/dev/code-artifacts",
         "artifact": "/github/workspace/.serverless/bistro-nord-backend.zip",
-        "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1735169773902-2024-12-25T23:36:13.902Z"
+        "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1735170247141-2024-12-25T23:44:07.141Z"
       },
       "layers": {
         "awssdk": {
@@ -999,8 +999,7 @@
           "description": "Middy Layer for JS Middleware Setup.",
           "package": {
             "artifact": "/github/workspace/.serverless/middysdk.zip"
-          },
-          "artifactAlreadyUploaded": true
+          }
         }
       },
       "functions": {
@@ -1019,7 +1018,7 @@
     "artifact": "/github/workspace/.serverless/bistro-nord-backend.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1735169773902-2024-12-25T23:36:13.902Z",
+    "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1735170247141-2024-12-25T23:44:07.141Z",
     "artifact": "bistro-nord-backend.zip"
   }
 }

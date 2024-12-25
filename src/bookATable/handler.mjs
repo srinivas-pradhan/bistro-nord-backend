@@ -1,4 +1,7 @@
-import { ValidateDate } from '../core/middleware/utils/GenericUtils.mjs';
+import { 
+  ValidateDate,
+  DateConverter
+ } from '../core/middleware/utils/GenericUtils.mjs';
 import { BookATableSchema as Request } from '../core/middleware/RequestValidation.mjs';
 import { BookATableSchema as Response } from "../core/middleware/ResponseValidation.mjs";
 import { init as DDB } from "../core/dynamodb/dynamoInteractor.mjs";
@@ -16,8 +19,18 @@ const BookATable = async (event) => {
     lname,
     email,
     datetime, // Convert this to unix time
-    count
-  } = event.body
+    count,
+    restaurantId
+  } = event.body;
+
+  const UnixDateTimeSeconds =  DateConverter(datetime);
+  const BookingRef = restaurantId + '_' + email + '_' + '' + UnixDateTimeSeconds;
+
+  const DBConnect = DDB(process.env.AWS_DEFAULT_REGION, process.env.TABLE_NAME );
+
+  const CheckBookingExists = DBConnect.CheckBookingExists(BookingRef);
+  console.log(CheckBookingExists)
+
   // const client = new DynamoDBClient({ region: process.env.AWS_DEFAULT_REGION });
   
   // Check if the same user has same reservation, time, location already in place.
@@ -56,7 +69,7 @@ const BookATable = async (event) => {
     return {
       statusCode: 201,
       body: JSON.stringify({
-        message: "results"
+        // message: "results"
       })
     }
   } catch (error) {

@@ -1,6 +1,6 @@
 export const BookATableSchema = {
     type: "object",
-    required: ["body", "statusCode"],
+    required: ["statusCode"],
     properties: {
       body: {
         type: "string",

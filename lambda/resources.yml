@@ -1,5 +1,5 @@
 bookATable:
-  handler: src/bookATable/handler.TableBookHandler
+  handler: src/bookATable/handler.BookATable
   role: !GetAtt WriteDynamoDBRole.Arn
   environment:
       TABLE_NAME: ${file(./customvars.yml):DynamoDB.BookTable}

@@ -7,13 +7,13 @@ import { BookATableSchema as Response } from "../core/middleware/ResponseValidat
 import { init as DDB } from "../core/dynamodb/dynamoInteractor.mjs";
 import { Exception } from "../core/middleware/Exception.mjs";
 
-import middy from "@middy/core";
-import validator from "@middy/validator";
-import httpErrorHandler from "@middy/http-error-handler";
-import jsonBodyParser from "@middy/http-json-body-parser";
+// import middy from "@middy/core";
+// import validator from "@middy/validator";
+// import httpErrorHandler from "@middy/http-error-handler";
+// import jsonBodyParser from "@middy/http-json-body-parser";
 
 
-const BookATable = async (event) => {
+export const BookATable = async (event) => {
   const  {
     fname,
     lname,

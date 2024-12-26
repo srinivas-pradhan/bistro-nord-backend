@@ -4,7 +4,7 @@ import {
  } from '../core/middleware/utils/GenericUtils.mjs';
 import { BookATableSchema as Request } from '../core/middleware/RequestValidation.mjs';
 import { BookATableSchema as Response } from "../core/middleware/ResponseValidation.mjs";
-import { init as DDB } from "../core/dynamodb/dynamoInteractor.mjs";
+import { DynamoInteractor as DDB } from "../core/dynamodb/DynamoInteractor.mjs";
 import { Exception } from "../core/middleware/Exception.mjs";
 
 // import middy from "@middy/core";
@@ -14,22 +14,25 @@ import { Exception } from "../core/middleware/Exception.mjs";
 
 
 export const BookATable = async (event) => {
-  const  {
-    fname,
-    lname,
-    email,
-    datetime, // Convert this to unix time
-    count,
-    restaurantId
-  } = event.body;
+  // const  {
+  //   fname,
+  //   lname,
+  //   email,
+  //   datetime, // Convert this to unix time
+  //   count,
+  //   restaurantId
+  // } = event.body;
 
-  const UnixDateTimeSeconds =  DateConverter(datetime);
-  const BookingRef = restaurantId + '_' + email + '_' + '' + UnixDateTimeSeconds;
+  // const UnixDateTimeSeconds =  DateConverter(datetime);
+  const UnixDateTimeSeconds =  DateConverter("2025-12-25 6:30 pm");
+  // const BookingRef = restaurantId + '_' + email + '_' + '' + UnixDateTimeSeconds;
+  const BookingRef = "OTTA" + '_' + "srinivaspradhan64@gmail.com" + '_' + '' + UnixDateTimeSeconds;
 
-  const DBConnect = DDB(process.env.AWS_DEFAULT_REGION, process.env.TABLE_NAME );
+  console.log(BookingRef)
+  const DBConnect = new DDB(process.env.AWS_DEFAULT_REGION, process.env.TABLE_NAME );
 
   const CheckBookingExists = DBConnect.CheckBookingExists(BookingRef);
-  console.log(CheckBookingExists)
+  //console.log(CheckBookingExists)
 
   // const client = new DynamoDBClient({ region: process.env.AWS_DEFAULT_REGION });
   
@@ -69,7 +72,7 @@ export const BookATable = async (event) => {
     return {
       statusCode: 201,
       body: JSON.stringify({
-        // message: "results"
+        message: CheckBookingExists
       })
     }
   } catch (error) {
@@ -78,14 +81,14 @@ export const BookATable = async (event) => {
 
 };
 
-const TableBookHandler = middy(BookATable)
-  .use(jsonBodyParser())
-  .use(
-    validator({
-      Request,
-      Response
-    })
-  )
-  .use(httpErrorHandler());
+// const TableBookHandler = middy(BookATable)
+//   .use(jsonBodyParser())
+//   .use(
+//     validator({
+//       Request,
+//       Response
+//     })
+//   )
+//   .use(httpErrorHandler());
 
-export { TableBookHandler };
+// export { TableBookHandler };

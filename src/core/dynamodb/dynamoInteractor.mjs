@@ -4,12 +4,14 @@ import {
     GetItemCommand 
 } from "@aws-sdk/client-dynamodb";
 
-export function init(Region, Table) {
-    this.Region = Region;
-    this.Table = Table;
-    const client = new DynamoDBClient({ region: this.Region });
+export class DynamoInteractor {
+    constructor(Region, Table) {
+        this.Region = Region;
+        this.Table = Table;
+    }
+    client = new DynamoDBClient({ region: this.Region });
 
-    this.PutDBItem = async function PutDBItem(Item) {
+    static PutDBItem = async function PutDBItem(Item) {
         const command = new PutItemCommand({
             "Item": Item,
             "TableName": this.Table
@@ -23,7 +25,7 @@ export function init(Region, Table) {
         }
     };
 
-    this.CheckIfBookingExists = async function CheckIfBookingExists(BookingRef) {
+    static CheckIfBookingExists = async function CheckIfBookingExists(BookingRef) {
         const command = new GetItemCommand({
             "Key": {
                 "S": BookingRef
@@ -39,7 +41,7 @@ export function init(Region, Table) {
         }
     };
 
-    this.GetLastId = async function GetLastId() {
+    static GetLastId = async function GetLastId() {
         const command = new GetItemCommand({
             "Key": {
                 "S": "UserMetadata"
@@ -55,7 +57,7 @@ export function init(Region, Table) {
         }
     };
 
-    this.IncrementLastId = async function IncrementLastId(ItemCount) {
+    static IncrementLastId = async function IncrementLastId(ItemCount) {
         var IncrementValue = Number(ItemCount) + 1
         const command = new PutItemCommand({
             "Item": {
@@ -73,4 +75,6 @@ export function init(Region, Table) {
             return error.name
         }
     };
-}
+};
+
+

@@ -115,7 +115,11 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
+<<<<<<< Updated upstream
                 "S3Key": "serverless/bistro-nord-backend/dev/1735255652755-2024-12-26T23:27:32.755Z/middysdk.zip"
+=======
+                "S3Key": "serverless/bistro-nord-backend/dev/1735184382903-2024-12-26T03:39:42.903Z/middysdk.zip"
+>>>>>>> Stashed changes
               },
               "LayerName": "middysdk",
               "Description": "Middy Layer for JS Middleware Setup."
@@ -128,7 +132,11 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
+<<<<<<< Updated upstream
                 "S3Key": "serverless/bistro-nord-backend/dev/1735255652755-2024-12-26T23:27:32.755Z/awssdk.zip"
+=======
+                "S3Key": "serverless/bistro-nord-backend/dev/1735184382903-2024-12-26T03:39:42.903Z/awssdk.zip"
+>>>>>>> Stashed changes
               },
               "LayerName": "awssdk",
               "Description": "SDK Layer for AWS Node Package."
@@ -141,7 +149,11 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
+<<<<<<< Updated upstream
                 "S3Key": "serverless/bistro-nord-backend/dev/1735308583853-2024-12-27T14:09:43.853Z/bistro-nord-backend.zip"
+=======
+                "S3Key": "serverless/bistro-nord-backend/dev/1735184382903-2024-12-26T03:39:42.903Z/bistro-nord-backend.zip"
+>>>>>>> Stashed changes
               },
               "Handler": "src/bookATable/handler.BookATable",
               "Runtime": "nodejs20.x",
@@ -173,14 +185,22 @@
               "WriteDynamoDBRole"
             ]
           },
+<<<<<<< Updated upstream
           "BookATableLambdaVersion1QS5r4QLUaCgsK8vsw21d3ld72jeyA0WGQI9ym3bCF0": {
+=======
+          "BookATableLambdaVersioncc66MjHu66kza3blpQlItmnaUbRmhrr3jpvyvNtDW7o": {
+>>>>>>> Stashed changes
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "BookATableLambdaFunction"
               },
+<<<<<<< Updated upstream
               "CodeSha256": "HVZoJnGZ1tCwBhtYhHq8mKtu0X7zb69JTQ6CUibMvZU="
+=======
+              "CodeSha256": "MAXUoR09KXol26tmABM2r+EeIQtWDzsNbeNTu33nzq0="
+>>>>>>> Stashed changes
             }
           },
           "HttpApi": {
@@ -551,7 +571,11 @@
           },
           "MiddysdkLambdaLayerS3Key": {
             "Description": "Current Lambda layer S3Key",
+<<<<<<< Updated upstream
             "Value": "serverless/bistro-nord-backend/dev/1735255652755-2024-12-26T23:27:32.755Z/middysdk.zip",
+=======
+            "Value": "serverless/bistro-nord-backend/dev/1735184382903-2024-12-26T03:39:42.903Z/middysdk.zip",
+>>>>>>> Stashed changes
             "Export": {
               "Name": "sls-bistro-nord-backend-dev-MiddysdkLambdaLayerS3Key"
             }
@@ -574,7 +598,11 @@
           },
           "AwssdkLambdaLayerS3Key": {
             "Description": "Current Lambda layer S3Key",
+<<<<<<< Updated upstream
             "Value": "serverless/bistro-nord-backend/dev/1735255652755-2024-12-26T23:27:32.755Z/awssdk.zip",
+=======
+            "Value": "serverless/bistro-nord-backend/dev/1735184382903-2024-12-26T03:39:42.903Z/awssdk.zip",
+>>>>>>> Stashed changes
             "Export": {
               "Name": "sls-bistro-nord-backend-dev-AwssdkLambdaLayerS3Key"
             }
@@ -582,7 +610,11 @@
           "BookATableLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
+<<<<<<< Updated upstream
               "Ref": "BookATableLambdaVersion1QS5r4QLUaCgsK8vsw21d3ld72jeyA0WGQI9ym3bCF0"
+=======
+              "Ref": "BookATableLambdaVersioncc66MjHu66kza3blpQlItmnaUbRmhrr3jpvyvNtDW7o"
+>>>>>>> Stashed changes
             },
             "Export": {
               "Name": "sls-bistro-nord-backend-dev-BookATableLambdaFunctionQualifiedArn"
@@ -743,7 +775,11 @@
         "timeout": 6,
         "runtime": "nodejs20.x",
         "vpc": {},
+<<<<<<< Updated upstream
         "versionLogicalId": "BookATableLambdaVersion1QS5r4QLUaCgsK8vsw21d3ld72jeyA0WGQI9ym3bCF0"
+=======
+        "versionLogicalId": "BookATableLambdaVersioncc66MjHu66kza3blpQlItmnaUbRmhrr3jpvyvNtDW7o"
+>>>>>>> Stashed changes
       }
     },
     "resources": {
@@ -983,7 +1019,11 @@
         ],
         "artifactsS3KeyDirname": "serverless/bistro-nord-backend/dev/code-artifacts",
         "artifact": "/Users/srinivas/Documents/repos/bistro-nord-backend/.serverless/bistro-nord-backend.zip",
+<<<<<<< Updated upstream
         "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1735308583853-2024-12-27T14:09:43.853Z"
+=======
+        "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1735184382903-2024-12-26T03:39:42.903Z"
+>>>>>>> Stashed changes
       },
       "layers": {
         "awssdk": {
@@ -991,16 +1031,14 @@
           "description": "SDK Layer for AWS Node Package.",
           "package": {
             "artifact": "/Users/srinivas/Documents/repos/bistro-nord-backend/.serverless/awssdk.zip"
-          },
-          "artifactAlreadyUploaded": true
+          }
         },
         "middysdk": {
           "path": "middy-layer",
           "description": "Middy Layer for JS Middleware Setup.",
           "package": {
             "artifact": "/Users/srinivas/Documents/repos/bistro-nord-backend/.serverless/middysdk.zip"
-          },
-          "artifactAlreadyUploaded": true
+          }
         }
       },
       "functions": {
@@ -1019,7 +1057,11 @@
     "artifact": "/Users/srinivas/Documents/repos/bistro-nord-backend/.serverless/bistro-nord-backend.zip"
   },
   "package": {
+<<<<<<< Updated upstream
     "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1735308583853-2024-12-27T14:09:43.853Z",
+=======
+    "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1735184382903-2024-12-26T03:39:42.903Z",
+>>>>>>> Stashed changes
     "artifact": "bistro-nord-backend.zip"
   }
 }

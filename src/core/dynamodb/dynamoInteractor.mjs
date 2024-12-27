@@ -11,7 +11,7 @@ export class DynamoInteractor {
     }
     client = new DynamoDBClient({ region: this.Region });
 
-    static PutDBItem = async function PutDBItem(Item) {
+    static async PutDBItem(Item) {
         const command = new PutItemCommand({
             "Item": Item,
             "TableName": this.Table
@@ -25,7 +25,7 @@ export class DynamoInteractor {
         }
     };
 
-    static CheckIfBookingExists = async function CheckIfBookingExists(BookingRef) {
+    static async CheckIfBookingExists(BookingRef) {
         const command = new GetItemCommand({
             "Key": {
                 "S": BookingRef
@@ -41,7 +41,7 @@ export class DynamoInteractor {
         }
     };
 
-    static GetLastId = async function GetLastId() {
+    static async GetLastId() {
         const command = new GetItemCommand({
             "Key": {
                 "S": "UserMetadata"
@@ -57,8 +57,8 @@ export class DynamoInteractor {
         }
     };
 
-    static IncrementLastId = async function IncrementLastId(ItemCount) {
-        var IncrementValue = Number(ItemCount) + 1
+    static async IncrementLastId(ItemCount) {
+        const IncrementValue = Number(ItemCount) + 1
         const command = new PutItemCommand({
             "Item": {
                 "BookingRef": {
@@ -76,5 +76,3 @@ export class DynamoInteractor {
         }
     };
 };
-
-

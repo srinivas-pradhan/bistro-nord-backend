@@ -4,7 +4,7 @@ import {
  } from '../core/middleware/utils/GenericUtils.mjs';
 import { BookATableSchema as Request } from '../core/middleware/RequestValidation.mjs';
 import { BookATableSchema as Response } from "../core/middleware/ResponseValidation.mjs";
-import { DynamoInteractor as DDB } from "../core/dynamodb/DynamoInteractor.mjs";
+import { DynamoInteractor as DDB } from "../core/dynamodb/dynamoInteractor.mjs";
 import { Exception } from "../core/middleware/Exception.mjs";
 
 // import middy from "@middy/core";
@@ -29,10 +29,10 @@ export const BookATable = async (event) => {
   const BookingRef = "OTTA" + '_' + "srinivaspradhan64@gmail.com" + '_' + '' + UnixDateTimeSeconds;
 
   console.log(BookingRef)
-  const DBConnect = new DDB(process.env.AWS_DEFAULT_REGION, process.env.TABLE_NAME );
+  const DBConnect = await new DDB(process.env.AWS_DEFAULT_REGION, process.env.TABLE_NAME );
 
   const CheckBookingExists = DBConnect.CheckBookingExists(BookingRef);
-  //console.log(CheckBookingExists)
+  console.log(CheckBookingExists)
 
   // const client = new DynamoDBClient({ region: process.env.AWS_DEFAULT_REGION });
   
@@ -72,7 +72,7 @@ export const BookATable = async (event) => {
     return {
       statusCode: 201,
       body: JSON.stringify({
-        message: CheckBookingExists
+        message: BookingRef
       })
     }
   } catch (error) {

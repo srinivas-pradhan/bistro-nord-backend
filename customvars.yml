@@ -4,7 +4,7 @@ gitrepo: https://github.com/srinivas-pradhan/bistro-nord-backend
 Cognito: UserPool
 CognitoClientSecret: true
 DynamoDB:
-  BookTable: BookATable
+  BookTable: BookTable
 IAM:
   WriteBookTableRole: WriteDynamoDBRole
   CloudWatchPolicy: CloudWatchLogPolicy

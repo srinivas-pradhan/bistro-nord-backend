@@ -4,19 +4,19 @@ Resources:
     Properties:
       TableName: ${file(./customvars.yml):DynamoDB.BookTable}
       AttributeDefinitions:
-        - 
-          AttributeName: "BookingId"
-          AttributeType: "S"
+        # - 
+        #   AttributeName: "BookingId"
+        #   AttributeType: "S"
         - 
           AttributeName: "BookingRef"
           AttributeType: "S"
       KeySchema:
-        -
-          AttributeName: "BookingId"
-          KeyType: "HASH"
+        # -
+        #   AttributeName: "BookingId"
+        #   KeyType: "HASH"
         - 
           AttributeName: "BookingRef"
-          KeyType: "RANGE"
+          KeyType: "HASH" # Was RANGE before
       ProvisionedThroughput:
         ReadCapacityUnits: 10
         WriteCapacityUnits: 10

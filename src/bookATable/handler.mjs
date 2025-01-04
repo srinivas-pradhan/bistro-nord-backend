@@ -2,10 +2,14 @@ import {
   ValidateDate,
   DateConverter
  } from '../core/middleware/utils/GenericUtils.mjs';
-import { BookATableSchema as Request } from '../core/middleware/RequestValidation.mjs';
-import { BookATableSchema as Response } from "../core/middleware/ResponseValidation.mjs";
-import { DynamoInteractor as DDB } from "../core/dynamodb/dynamoInteractor.mjs";
-import { Exception } from "../core/middleware/Exception.mjs";
+// import { BookATableSchema as Request } from '../core/middleware/RequestValidation.mjs';
+// import { BookATableSchema as Response } from "../core/middleware/ResponseValidation.mjs";
+import { 
+  PutDBItem,
+  CheckIfBookingExists,
+  GetLastId,
+  IncrementLastId
+} from "../core/dynamodb/dynamoInteractor.mjs";
 
 // import middy from "@middy/core";
 // import validator from "@middy/validator";
@@ -14,25 +18,67 @@ import { Exception } from "../core/middleware/Exception.mjs";
 
 
 export const BookATable = async (event) => {
-  // const  {
-  //   fname,
-  //   lname,
-  //   email,
-  //   datetime, // Convert this to unix time
-  //   count,
-  //   restaurantId
-  // } = event.body;
+  const  {
+    fname,
+    lname,
+    email,
+    datetime,
+    count,
+    restaurantId
+  } = JSON.parse(event.body);
 
-  // const UnixDateTimeSeconds =  DateConverter(datetime);
-  const UnixDateTimeSeconds =  DateConverter("2025-12-25 6:30 pm");
-  // const BookingRef = restaurantId + '_' + email + '_' + '' + UnixDateTimeSeconds;
-  const BookingRef = "OTTA" + '_' + "srinivaspradhan64@gmail.com" + '_' + '' + UnixDateTimeSeconds;
+  const UnixDateTimeSeconds =  Math.round(Date.parse(datetime) / 1000);
+  const Prior30Mins = UnixDateTimeSeconds - (30*60);
+  const Latter30Mins = UnixDateTimeSeconds + (30*60);
+  const DateVal = ValidateDate(UnixDateTimeSeconds);
 
-  console.log(BookingRef)
-  const DBConnect = await new DDB(process.env.AWS_DEFAULT_REGION, process.env.TABLE_NAME );
+  const BookingRef = restaurantId + '_' + email + '_' + '' + UnixDateTimeSeconds;
+  const BookingRefPrior30Mins = restaurantId + '_' + email + '_' + '' + Prior30Mins;
+  const BookingRefLatter30Mins = restaurantId + '_' + email + '_' + '' + Latter30Mins;
 
-  const CheckBookingExists = DBConnect.CheckBookingExists(BookingRef);
-  console.log(CheckBookingExists)
+  const BookingExists = await CheckIfBookingExists(BookingRef);
+  const BookingExistsPrior30Mins = await CheckIfBookingExists(BookingRefPrior30Mins);
+  const BookingExistsLatter30Mins = await CheckIfBookingExists(BookingRefLatter30Mins);
+
+  const LastID = await GetLastId();
+
+
+  if (BookingExists.Item || BookingExistsPrior30Mins.Item || BookingExistsLatter30Mins.Item ) {
+    return {
+      statusCode: 400,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        val: 'BOOKING_EXISTS',
+        message: `Booking for the user ${email} on ${datetime} in ${restaurantId} already exists. You cannot add another reservation at the same location within that hour.`
+      })
+    };
+  }
+  if ( LastID.$metadata.httpStatusCode !== 200 ) {
+    return {
+      statusCode: 530,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        val: 'SITE_FROZEN',
+        message: 'Site is Frozen - Please Call Support.'
+      })
+    };
+  }
+  if (! DateVal) {
+    return {
+      statusCode: 400,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        val: "RESERVATION_EXISTS",
+        message: 'Reservation Date is in the past.',
+      })
+    };
+  }
 
   // const client = new DynamoDBClient({ region: process.env.AWS_DEFAULT_REGION });
   
@@ -54,7 +100,7 @@ export const BookATable = async (event) => {
   //       "S": "OTTA_srinivaspradhan@gmail.com_1735752600"
   //     },
   //     "BookingNumber": {
-  //       "N": "OTTA_10000"
+  //       "N": "OTTA10000"
   //     },
   //     "RestaurantID": {
   //       "S": "OTTA"
@@ -71,12 +117,25 @@ export const BookATable = async (event) => {
   try {
     return {
       statusCode: 201,
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
-        message: BookingRef
+        message: LastID.Item.Count.N,
+        data: BookingExists
       })
-    }
+    };
   } catch (error) {
     console.log(error)
+    return {
+      statusCode: 500,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        val: 'INTERNAL_SERVER_ERROR'
+      })
+    };
   }
 
 };

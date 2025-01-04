@@ -1,78 +1,80 @@
+'use strict';
+
 import { 
     DynamoDBClient, 
     PutItemCommand, 
     GetItemCommand 
 } from "@aws-sdk/client-dynamodb";
 
-export class DynamoInteractor {
-    constructor(Region, Table) {
-        this.Region = Region;
-        this.Table = Table;
+const Region = process.env.AWS_DEFAULT_REGION;
+const Table = process.env.TABLE_NAME;
+const client = new DynamoDBClient({ region: Region });
+
+export const PutDBItem = async function PutDBItem(Item) {
+    const command = new PutItemCommand({
+        "Item": Item,
+        "TableName": Table
+    });
+    try {
+        const results = await client.send(command);
+        return results
+        console.log(error)
+    } catch (error) {
+        return error.name
     }
-    client = new DynamoDBClient({ region: this.Region });
+};
 
-    static async PutDBItem(Item) {
-        const command = new PutItemCommand({
-            "Item": Item,
-            "TableName": this.Table
-        });
-        try {
-            const results = await client.send(command);
-            return results
-        } catch (error) {
-            console.log(error)
-            return error.name
-        }
-    };
-
-    static async CheckIfBookingExists(BookingRef) {
-        const command = new GetItemCommand({
-            "Key": {
+export const CheckIfBookingExists = async function CheckIfBookingExists(BookingRef) {
+    const command = new GetItemCommand({
+        "Key": {
+            "BookingRef": {
                 "S": BookingRef
-            },
-            "TableName": this.Table
-        })
-        try {
-            const results = await client.send(command);
-            return results
-        } catch (error) {
-            console.log(error)
-            return error.name
-        }
-    };
+            }
+        },
+        "TableName": Table
+    })
+    try {
+        const results = await client.send(command);
+        return results
+    } catch (error) {
+        console.log(error)
+        return error.name
+    }
+};
 
-    static async GetLastId() {
-        const command = new GetItemCommand({
-            "Key": {
+export const GetLastId = async function GetLastId() {
+    const command = new GetItemCommand({
+        "Key": {
+            "BookingRef": {
                 "S": "UserMetadata"
-            },
-            "TableName": this.Table
-        })
-        try {
-            const results = await client.send(command);
-            return results
-        } catch (error) {
-            console.log(error);
-            return error.name
-        }
-    };
+            }
+        },
+        "TableName": Table
+    })
+    try {
+        const results = await client.send(command);
+        return results
+    } catch (error) {
+        console.log(error);
+        return error.name
+    }
+};
 
-    static async IncrementLastId(ItemCount) {
-        const IncrementValue = Number(ItemCount) + 1
-        const command = new PutItemCommand({
-            "Item": {
-                "BookingRef": {
-                    "S": IncrementValue
-                }
-            },
-            "TableName": this.Table
-        });
-        try {
-            const results = await client.send(command);
-            return results
-        } catch (error) {
-            console.log(error);
-            return error.name
-        }
-    };
+export const IncrementLastId = async function IncrementLastId(ItemCount) {
+    const IncrementValue = Number(ItemCount) + 1
+    const command = new PutItemCommand({
+        "Item": {
+            "BookingRef": {
+                "S": IncrementValue
+            }
+        },
+        "TableName": Table
+    });
+    try {
+        const results = await client.send(command);
+        return results
+    } catch (error) {
+        console.log(error);
+        return error.name
+    }
 };

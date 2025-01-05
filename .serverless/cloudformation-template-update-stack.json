@@ -84,7 +84,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/bistro-nord-backend/dev/1736001887472-2025-01-04T14:44:47.472Z/middysdk.zip"
+          "S3Key": "serverless/bistro-nord-backend/dev/1736011082158-2025-01-04T17:18:02.158Z/middysdk.zip"
         },
         "LayerName": "middysdk",
         "Description": "Middy Layer for JS Middleware Setup."
@@ -97,7 +97,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/bistro-nord-backend/dev/1736001887472-2025-01-04T14:44:47.472Z/awssdk.zip"
+          "S3Key": "serverless/bistro-nord-backend/dev/1736011082158-2025-01-04T17:18:02.158Z/awssdk.zip"
         },
         "LayerName": "awssdk",
         "Description": "SDK Layer for AWS Node Package."
@@ -110,9 +110,9 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/bistro-nord-backend/dev/1736001887472-2025-01-04T14:44:47.472Z/bistro-nord-backend.zip"
+          "S3Key": "serverless/bistro-nord-backend/dev/1736121081746-2025-01-05T23:51:21.746Z/bistro-nord-backend.zip"
         },
-        "Handler": "src/bookATable/handler.BookATable",
+        "Handler": "src/bookATable/handler.TableBookHandler",
         "Runtime": "nodejs20.x",
         "FunctionName": "bistro-nord-backend-dev-bookATable",
         "MemorySize": 1024,
@@ -142,14 +142,14 @@
         "WriteDynamoDBRole"
       ]
     },
-    "BookATableLambdaVersionciEA2uTd7SRIrNE1Upi9AMMPu78aHTnnG7zOdneukCE": {
+    "BookATableLambdaVersionVd9VlBbBOeEh9YjkApQ2tx2Rj7ltvBAQQDU9w3m9BE": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "BookATableLambdaFunction"
         },
-        "CodeSha256": "bCscz17mSzN+XibNQmE9XMy4Rk7yf6wcyjGyWRrVYiI="
+        "CodeSha256": "RN01MjC9QNL7YGuHRTJ/1P17vGUsdWac4rsPWyhLRuM="
       }
     },
     "HttpApi": {
@@ -511,14 +511,14 @@
     },
     "MiddysdkLambdaLayerHash": {
       "Description": "Current Lambda layer hash",
-      "Value": "b381d179b50619891a1c0c90cd08671dd7426304",
+      "Value": "278e11f3ca238f3b8899bc14ee07271007e7a2fd",
       "Export": {
         "Name": "sls-bistro-nord-backend-dev-MiddysdkLambdaLayerHash"
       }
     },
     "MiddysdkLambdaLayerS3Key": {
       "Description": "Current Lambda layer S3Key",
-      "Value": "serverless/bistro-nord-backend/dev/1736001887472-2025-01-04T14:44:47.472Z/middysdk.zip",
+      "Value": "serverless/bistro-nord-backend/dev/1736011082158-2025-01-04T17:18:02.158Z/middysdk.zip",
       "Export": {
         "Name": "sls-bistro-nord-backend-dev-MiddysdkLambdaLayerS3Key"
       }
@@ -534,14 +534,14 @@
     },
     "AwssdkLambdaLayerHash": {
       "Description": "Current Lambda layer hash",
-      "Value": "5d2e57a1fb287f498a33ec98bb0a8668a4630b0e",
+      "Value": "9090ffc640c2752c8d15c74d161c366e05e9e0a0",
       "Export": {
         "Name": "sls-bistro-nord-backend-dev-AwssdkLambdaLayerHash"
       }
     },
     "AwssdkLambdaLayerS3Key": {
       "Description": "Current Lambda layer S3Key",
-      "Value": "serverless/bistro-nord-backend/dev/1736001887472-2025-01-04T14:44:47.472Z/awssdk.zip",
+      "Value": "serverless/bistro-nord-backend/dev/1736011082158-2025-01-04T17:18:02.158Z/awssdk.zip",
       "Export": {
         "Name": "sls-bistro-nord-backend-dev-AwssdkLambdaLayerS3Key"
       }
@@ -549,7 +549,7 @@
     "BookATableLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "BookATableLambdaVersionciEA2uTd7SRIrNE1Upi9AMMPu78aHTnnG7zOdneukCE"
+        "Ref": "BookATableLambdaVersionVd9VlBbBOeEh9YjkApQ2tx2Rj7ltvBAQQDU9w3m9BE"
       },
       "Export": {
         "Name": "sls-bistro-nord-backend-dev-BookATableLambdaFunctionQualifiedArn"

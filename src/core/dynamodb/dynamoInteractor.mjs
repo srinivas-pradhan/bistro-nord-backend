@@ -61,11 +61,13 @@ export const GetLastId = async function GetLastId() {
 };
 
 export const IncrementLastId = async function IncrementLastId(ItemCount) {
-    const IncrementValue = Number(ItemCount) + 1
     const command = new PutItemCommand({
         "Item": {
             "BookingRef": {
-                "S": IncrementValue
+                "S": "UserMetadata"
+            },
+            "Count": {
+                "S": ItemCount
             }
         },
         "TableName": Table

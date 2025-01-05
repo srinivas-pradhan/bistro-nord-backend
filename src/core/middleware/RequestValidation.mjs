@@ -7,8 +7,8 @@ export const BookATableSchema = {
           fname: { type: "string" },
           lname: { type: "string" },
           email: { type: "string", format: "email" },
-          datetime: { type: "number"},
-          count: { type: "number" },
+          datetime: { type: "string"},
+          count: { type: "string" },
           restaurantId: {
                 "type": "string",
                 "enum": [
@@ -21,9 +21,16 @@ export const BookATableSchema = {
                     "QUEB",
                     "TORON"
                 ]
+            },
+            status: {
+                "type": "string",
+                "enum": [
+                    "TENTATIVE",
+                    "ACTIVE"
+                ]
             }
         },
-        required: [ "fname", "lname", "email", "datetime", "count", "restaurantId" ]
+        required: [ "fname", "lname", "email", "datetime", "count", "restaurantId", "status" ]
       }
     }
 };

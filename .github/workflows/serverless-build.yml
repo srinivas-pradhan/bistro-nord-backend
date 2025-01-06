@@ -50,7 +50,7 @@ jobs:
       - name: Enter dir and deploy
         uses: serverless/github-action@v3.2
         with:
-            args: diff
+            args: diff --stage dev
 
   Serverless-Deploy:
     runs-on: ubuntu-latest

@@ -314,7 +314,9 @@
           "config": {
             "type": "file"
           },
-          "options": {},
+          "options": {
+            "stage": "dev"
+          },
           "stage": "dev",
           "dashboard": null,
           "logger": {
@@ -633,7 +635,9 @@
           "config": {
             "type": "sls"
           },
-          "options": {},
+          "options": {
+            "stage": "dev"
+          },
           "stage": "dev",
           "dashboard": null,
           "logger": {
@@ -953,8 +957,10 @@
     "command": [
       "diff"
     ],
-    "options": {},
-    "error": "Stack with id bistro-nord-backend-undefined does not exist",
+    "options": {
+      "stage": "dev"
+    },
+    "error": null,
     "params": {},
     "machineId": "439fcfbe75a2a1d8ae9ff8282927c18d",
     "stage": "dev",
@@ -981,6 +987,7 @@
     "projectType": "traditional",
     "versionSf": "4.4.18",
     "serviceProviderAwsCfStackName": "bistro-nord-backend-dev",
+    "integrations": {},
     "serviceUniqueId": "arn:aws:cloudformation:us-east-1:703866956858:stack/bistro-nord-backend-dev/f8179900-b3c5-11ef-b332-12d09227460d",
     "serviceProviderAwsCfStackId": "arn:aws:cloudformation:us-east-1:703866956858:stack/bistro-nord-backend-dev/f8179900-b3c5-11ef-b332-12d09227460d",
     "serviceProviderAwsCfStackCreated": "2024-12-06T11:33:52.519Z",

@@ -16,6 +16,7 @@ Resources:
     Properties:
       ClientName: ${file(./customvars.yml):serviceName}-${file(./customvars.yml):Cognito}-client
       AccessTokenValidity: 24
+      TokenValidityUnits: hours
       UserPoolId:
         Ref: CognitoUserPool
       GenerateSecret: ${file(./customvars.yml):CognitoClientSecret}

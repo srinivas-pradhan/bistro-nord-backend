@@ -17,6 +17,7 @@ provider:
         issuerUrl: !GetAtt CognitoUserPool.ProviderURL
         audience:
           - Ref: CognitoUserPoolClient
+          
 package:
   patterns:
     - '!package.zip'

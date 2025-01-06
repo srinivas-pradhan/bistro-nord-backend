@@ -54,15 +54,10 @@ jobs:
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Install Serverless Diff Plugin
+      - name: Enter dir and Print Changes
         uses: serverless/github-action@v3.2
         with:
-            args: plugin install -n serverless-plugin-diff
-
-      - name: Enter dir and Diff Changes
-        uses: serverless/github-action@v3.2
-        with:
-            args: diff --stage dev
+            args: print
 
   Serverless-Deploy:
     runs-on: ubuntu-latest
@@ -82,11 +77,6 @@ jobs:
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Install Serverless Diff Plugin
-        uses: serverless/github-action@v3.2
-        with:
-            args: plugin install -n serverless-plugin-diff
-            
       - name: Enter dir and deploy
         uses: serverless/github-action@v3.2
         with:

@@ -110,7 +110,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/bistro-nord-backend/dev/1736133941205-2025-01-06T03:25:41.205Z/bistro-nord-backend.zip"
+          "S3Key": "serverless/bistro-nord-backend/dev/1736135710010-2025-01-06T03:55:10.010Z/bistro-nord-backend.zip"
         },
         "Handler": "src/bookATable/handler.TableBookHandler",
         "Runtime": "nodejs20.x",
@@ -142,14 +142,14 @@
         "WriteDynamoDBRole"
       ]
     },
-    "BookATableLambdaVersioncFDkq0GfD6UqfLuCntN5Er3NzB26IBIs8OG9eFiyOU": {
+    "BookATableLambdaVersion4INsG7jjaP1BVpEodQOLqeACRteBseI9XcFZO3yqTs": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "BookATableLambdaFunction"
         },
-        "CodeSha256": "o2LHXyJLYQ5CrD2sCPrtcdmXk5Y4kuX4+NYj8+7n3LM="
+        "CodeSha256": "X0HhhwXfxECIWHWkcDVxQTab904faOi2ejhDu5rk4pY="
       }
     },
     "HttpApi": {
@@ -301,6 +301,9 @@
       "Properties": {
         "ClientName": "Bistro-Nord-UserPool-client",
         "AccessTokenValidity": 24,
+        "TokenValidityUnits": {
+          "AccessToken": "hours"
+        },
         "UserPoolId": {
           "Ref": "CognitoUserPool"
         },
@@ -549,7 +552,7 @@
     "BookATableLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "BookATableLambdaVersioncFDkq0GfD6UqfLuCntN5Er3NzB26IBIs8OG9eFiyOU"
+        "Ref": "BookATableLambdaVersion4INsG7jjaP1BVpEodQOLqeACRteBseI9XcFZO3yqTs"
       },
       "Export": {
         "Name": "sls-bistro-nord-backend-dev-BookATableLambdaFunctionQualifiedArn"

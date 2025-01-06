@@ -3,6 +3,9 @@ org: srinivaspradhan
 # "service" is the name of this project. This will also be added to your AWS resource names.
 service: bistro-nord-backend
 
+plugins:
+  - serverless-plugin-diff
+
 provider:
   name: aws
   runtime: nodejs20.x

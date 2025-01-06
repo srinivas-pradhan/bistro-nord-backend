@@ -47,7 +47,12 @@ jobs:
       - name: Git clone the repository
         uses: actions/checkout@v4
 
-      - name: Enter dir and deploy
+      - name: Install Serverless Diff Plugin
+        uses: serverless/github-action@v3.2
+        with:
+            args: plugin install -n serverless-plugin-diff
+
+      - name: Enter dir and Diff Changes
         uses: serverless/github-action@v3.2
         with:
             args: diff --stage dev

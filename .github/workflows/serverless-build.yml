@@ -47,6 +47,13 @@ jobs:
       - name: Git clone the repository
         uses: actions/checkout@v4
 
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::703866956858:role/GITHUB_OIDC_ROLE
+          role-session-name: GitHub_to_AWS_via_FederatedOIDC
+          aws-region: ${{ env.AWS_REGION }}
+          
       - name: Install Serverless Diff Plugin
         uses: serverless/github-action@v3.2
         with:

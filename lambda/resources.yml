@@ -14,3 +14,20 @@ bookATable:
           name: JwtAuthorizer
           scopes:
             - ServerAccessScope/write
+
+UpdateReservation:
+  handler: src/UpdateReservation/handler.UpdateReservationHandler
+  role: !GetAtt WriteDynamoDBRole.Arn
+  environment:
+      TABLE_NAME: ${file(./customvars.yml):DynamoDB.BookTable}
+  layers:
+    - { Ref: AwssdkLambdaLayer }
+    - { Ref: MiddysdkLambdaLayer }
+  events:
+    - httpApi:
+        method: PUT
+        path: /UpdateReservation/{OrderId}
+        authorizer:
+          name: JwtAuthorizer
+          scopes:
+            - ServerAccessScope/write

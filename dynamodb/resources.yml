@@ -4,22 +4,30 @@ Resources:
     Properties:
       TableName: ${file(./customvars.yml):DynamoDB.BookTable}
       AttributeDefinitions:
-        # - 
-        #   AttributeName: "BookingId"
-        #   AttributeType: "S"
         - 
           AttributeName: "BookingRef"
           AttributeType: "S"
+        - 
+          AttributeName: "BookingNumber"
+          AttributeType: "S"
       KeySchema:
-        # -
-        #   AttributeName: "BookingId"
-        #   KeyType: "HASH"
         - 
           AttributeName: "BookingRef"
-          KeyType: "HASH" # Was RANGE before
+          KeyType: "HASH"
       ProvisionedThroughput:
         ReadCapacityUnits: 10
         WriteCapacityUnits: 10
+      GlobalSecondaryIndexes:
+        - IndexName: BookingNumber
+          KeySchema: 
+            - 
+              AttributeName: "BookingNumber"
+              KeyType: "HASH"
+          Projection: 
+            ProjectionType: ALL
+          ProvisionedThroughput:
+            ReadCapacityUnits: 10
+            WriteCapacityUnits: 10
       Tags: 
         - 
           "Key" : "git"

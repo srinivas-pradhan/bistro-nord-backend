@@ -99,8 +99,8 @@ const BookATable = async (event) => {
       "Status": {
         "S": status
       },
-      "Count": {
-        "S": count
+      "Status": {
+        "S": status
       }
     }
   )

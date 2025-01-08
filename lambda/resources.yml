@@ -16,7 +16,7 @@ bookATable:
             - ServerAccessScope/write
 
 UpdateReservation:
-  handler: src/UpdateReservation/handler.UpdateReservation
+  handler: src/UpdateReservation/handler.UpdateReservationHandler
   role: !GetAtt WriteDynamoDBRole.Arn
   environment:
       TABLE_NAME: ${file(./customvars.yml):DynamoDB.BookTable}

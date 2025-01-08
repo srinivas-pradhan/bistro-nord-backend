@@ -99,8 +99,8 @@ const BookATable = async (event) => {
       "Status": {
         "S": status
       },
-      "Status": {
-        "S": status
+      "Count": {
+        "S": count
       }
     }
   )
@@ -109,7 +109,16 @@ const BookATable = async (event) => {
   try {
     if ( Booking.$metadata.httpStatusCode === 200 && LastIdIncrementDB.$metadata.httpStatusCode === 200) {
       return {
-        statusCode: 201
+        statusCode: 201,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          val: 'TABLE_BOOKED',
+          message: {
+            "BookingNumber": restaurantId + "" + IncrementValue
+          }
+        })
       };
     };
   } catch (error) {

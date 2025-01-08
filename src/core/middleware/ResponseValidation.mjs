@@ -3,7 +3,13 @@ export const BookATableSchema = {
     required: ["statusCode"],
     properties: {
       body: {
-        type: "string",
+        type: "object",
+        properties: {
+          val: { type: "string" },
+          message: { type: "string"}
+
+        }
+
       },
       statusCode: {
         type: "number",
@@ -12,4 +18,21 @@ export const BookATableSchema = {
         type: "object",
       },
     },
+    required: [ "val", "message"]
+};
+
+export const UpdateReservationSchema = {
+  type: "object",
+  required: ["statusCode"],
+  properties: {
+    body: {
+      type: "string",
+    },
+    statusCode: {
+      type: "number",
+    },
+    headers: {
+      type: "object",
+    },
+  },
 };

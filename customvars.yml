@@ -5,6 +5,8 @@ Cognito: UserPool
 CognitoClientSecret: true
 DynamoDB:
   BookTable: BookATable
+  BookingNumber: BookingNumber
+  BookingRef: BookingRef
 IAM:
   WriteBookTableRole: WriteDynamoDBRole
   CloudWatchPolicy: CloudWatchLogPolicy

@@ -5,23 +5,23 @@ Resources:
       TableName: ${file(./customvars.yml):DynamoDB.BookTable}
       AttributeDefinitions:
         - 
-          AttributeName: "BookingRef"
+          AttributeName: ${file(./customvars.yml):DynamoDB.BookingRef}
           AttributeType: "S"
         - 
-          AttributeName: "BookingNumber"
+          AttributeName: ${file(./customvars.yml):DynamoDB.BookingNumber}
           AttributeType: "S"
       KeySchema:
         - 
-          AttributeName: "BookingRef"
+          AttributeName: ${file(./customvars.yml):DynamoDB.BookingRef}
           KeyType: "HASH"
       ProvisionedThroughput:
         ReadCapacityUnits: 10
         WriteCapacityUnits: 10
       GlobalSecondaryIndexes:
-        - IndexName: BookingNumber
+        - IndexName: ${file(./customvars.yml):DynamoDB.BookingNumber}
           KeySchema: 
             - 
-              AttributeName: "BookingNumber"
+              AttributeName: ${file(./customvars.yml):DynamoDB.BookingNumber}
               KeyType: "HASH"
           Projection: 
             ProjectionType: ALL

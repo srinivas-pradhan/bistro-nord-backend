@@ -20,6 +20,9 @@ UpdateReservation:
   role: !GetAtt WriteDynamoDBRole.Arn
   environment:
       TABLE_NAME: ${file(./customvars.yml):DynamoDB.BookTable}
+      BOOKING_NUMBER: ${file(./customvars.yml):DynamoDB.BookingNumber}
+      BOOKING_REF: ${file(./customvars.yml):DynamoDB.BookingRef}
+
   layers:
     - { Ref: AwssdkLambdaLayer }
     - { Ref: MiddysdkLambdaLayer }

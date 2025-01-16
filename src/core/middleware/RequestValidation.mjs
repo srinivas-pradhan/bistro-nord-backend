@@ -35,6 +35,27 @@ export const BookATableSchema = {
     }
 };
 
+export const UpdateReservationSchema = {
+    type: "object",
+    properties: {
+      body: {
+        type: "object",
+        properties: {
+            datetime: { type: "string"},
+            count: { type: "number" },
+            status: {
+                "type": "string",
+                "enum": [
+                    "TENTATIVE",
+                    "ACTIVE"
+                ]
+            }
+        },
+        required: [ "status"]
+      }
+    }
+};
+
 // export const RestaurantIdMap = {
 //     "OTTAWA": {
 //         Code: "OTTA",

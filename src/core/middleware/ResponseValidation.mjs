@@ -1,6 +1,6 @@
 export const BookATableSchema = {
     type: "object",
-    required: ["statusCode"],
+    required: ["statusCode", "val", "message"],
     properties: {
       body: {
         type: "object",
@@ -18,7 +18,6 @@ export const BookATableSchema = {
         type: "object",
       },
     },
-    required: [ "val", "message"]
 };
 
 export const UpdateReservationSchema = {
@@ -26,7 +25,11 @@ export const UpdateReservationSchema = {
   required: ["statusCode"],
   properties: {
     body: {
-      type: "string",
+      type: "object",
+      properties: {
+        val: { type: "string" },
+        message: { type: "string"}
+      }
     },
     statusCode: {
       type: "number",

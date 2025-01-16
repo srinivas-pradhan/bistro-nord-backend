@@ -48,7 +48,7 @@ Resources:
                   - dynamodb:Query
                   - dynamodb:UpdateItem
                 Resource:
-                  'Fn::Join':
+                  - 'Fn::Join':
                     - ':'
                     -
                       - 'arn:aws:dynamodb'
@@ -59,3 +59,16 @@ Resources:
                         -
                           - 'table'
                           - Ref: BookATableDynamoDBTable
+                  - 'Fn::Join':
+                    - ':'
+                    -
+                      - 'arn:aws:dynamodb'
+                      - Ref: 'AWS::Region'
+                      - Ref: 'AWS::AccountId'
+                      - 'Fn::Join':
+                        - '/'
+                        -
+                          - 'table'
+                          - Ref: BookATableDynamoDBTable
+                          - 'index'
+                          - '*'

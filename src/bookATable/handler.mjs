@@ -17,7 +17,7 @@ import { transpileSchema } from '@middy/validator/transpile'
 import httpErrorHandler from "@middy/http-error-handler";
 import jsonBodyParser from "@middy/http-json-body-parser";
 
-
+// Rel world only takes unix epoch time in seconds -> Time and TimeZone conversion & re-conversion happens at client.
 const BookATable = async (event) => {
   const  {
     fname,

@@ -5,7 +5,8 @@ import {
     PutItemCommand, 
     GetItemCommand,
     QueryCommand,
-    UpdateItemCommand
+    UpdateItemCommand,
+    ScanCommand
 } from "@aws-sdk/client-dynamodb";
 
 const Region = process.env.AWS_DEFAULT_REGION;
@@ -73,6 +74,24 @@ export const UpdateDBItem = async function UpdateDBItem (EAN, EAV, UpdateExp, QK
         return error.name
     }
 };
+
+export const ScanDB = async function ScanDB (EAN, EAV, FilExp, ProjExp){
+    const command = new ScanCommand({
+        ExpressionAttributeNames: EAN,
+        ExpressionAttributeValues: EAV,
+        FilterExpression: FilExp,
+        ProjectionExpression: ProjExp,
+        TableName: Table
+    })
+    try {
+        const results = await client.send(command);
+        return results
+
+    } catch (error) {
+        console.log(error)
+        return error.name
+    }
+}
 
 export const CheckIfBookingExists = async function CheckIfBookingExists(BookingRef) {
     const command = new GetItemCommand({

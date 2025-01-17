@@ -11,3 +11,5 @@ IAM:
   WriteBookTableRole: WriteDynamoDBRole
   CloudWatchPolicy: CloudWatchLogPolicy
   WriteBookTablePolicy: WriteDynamoDBPolicy
+  ReadBookTableRole: ReadDynamoDBRole
+  ReadBookTablePolicy: ReadDynamoDBPolicy

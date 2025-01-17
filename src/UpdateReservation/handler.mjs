@@ -13,13 +13,24 @@ import { UpdateReservationSchema as Request } from '../core/middleware/RequestVa
 import { UpdateReservationSchema as Response } from "../core/middleware/ResponseValidation.mjs";
 
 const BookingNumber = process.env.BOOKING_NUMBER;
-const BookingRef = process.env.BOOKING_REF;
 
 const UpdateReservation = async (event) => {
     let EAN, EAV, UpdateExp;
     const UnixDateTimeSeconds =  Math.round(Date.parse(event.body.datetime) / 1000);
     const DateVal = ValidateDate(UnixDateTimeSeconds);
-    
+    // Adding Path Param validation as its simpler than to use @middy/http-event-normalizer
+    if (!event.pathParameters.OrderId) {
+        return {
+            statusCode: 403,
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              val: "REQUEST_NOT_ALLOWED",
+              message: '{OrderId} Path Parameter missing',
+            })
+          };
+    }
     if (! DateVal) {
         return {
           statusCode: 400,
@@ -113,10 +124,10 @@ const UpdateReservation = async (event) => {
               body: JSON.stringify({
                 val: 'RESERVATION_UPDATE_SUCCESS',
                 message: {
-                    "BookingNumber": DBItemUpd.Attributes.BookingNumber,
-                    "DateTime": DBItemUpd.Attributes.BookingDateTime,
-                    "Status": DBItemUpd.Attributes.Status,
-                    "Count": DBItemUpd.Attributes.Count
+                    "BookingNumber": DBItemUpd.Attributes.BookingNumber.S,
+                    "DateTime": Number(DBItemUpd.Attributes.BookingDateTime.S),
+                    "Status": DBItemUpd.Attributes.Status.S,
+                    "Count": Number(DBItemUpd.Attributes.Count.S)
                 }
               })
             };

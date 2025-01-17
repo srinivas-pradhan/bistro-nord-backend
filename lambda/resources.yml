@@ -34,3 +34,22 @@ UpdateReservation:
           name: JwtAuthorizer
           scopes:
             - ServerAccessScope/write
+
+GetAReservation:
+  handler: src/GetAReservation/handler.GetAReservationHandler
+  role: !GetAtt ReadDynamoDBRole.Arn
+  environment:
+      TABLE_NAME: ${file(./customvars.yml):DynamoDB.BookTable}
+      BOOKING_NUMBER: ${file(./customvars.yml):DynamoDB.BookingNumber}
+
+  layers:
+    - { Ref: AwssdkLambdaLayer }
+    - { Ref: MiddysdkLambdaLayer }
+  events:
+    - httpApi:
+        method: GET
+        path: /GetAReservation/{OrderId}
+        authorizer:
+          name: JwtAuthorizer
+          scopes:
+            - ServerAccessScope/read

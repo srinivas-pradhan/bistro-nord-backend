@@ -39,3 +39,23 @@ export const UpdateReservationSchema = {
     },
   },
 };
+
+export const GetAReservationSchema = {
+  type: "object",
+  required: ["statusCode"],
+  properties: {
+    body: {
+      type: "object",
+      properties: {
+        val: { type: "string" },
+        message: { type: "string"}
+      }
+    },
+    statusCode: {
+      type: "number",
+    },
+    headers: {
+      type: "object",
+    },
+  },
+};

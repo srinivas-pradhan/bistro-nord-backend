@@ -48,7 +48,7 @@ export const GetAReservationSchema = {
       type: "object",
       properties: {
         val: { type: "string" },
-        message: { type: "string"}
+        Details: { type: "string"}
       }
     },
     statusCode: {

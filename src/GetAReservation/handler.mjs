@@ -22,26 +22,39 @@ const GetAReservation = async (event) => {
             })
           };
     };
-    const GetBookingNumber = await QueryDBUsingBookingNumber(BookingNumber, event.pathParameters.OrderId);
-    console.log('BookingNumber:', event.pathParameters.OrderId)
-    const BookingDetails = GetBookingNumber.Items[0]
-    console.log(GetBookingNumber)
-    return {
-        statusCode: 200,
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          val: 'RESERVATION_FOUND',
-          Details: {
-            UserID: BookingDetails.UserID.S,
-            BookingDateTime: Number(BookingDetails.BookingDateTime.S),
-            Count: Number(BookingDetails.Count.S),
-            BookingNumber: BookingDetails.BookingNumber.S,
-            RestaurantID: BookingDetails.RestaurantID.S
-          }
-        })
-      };
+
+    try {
+        const GetBookingNumber = await QueryDBUsingBookingNumber(BookingNumber, event.pathParameters.OrderId);
+        console.log('BookingNumber:', event.pathParameters.OrderId)
+        const BookingDetails = GetBookingNumber.Items[0]
+        return {
+            statusCode: 200,
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              val: 'RESERVATION_FOUND',
+              Details: {
+                UserID: BookingDetails.UserID.S,
+                BookingDateTime: Number(BookingDetails.BookingDateTime.S),
+                Count: Number(BookingDetails.Count.S),
+                BookingNumber: BookingDetails.BookingNumber.S,
+                RestaurantID: BookingDetails.RestaurantID.S
+              }
+            })
+        };
+    } catch (error) {
+        console.log(error)
+        return {
+          statusCode: 500,
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            val: 'INTERNAL_SERVER_ERROR'
+          })
+        };
+    }
 }
 
 export const GetAReservationHandler = middy(GetAReservation)

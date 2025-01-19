@@ -53,3 +53,21 @@ GetAReservation:
           name: JwtAuthorizer
           scopes:
             - ServerAccessScope/read
+
+GetUsersReservations:
+  handler: src/GetUsersReservations/handler.GetUsersReservationsHandler
+  role: !GetAtt ReadDynamoDBRole.Arn
+  environment:
+      TABLE_NAME: ${file(./customvars.yml):DynamoDB.BookTable}
+
+  layers:
+    - { Ref: AwssdkLambdaLayer }
+    - { Ref: MiddysdkLambdaLayer }
+  events:
+    - httpApi:
+        method: GET
+        path: /GetUsersReservations/{UserId}
+        authorizer:
+          name: JwtAuthorizer
+          scopes:
+            - ServerAccessScope/read

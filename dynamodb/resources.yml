@@ -35,3 +35,40 @@ Resources:
         - 
           "Key" : "app"
           "Value" : ${file(./customvars.yml):serviceName}
+
+  DoneWithATableDynamoDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${file(./customvars.yml):DynamoDB.DoneWithATable}
+      AttributeDefinitions:
+        - 
+          AttributeName: ${file(./customvars.yml):DynamoDB.BookingRef}
+          AttributeType: "S"
+        # - 
+        #   AttributeName: ${file(./customvars.yml):DynamoDB.BookingNumber}
+        #   AttributeType: "S"
+      KeySchema:
+        - 
+          AttributeName: ${file(./customvars.yml):DynamoDB.BookingRef}
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: 10
+        WriteCapacityUnits: 10
+      # GlobalSecondaryIndexes:
+      #   - IndexName: ${file(./customvars.yml):DynamoDB.BookingNumber}
+      #     KeySchema: 
+      #       - 
+      #         AttributeName: ${file(./customvars.yml):DynamoDB.BookingNumber}
+      #         KeyType: "HASH"
+      #     Projection: 
+      #       ProjectionType: ALL
+      #     ProvisionedThroughput:
+      #       ReadCapacityUnits: 10
+      #       WriteCapacityUnits: 10
+      Tags: 
+        - 
+          "Key" : "git"
+          "Value" : ${file(./customvars.yml):gitrepo}
+        - 
+          "Key" : "app"
+          "Value" : ${file(./customvars.yml):serviceName}

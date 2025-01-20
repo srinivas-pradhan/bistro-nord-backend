@@ -7,9 +7,13 @@ DynamoDB:
   BookTable: BookATable
   BookingNumber: BookingNumber
   BookingRef: BookingRef
+  DoneWithATable: DoneWithATable
 IAM:
   WriteBookTableRole: WriteDynamoDBRole
   CloudWatchPolicy: CloudWatchLogPolicy
   WriteBookTablePolicy: WriteDynamoDBPolicy
   ReadBookTableRole: ReadDynamoDBRole
   ReadBookTablePolicy: ReadDynamoDBPolicy
+  DoneWithATableRole: DoneWithATableRole
+  DoneWithATableReadPolicy: DoneWithATableReadPolicy
+  DoneWithATableWritePolicy: DoneWithATableWritePolicy

@@ -6,14 +6,17 @@ import {
     GetItemCommand,
     QueryCommand,
     UpdateItemCommand,
-    ScanCommand
+    ScanCommand,
+    DeleteItemCommand
 } from "@aws-sdk/client-dynamodb";
 
 const Region = process.env.AWS_DEFAULT_REGION;
-const Table = process.env.TABLE_NAME;
+const Book_Table = process.env.TABLE_NAME;
+// const Done_Table = process.env.DONE_TABLE_NAME || null
+
 const client = new DynamoDBClient({ region: Region });
 
-export const PutDBItem = async function PutDBItem(Item) {
+export const PutDBItem = async function PutDBItem(Item, Table = Book_Table) {
     const command = new PutItemCommand({
         "Item": Item,
         "TableName": Table
@@ -28,7 +31,7 @@ export const PutDBItem = async function PutDBItem(Item) {
     }
 };
 
-export const QueryDBUsingBookingNumber = async function QueryDBUsingBookingNumber(Index, Val) {
+export const QueryDBUsingBookingNumber = async function QueryDBUsingBookingNumber(Index, Val, Table = Book_Table) {
     const input = {
         "TableName": Table,
         "IndexName": Index,
@@ -54,7 +57,7 @@ export const QueryDBUsingBookingNumber = async function QueryDBUsingBookingNumbe
     }
 }
 
-export const UpdateDBItem = async function UpdateDBItem (EAN, EAV, UpdateExp, QKey){
+export const UpdateDBItem = async function UpdateDBItem (EAN, EAV, UpdateExp, QKey, Table = Book_Table){
     const input = {
         TableName: Table,
         Key: QKey,
@@ -75,7 +78,7 @@ export const UpdateDBItem = async function UpdateDBItem (EAN, EAV, UpdateExp, QK
     }
 };
 
-export const ScanDB = async function ScanDB (EAN, EAV, FilExp, ProjExp){
+export const ScanDB = async function ScanDB (EAN, EAV, FilExp, ProjExp, Table = Book_Table){
     const command = new ScanCommand({
         ExpressionAttributeNames: EAN,
         ExpressionAttributeValues: EAV,
@@ -93,7 +96,26 @@ export const ScanDB = async function ScanDB (EAN, EAV, FilExp, ProjExp){
     }
 }
 
-export const CheckIfBookingExists = async function CheckIfBookingExists(BookingRef) {
+export const DeleteItem = async function DeleteItem (Key, Table = Book_Table) {
+    const command = new DeleteItemCommand({
+        "Key": {
+            "BookingRef": {
+              "S": Key
+            }
+          },
+          "TableName": Table
+    })
+    try {
+        const results = await client.send(command);
+        return results
+
+    } catch (error) {
+        console.log(error)
+        return error.name
+    }
+}
+
+export const CheckIfBookingExists = async function CheckIfBookingExists(BookingRef, Table = Book_Table) {
     const command = new GetItemCommand({
         "Key": {
             "BookingRef": {
@@ -111,7 +133,7 @@ export const CheckIfBookingExists = async function CheckIfBookingExists(BookingR
     }
 };
 
-export const GetLastId = async function GetLastId() {
+export const GetLastId = async function GetLastId(Table = Book_Table) {
     const command = new GetItemCommand({
         "Key": {
             "BookingRef": {
@@ -129,7 +151,7 @@ export const GetLastId = async function GetLastId() {
     }
 };
 
-export const IncrementLastId = async function IncrementLastId(ItemCount) {
+export const IncrementLastId = async function IncrementLastId(ItemCount, Table = Book_Table) {
     const command = new PutItemCommand({
         "Item": {
             "BookingRef": {

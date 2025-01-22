@@ -71,3 +71,23 @@ GetUsersReservations:
           name: JwtAuthorizer
           scopes:
             - ServerAccessScope/read
+
+DoneWithAReservation:
+  handler: src/DoneWithAReservation/handler.DoneWithAReservationHandler
+  role: !GetAtt DoneWithATableRole.Arn
+  environment:
+      TABLE_NAME: ${file(./customvars.yml):DynamoDB.BookTable}
+      DONE_TABLE_NAME: ${file(./customvars.yml):DynamoDB.DoneWithATable}
+      BOOKING_NUMBER: ${file(./customvars.yml):DynamoDB.BookingNumber}
+
+  layers:
+    - { Ref: AwssdkLambdaLayer }
+    - { Ref: MiddysdkLambdaLayer }
+  events:
+    - httpApi:
+        method: POST
+        path: /DoneWithAReservation/{OrderId}/{Status}
+        authorizer:
+          name: JwtAuthorizer
+          scopes:
+            - ServerAccessScope/write

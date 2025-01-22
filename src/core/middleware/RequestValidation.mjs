@@ -47,7 +47,8 @@ export const UpdateReservationSchema = {
                 "type": "string",
                 "enum": [
                     "TENTATIVE",
-                    "ACTIVE"
+                    "ACTIVE",
+                    "IN_PROGRESS"
                 ]
             }
         },
@@ -55,6 +56,26 @@ export const UpdateReservationSchema = {
       }
     }
 };
+
+export const DoneWithAReservationSchema = {
+  type:"object",
+  properties:{
+    pathParameters:{
+      type:"object",
+      properties:{
+        OrderId: { "type":"string" },
+        Status: { 
+          "type":"string",
+          "enum": [
+                    "COMPLETE",
+                    "CANCELLED",
+                ] 
+        }
+      },
+      required:["OrderId", "Status"]
+    }
+  required:["pathParameters"]
+}
 
 // export const RestaurantIdMap = {
 //     "OTTAWA": {

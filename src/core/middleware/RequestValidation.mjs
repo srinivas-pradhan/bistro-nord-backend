@@ -74,6 +74,7 @@ export const DoneWithAReservationSchema = {
       },
       required:["OrderId", "Status"]
     }
+  },
   required:["pathParameters"]
 }
 

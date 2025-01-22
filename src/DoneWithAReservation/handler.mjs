@@ -57,7 +57,7 @@ const DoneWithAReservation = async (event) => {
             },
             body: JSON.stringify({
               val: 'BOOKING_DONE_LIFECYCLE_SUCCESS',
-              message: `Booking ${event.pathParameters.Status}`
+              message: `Booking Status : ${event.pathParameters.Status}`
             })
         };
     }

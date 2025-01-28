@@ -1,0 +1,124 @@
+openapi: 3.0.0
+info:
+  title: Bistro-Nord-Backend
+  version: 1.0.0
+servers:
+  - url: https://enr8szp4y4.execute-api.us-east-1.amazonaws.com
+components:
+  securitySchemes:
+    oauth2Auth:
+      type: http
+      scheme: oauth2
+paths:
+  /bookATable:
+    post:
+      tags:
+        - default
+      summary: Book A Table
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                fname: Srinivas
+                lname: Pradhan
+                email: srinivaspradhan@gmail.com
+                datetime: 2025-01-29 9:30 PM
+                count: 5
+                restaurantId: OTTA
+                status: ACTIVE
+      security:
+        - oauth2Auth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /DoneWithAReservation/{BookingNumber}/{COMPLETE,CANCELLED}:
+    post:
+      tags:
+        - default
+      summary: Done With A Reservation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example: ''
+      security:
+        - oauth2Auth: []
+      parameters:
+        - name: BookingNumber
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /UpdateReservation/{BookingNumber}:
+    put:
+      tags:
+        - default
+      summary: Update A Reservation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                datetime: 2025-01-29 9:30 PM
+                count: 21
+                status: ACTIVE
+      security:
+        - oauth2Auth: []
+      parameters:
+        - name: BookingNumber
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /GetAReservation/{BookingNumber}:
+    get:
+      tags:
+        - default
+      summary: Get Reservation Details
+      security:
+        - oauth2Auth: []
+      parameters:
+        - name: BookingNumber
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /GetUsersReservations/{UserID}:
+    get:
+      tags:
+        - default
+      summary: Get Users Reservation
+      security:
+        - oauth2Auth: []
+      parameters:
+        - name: UserID
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}

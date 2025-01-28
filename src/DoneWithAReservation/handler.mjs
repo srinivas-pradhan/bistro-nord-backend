@@ -37,9 +37,7 @@ const DoneWithAReservation = async (event) => {
     try {
         const DoneItem = GetBookingNumber.Items[0]
         Done_Booking = await PutDBItem(DoneItem, Done_Table)
-        console.log(Done_Booking)
         DeleteFromBookATable = await DeleteItem(GetBookingNumber.Items[0].BookingRef.S)
-        console.log(DeleteFromBookATable)
     } catch (error) {
         console.log(error)
         return {

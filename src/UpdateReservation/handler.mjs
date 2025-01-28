@@ -4,10 +4,11 @@ import {
 } from "../core/dynamodb/dynamoInteractor.mjs";
 
 import middy from "@middy/core";
-import jsonBodyParser from "@middy/http-json-body-parser";
 import validator from "@middy/validator";
 import { transpileSchema } from '@middy/validator/transpile'
 import httpErrorHandler from "@middy/http-error-handler";
+import jsonBodyParser from "@middy/http-json-body-parser";
+
 import { ValidateDate } from '../core/middleware/utils/GenericUtils.mjs';
 import { UpdateReservationSchema as Request } from '../core/middleware/RequestValidation.mjs';
 import { UpdateReservationSchema as Response } from "../core/middleware/ResponseValidation.mjs";
@@ -18,19 +19,6 @@ const UpdateReservation = async (event) => {
     let EAN, EAV, UpdateExp;
     const UnixDateTimeSeconds =  Math.round(Date.parse(event.body.datetime) / 1000);
     const DateVal = ValidateDate(UnixDateTimeSeconds);
-    // Adding Path Param validation as its simpler than to use @middy/http-event-normalizer
-    if (!event.pathParameters.OrderId) {
-        return {
-            statusCode: 403,
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              val: "REQUEST_NOT_ALLOWED",
-              message: '{OrderId} Path Parameter missing',
-            })
-          };
-    }
     if (! DateVal) {
         return {
           statusCode: 400,
@@ -144,24 +132,24 @@ const UpdateReservation = async (event) => {
           })
         };
     }
-}
+};
 
 export const UpdateReservationHandler = middy(UpdateReservation)
-    .use(jsonBodyParser())
-    .use(
-        validator({
-        eventSchema: transpileSchema(Request),
-        Response
-        })
-    )
-    .use({
-        onError: (request) => {
-        const response = request.response;
-        const error = request.error;
-        if (response.statusCode != 400) return;
-        if (!error.expose || !error.cause) return;
-        response.headers["Content-Type"] = "application/json";
-        response.body = JSON.stringify({ message: response.body, validationErrors: error.cause });
-        },
+  .use(jsonBodyParser())
+  .use(
+    validator({
+      eventSchema: transpileSchema(Request),
+      Response
     })
-    .use(httpErrorHandler());
+  )
+  .use({
+    onError: (request) => {
+      const response = request.response;
+      const error = request.error;
+      if (response.statusCode != 400) return;
+      if (!error.expose || !error.cause) return;
+      response.headers["Content-Type"] = "application/json";
+      response.body = JSON.stringify({ message: response.body, validationErrors: error.cause });
+    },
+  })
+  .use(httpErrorHandler());

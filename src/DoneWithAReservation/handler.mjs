@@ -14,9 +14,11 @@ import {
 const BookingNumber = process.env.BOOKING_NUMBER;
 const Done_Table = process.env.DONE_TABLE_NAME;
 
+
 const DoneWithAReservation = async (event) => {
     console.log('OrderId:', event.pathParameters.OrderId)
     console.log('Status:', event.pathParameters.Status)
+    var Done_Booking, DeleteFromBookATable;
     try {
         var GetBookingNumber = await QueryDBUsingBookingNumber(BookingNumber, event.pathParameters.OrderId);
         GetBookingNumber.Items[0].Status.S = event.pathParameters.Status
@@ -34,8 +36,10 @@ const DoneWithAReservation = async (event) => {
     }
     try {
         const DoneItem = GetBookingNumber.Items[0]
-        const Done_Booking = await PutDBItem(DoneItem, Done_Table)
-        const DeleteFromBookATable = DeleteItem(GetBookingNumber.Items[0].BookingRef.S)
+        Done_Booking = await PutDBItem(DoneItem, Done_Table)
+        console.log(Done_Booking)
+        DeleteFromBookATable = await DeleteItem(GetBookingNumber.Items[0].BookingRef.S)
+        console.log(DeleteFromBookATable)
     } catch (error) {
         console.log(error)
         return {

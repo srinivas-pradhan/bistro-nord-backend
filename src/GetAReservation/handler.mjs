@@ -4,6 +4,7 @@ import middy from "@middy/core";
 import validator from "@middy/validator";
 import { transpileSchema } from '@middy/validator/transpile'
 import httpErrorHandler from "@middy/http-error-handler";
+import { GetAReservationSchema as Request } from "../core/middleware/RequestValidation.mjs";
 import { GetAReservationSchema as Response } from "../core/middleware/ResponseValidation.mjs";
 
 const BookingNumber = process.env.BOOKING_NUMBER;
@@ -58,6 +59,12 @@ const GetAReservation = async (event) => {
 }
 
 export const GetAReservationHandler = middy(GetAReservation)
+    .use(
+        validator({
+        eventSchema: transpileSchema(Request),
+        Response
+        })
+    )
     .use({
         onError: (request) => {
         const response = request.response;

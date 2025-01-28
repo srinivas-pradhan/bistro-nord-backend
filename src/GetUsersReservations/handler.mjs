@@ -4,21 +4,10 @@ import middy from "@middy/core";
 import validator from "@middy/validator";
 import { transpileSchema } from '@middy/validator/transpile'
 import httpErrorHandler from "@middy/http-error-handler";
+import { GetUsersReservationsSchema as Request } from '../core/middleware/RequestValidation.mjs';
 import { GetUsersReservationsSchema as Response } from "../core/middleware/ResponseValidation.mjs";
 
 const GetUsersReservations = async (event) => {
-    if (!event.pathParameters.UserId) {
-        return {
-            statusCode: 403,
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              val: "REQUEST_NOT_ALLOWED",
-              message: '{OrderId} Path Parameter missing',
-            })
-          };
-    };
     const  EAN = {
         "#B": "BookingNumber",
         "#C": "Count",
@@ -90,6 +79,12 @@ const GetUsersReservations = async (event) => {
 }
 
 export const GetUsersReservationsHandler = middy(GetUsersReservations)
+    .use(
+        validator({
+        eventSchema: transpileSchema(Request),
+        Response
+        })
+    )
     .use({
         onError: (request) => {
         const response = request.response;

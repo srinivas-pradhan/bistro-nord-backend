@@ -187,6 +187,7 @@ Resources:
                   - dynamodb:GetItem
                   - dynamodb:Scan
                   - dynamodb:Query
+                  - dynamodb:DeleteItem
                 Resource:
                   - 'Fn::Join':
                     - ':'

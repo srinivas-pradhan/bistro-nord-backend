@@ -3,7 +3,7 @@ info:
   title: Bistro-Nord-Backend
   version: 1.0.0
 servers:
-  - url: https://enr8szp4y4.execute-api.us-east-1.amazonaws.com
+  - url: {SERVER_URL}
 components:
   securitySchemes:
     oauth2Auth:

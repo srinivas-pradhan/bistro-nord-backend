@@ -99,3 +99,25 @@ export const DoneWithAReservationSchema = {
     },
   },
 };
+
+export const addAddMenuItemSchema = {
+  type: "object",
+  required: ["statusCode", "val", "message"],
+  properties: {
+    body: {
+      type: "object",
+      properties: {
+        val: { type: "string" },
+        message: { type: "string"}
+
+      }
+
+    },
+    statusCode: {
+      type: "number",
+    },
+    headers: {
+      type: "object",
+    },
+  },
+};

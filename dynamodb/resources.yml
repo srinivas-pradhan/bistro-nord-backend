@@ -15,8 +15,8 @@ Resources:
           AttributeName: ${file(./customvars.yml):DynamoDB.BookingRef}
           KeyType: "HASH"
       ProvisionedThroughput:
-        ReadCapacityUnits: 10
-        WriteCapacityUnits: 10
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
       GlobalSecondaryIndexes:
         - IndexName: ${file(./customvars.yml):DynamoDB.BookingNumber}
           KeySchema: 
@@ -26,8 +26,8 @@ Resources:
           Projection: 
             ProjectionType: ALL
           ProvisionedThroughput:
-            ReadCapacityUnits: 10
-            WriteCapacityUnits: 10
+            ReadCapacityUnits: 1
+            WriteCapacityUnits: 1
       Tags: 
         - 
           "Key" : "git"
@@ -52,8 +52,8 @@ Resources:
           AttributeName: ${file(./customvars.yml):DynamoDB.BookingRef}
           KeyType: "HASH"
       ProvisionedThroughput:
-        ReadCapacityUnits: 10
-        WriteCapacityUnits: 10
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
       # GlobalSecondaryIndexes:
       #   - IndexName: ${file(./customvars.yml):DynamoDB.BookingNumber}
       #     KeySchema: 
@@ -65,6 +65,32 @@ Resources:
       #     ProvisionedThroughput:
       #       ReadCapacityUnits: 10
       #       WriteCapacityUnits: 10
+      Tags: 
+        - 
+          "Key" : "git"
+          "Value" : ${file(./customvars.yml):gitrepo}
+        - 
+          "Key" : "app"
+          "Value" : ${file(./customvars.yml):serviceName}
+
+  MenuTableDynamoDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${file(./customvars.yml):DynamoDB.MenuTable}
+      AttributeDefinitions:
+        - 
+          AttributeName: ${file(./customvars.yml):DynamoDB.MenuItem}
+          AttributeType: "S"
+        # - 
+        #   AttributeName: ${file(./customvars.yml):DynamoDB.MenuType}
+        #   AttributeType: "S"
+      KeySchema:
+        - 
+          AttributeName: ${file(./customvars.yml):DynamoDB.MenuItem}
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
       Tags: 
         - 
           "Key" : "git"

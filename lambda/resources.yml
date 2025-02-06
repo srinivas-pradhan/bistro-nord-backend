@@ -91,3 +91,20 @@ DoneWithAReservation:
           name: JwtAuthorizer
           scopes:
             - ServerAccessScope/write
+
+addMenuItem:
+  handler: src/addMenuItem/handler.addMenuItemHandler
+  role: !GetAtt MenuTableWriteDynamoDBRole.Arn
+  environment:
+      TABLE_NAME: ${file(./customvars.yml):DynamoDB.MenuTable}
+  layers:
+    - { Ref: AwssdkLambdaLayer }
+    - { Ref: MiddysdkLambdaLayer }
+  events:
+    - httpApi:
+        method: POST
+        path: /addMenuItem
+        authorizer:
+          name: JwtAuthorizer
+          scopes:
+            - ServerAccessScope/write

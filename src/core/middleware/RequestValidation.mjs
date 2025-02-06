@@ -124,7 +124,27 @@ export const DoneWithAReservationSchema = {
     }
   },
   required:["pathParameters"]
-}
+};
+
+export const addAddMenuItemSchema = {
+  type: "object",
+  properties: {
+    body: {
+      type: "object",
+      properties: {
+        MenuItem: { type: "string" },
+        Description: { type: "string" },
+        ImageLink: { type: "string" },
+        Price: { 
+          "type": "number",   
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      required: [ "MenuItem", "Description", "ImageLink", "Price"]
+    }
+  }
+};
 
 // export const RestaurantIdMap = {
 //     "OTTAWA": {

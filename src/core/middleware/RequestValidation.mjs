@@ -55,27 +55,6 @@ export const UpdateReservationSchema = {
     }
   }
 };
-// export const UpdateReservationSchema = {
-//     type: "object",
-//     properties: {
-//       body: {
-//         type: "object",
-//         properties: {
-//             datetime: { type: "string"},
-//             count: { type: "number" },
-//             status: {
-//                 "type": "string",
-//                 "enum": [
-//                     "TENTATIVE",
-//                     "ACTIVE",
-//                     "IN_PROGRESS"
-//                 ]
-//             }
-//         },
-//         required: [ "status"]
-//       }
-//     }
-// };
 
 export const GetAReservationSchema = {
   type:"object",

@@ -97,8 +97,6 @@ export const ScanDB = async function ScanDB (EAN, EAV, FilExp, ProjExp, Table = 
 }
 
 export const DeleteItem = async function DeleteItem (Key, Table = Book_Table) {
-    console.log(Key)
-    console.log(Table)
     const command = new DeleteItemCommand({
         "Key": {
             "BookingRef": {

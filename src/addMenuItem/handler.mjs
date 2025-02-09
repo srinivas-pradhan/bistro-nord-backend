@@ -17,7 +17,8 @@ const addMenuItem = async (event) => {
     MenuItem,
     Description,
     ImageLink,
-    Price
+    Price,
+    MenuItemType
   } = event.body;
     const MenuItemAdd = await PutDBItem(
       {
@@ -32,6 +33,9 @@ const addMenuItem = async (event) => {
         },
         "Price": {
           "S": String(Price)
+        },
+        "MenuItemType": {
+          "S": MenuItemType
         }        
       }, 
     MenuTable);

@@ -118,9 +118,38 @@ export const addAddMenuItemSchema = {
           "type": "number",   
           "minimum": 0,
           "maximum": 100
+        },
+        MenuItemType: {
+          type: "string",
+          "enum": [
+                    "Cafe",
+                    "Dining",
+                    "Drinks",
+                    "Desserts"
+                ] 
         }
       },
-      required: [ "MenuItem", "Description", "ImageLink", "Price"]
+      required: [ "MenuItem", "Description", "ImageLink", "Price", "MenuItemType"]
+    }
+  }
+};
+
+export const getMenuItemsSchema = {
+  type:"object",
+  properties:{
+    queryStringParameters:{
+      type:"object",
+      properties:{
+        ItemType: { 
+          "type":"string", 
+          "enum": [
+              "Cafe",
+              "Dining",
+              "Drinks",
+              "Desserts"
+          ] 
+        }
+      }
     }
   }
 };

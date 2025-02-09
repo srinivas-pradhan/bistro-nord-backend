@@ -22,3 +22,5 @@ IAM:
   DoneWithATableWritePolicy: DoneWithATableWritePolicy
   MenuTableWriteRole: MenuTableWriteRole
   MenuTableWritePolicy: MenuTableWritePolicy
+  MenuTableReadRole: MenuTableReadRole
+  MenuTableReadPolicy: MenuTableReadPolicy

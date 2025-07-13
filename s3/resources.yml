@@ -1,0 +1,24 @@
+Resources:
+  MenuS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: ${file(./customvars.yml):S3.BucketName}
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+  
+  # S3BucketPolicy:
+  #   Type: AWS::S3::BucketPolicy
+  #   Properties:
+  #     Bucket: !Ref MenuS3Bucket
+  #     PolicyDocument:
+  #       Version: "2012-10-17"
+  #       Statement:
+  #         - Sid: ${file(./customvars.yml):S3.Sid}
+  #           Effect: Allow
+  #           Principal: '*'  # Allow all users
+  #           Action:
+  #             - 's3:GetObject'  # Allow read access
+  #           Resource: !Sub 'arn:aws:s3:::${MenuS3Bucket}/*'  # Allow access to all objects in the bucket

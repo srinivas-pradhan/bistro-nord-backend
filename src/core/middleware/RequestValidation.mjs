@@ -146,7 +146,8 @@ export const getMenuItemsSchema = {
               "Cafe",
               "Dining",
               "Drinks",
-              "Desserts"
+              "Desserts",
+              "All"
           ] 
         }
       }

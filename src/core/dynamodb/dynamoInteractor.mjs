@@ -11,12 +11,12 @@ import {
 } from "@aws-sdk/client-dynamodb";
 
 const Region = process.env.AWS_DEFAULT_REGION;
-const Book_Table = process.env.TABLE_NAME;
+const Table_IN_Use = process.env.TABLE_NAME;
 // const Done_Table = process.env.DONE_TABLE_NAME || null
 
 const client = new DynamoDBClient({ region: Region });
 
-export const PutDBItem = async function PutDBItem(Item, Table = Book_Table) {
+export const PutDBItem = async function PutDBItem(Item, Table = Table_IN_Use) {
     const command = new PutItemCommand({
         "Item": Item,
         "TableName": Table
@@ -31,7 +31,7 @@ export const PutDBItem = async function PutDBItem(Item, Table = Book_Table) {
     }
 };
 
-export const QueryDBUsingBookingNumber = async function QueryDBUsingBookingNumber(Index, Val, Table = Book_Table) {
+export const QueryDBUsingBookingNumber = async function QueryDBUsingBookingNumber(Index, Val, Table = Table_IN_Use) {
     const input = {
         "TableName": Table,
         "IndexName": Index,
@@ -57,7 +57,7 @@ export const QueryDBUsingBookingNumber = async function QueryDBUsingBookingNumbe
     }
 }
 
-export const UpdateDBItem = async function UpdateDBItem (EAN, EAV, UpdateExp, QKey, Table = Book_Table){
+export const UpdateDBItem = async function UpdateDBItem (EAN, EAV, UpdateExp, QKey, Table = Table_IN_Use){
     const input = {
         TableName: Table,
         Key: QKey,
@@ -77,8 +77,21 @@ export const UpdateDBItem = async function UpdateDBItem (EAN, EAV, UpdateExp, QK
         return error.name
     }
 };
+export const ScanAllDBItems = async function ScanAllDBItems(Table = Table_IN_Use){
+    const command = new ScanCommand({
+        TableName: Table
+    })
+    try {
+        const results = await client.send(command);
+        return results
 
-export const ScanDB = async function ScanDB (EAN, EAV, FilExp, ProjExp, Table = Book_Table){
+    } catch (error) {
+        console.log(error)
+        return error.name
+    }
+}
+
+export const ScanDB = async function ScanDB (EAN, EAV, FilExp, ProjExp, Table = Table_IN_Use){
     const command = new ScanCommand({
         ExpressionAttributeNames: EAN,
         ExpressionAttributeValues: EAV,
@@ -96,7 +109,7 @@ export const ScanDB = async function ScanDB (EAN, EAV, FilExp, ProjExp, Table = 
     }
 }
 
-export const DeleteItem = async function DeleteItem (Key, Table = Book_Table) {
+export const DeleteItem = async function DeleteItem (Key, Table = Table_IN_Use) {
     const command = new DeleteItemCommand({
         "Key": {
             "BookingRef": {
@@ -115,7 +128,7 @@ export const DeleteItem = async function DeleteItem (Key, Table = Book_Table) {
     }
 }
 
-export const CheckIfBookingExists = async function CheckIfBookingExists(BookingRef, Table = Book_Table) {
+export const CheckIfBookingExists = async function CheckIfBookingExists(BookingRef, Table = Table_IN_Use) {
     const command = new GetItemCommand({
         "Key": {
             "BookingRef": {
@@ -133,7 +146,7 @@ export const CheckIfBookingExists = async function CheckIfBookingExists(BookingR
     }
 };
 
-export const GetLastId = async function GetLastId(Table = Book_Table) {
+export const GetLastId = async function GetLastId(Table = Table_IN_Use) {
     const command = new GetItemCommand({
         "Key": {
             "BookingRef": {
@@ -151,7 +164,7 @@ export const GetLastId = async function GetLastId(Table = Book_Table) {
     }
 };
 
-export const IncrementLastId = async function IncrementLastId(ItemCount, Table = Book_Table) {
+export const IncrementLastId = async function IncrementLastId(ItemCount, Table = Table_IN_Use) {
     const command = new PutItemCommand({
         "Item": {
             "BookingRef": {

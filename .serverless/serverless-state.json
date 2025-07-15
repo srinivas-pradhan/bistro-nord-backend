@@ -7,6 +7,7 @@
     "provider": {
       "name": "aws",
       "runtime": "nodejs20.x",
+      "stage": "dev",
       "httpApi": {
         "authorizers": {
           "JwtAuthorizer": {
@@ -26,7 +27,6 @@
           }
         }
       },
-      "stage": "dev",
       "region": "us-east-1",
       "versionFunctions": true,
       "compiledCloudFormationTemplate": {
@@ -183,7 +183,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/bistro-nord-backend/dev/1752571039591-2025-07-15T09:17:19.591Z/bistro-nord-backend.zip"
+                "S3Key": "serverless/bistro-nord-backend/dev/1752571423417-2025-07-15T09:23:43.417Z/bistro-nord-backend.zip"
               },
               "Handler": "src/bookATable/handler.TableBookHandler",
               "Runtime": "nodejs20.x",
@@ -222,7 +222,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/bistro-nord-backend/dev/1752571039591-2025-07-15T09:17:19.591Z/bistro-nord-backend.zip"
+                "S3Key": "serverless/bistro-nord-backend/dev/1752571423417-2025-07-15T09:23:43.417Z/bistro-nord-backend.zip"
               },
               "Handler": "src/UpdateReservation/handler.UpdateReservationHandler",
               "Runtime": "nodejs20.x",
@@ -263,7 +263,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/bistro-nord-backend/dev/1752571039591-2025-07-15T09:17:19.591Z/bistro-nord-backend.zip"
+                "S3Key": "serverless/bistro-nord-backend/dev/1752571423417-2025-07-15T09:23:43.417Z/bistro-nord-backend.zip"
               },
               "Handler": "src/GetAReservation/handler.GetAReservationHandler",
               "Runtime": "nodejs20.x",
@@ -303,7 +303,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/bistro-nord-backend/dev/1752571039591-2025-07-15T09:17:19.591Z/bistro-nord-backend.zip"
+                "S3Key": "serverless/bistro-nord-backend/dev/1752571423417-2025-07-15T09:23:43.417Z/bistro-nord-backend.zip"
               },
               "Handler": "src/GetUsersReservations/handler.GetUsersReservationsHandler",
               "Runtime": "nodejs20.x",
@@ -342,7 +342,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/bistro-nord-backend/dev/1752571039591-2025-07-15T09:17:19.591Z/bistro-nord-backend.zip"
+                "S3Key": "serverless/bistro-nord-backend/dev/1752571423417-2025-07-15T09:23:43.417Z/bistro-nord-backend.zip"
               },
               "Handler": "src/DoneWithAReservation/handler.DoneWithAReservationHandler",
               "Runtime": "nodejs20.x",
@@ -383,7 +383,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/bistro-nord-backend/dev/1752571039591-2025-07-15T09:17:19.591Z/bistro-nord-backend.zip"
+                "S3Key": "serverless/bistro-nord-backend/dev/1752571423417-2025-07-15T09:23:43.417Z/bistro-nord-backend.zip"
               },
               "Handler": "src/addMenuItem/handler.addMenuItemHandler",
               "Runtime": "nodejs20.x",
@@ -422,7 +422,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/bistro-nord-backend/dev/1752571039591-2025-07-15T09:17:19.591Z/bistro-nord-backend.zip"
+                "S3Key": "serverless/bistro-nord-backend/dev/1752571423417-2025-07-15T09:23:43.417Z/bistro-nord-backend.zip"
               },
               "Handler": "src/addMenuItem/handler.addMenuImageHandler",
               "Runtime": "nodejs20.x",
@@ -461,7 +461,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/bistro-nord-backend/dev/1752571039591-2025-07-15T09:17:19.591Z/bistro-nord-backend.zip"
+                "S3Key": "serverless/bistro-nord-backend/dev/1752571423417-2025-07-15T09:23:43.417Z/bistro-nord-backend.zip"
               },
               "Handler": "src/getMenuItems/handler.getMenuItemsHandler",
               "Runtime": "nodejs20.x",
@@ -3531,7 +3531,7 @@
         ],
         "artifactsS3KeyDirname": "serverless/bistro-nord-backend/dev/code-artifacts",
         "artifact": "/github/workspace/.serverless/bistro-nord-backend.zip",
-        "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1752571039591-2025-07-15T09:17:19.591Z"
+        "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1752571423417-2025-07-15T09:23:43.417Z"
       },
       "layers": {
         "awssdk": {
@@ -3539,14 +3539,16 @@
           "description": "SDK Layer for AWS Node Package.",
           "package": {
             "artifact": "/github/workspace/.serverless/awssdk.zip"
-          }
+          },
+          "artifactAlreadyUploaded": true
         },
         "middysdk": {
           "path": "middy-layer",
           "description": "Middy Layer for JS Middleware Setup.",
           "package": {
             "artifact": "/github/workspace/.serverless/middysdk.zip"
-          }
+          },
+          "artifactAlreadyUploaded": true
         }
       },
       "functions": {
@@ -3565,7 +3567,7 @@
     "artifact": "/github/workspace/.serverless/bistro-nord-backend.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1752571039591-2025-07-15T09:17:19.591Z",
+    "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1752571423417-2025-07-15T09:23:43.417Z",
     "artifact": "bistro-nord-backend.zip"
   }
 }

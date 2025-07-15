@@ -39,7 +39,7 @@ jobs:
         run: |
           aws sts get-caller-identity
 
-  Serverless-Print:
+  Serverless-Diff:
     runs-on: ubuntu-latest
     needs: Serverless-SetupValidate
             

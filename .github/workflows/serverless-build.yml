@@ -57,7 +57,7 @@ jobs:
       - name: Enter dir and Print Changes
         uses: serverless/github-action@v3.2
         with:
-            args: print
+            args: diff
 
   Serverless-Deploy:
     runs-on: ubuntu-latest

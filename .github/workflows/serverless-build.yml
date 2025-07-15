@@ -54,7 +54,10 @@ jobs:
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Enter dir and Print Changes
+      - name: Install Serverless Dependencies
+        run: npm install 
+
+      - name: Serverless Diff
         uses: serverless/github-action@v3.2
         with:
             args: diff
@@ -77,6 +80,9 @@ jobs:
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
           aws-region: ${{ env.AWS_REGION }}
 
+      - name: Install Serverless Dependencies
+        run: npm install
+         
       - name: Enter dir and deploy
         uses: serverless/github-action@v3.2
         with:

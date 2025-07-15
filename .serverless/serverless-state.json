@@ -183,7 +183,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/bistro-nord-backend/dev/1752570481177-2025-07-15T09:08:01.177Z/bistro-nord-backend.zip"
+                "S3Key": "serverless/bistro-nord-backend/dev/1752570670476-2025-07-15T09:11:10.476Z/bistro-nord-backend.zip"
               },
               "Handler": "src/bookATable/handler.TableBookHandler",
               "Runtime": "nodejs20.x",
@@ -222,7 +222,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/bistro-nord-backend/dev/1752570481177-2025-07-15T09:08:01.177Z/bistro-nord-backend.zip"
+                "S3Key": "serverless/bistro-nord-backend/dev/1752570670476-2025-07-15T09:11:10.476Z/bistro-nord-backend.zip"
               },
               "Handler": "src/UpdateReservation/handler.UpdateReservationHandler",
               "Runtime": "nodejs20.x",
@@ -263,7 +263,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/bistro-nord-backend/dev/1752570481177-2025-07-15T09:08:01.177Z/bistro-nord-backend.zip"
+                "S3Key": "serverless/bistro-nord-backend/dev/1752570670476-2025-07-15T09:11:10.476Z/bistro-nord-backend.zip"
               },
               "Handler": "src/GetAReservation/handler.GetAReservationHandler",
               "Runtime": "nodejs20.x",
@@ -303,7 +303,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/bistro-nord-backend/dev/1752570481177-2025-07-15T09:08:01.177Z/bistro-nord-backend.zip"
+                "S3Key": "serverless/bistro-nord-backend/dev/1752570670476-2025-07-15T09:11:10.476Z/bistro-nord-backend.zip"
               },
               "Handler": "src/GetUsersReservations/handler.GetUsersReservationsHandler",
               "Runtime": "nodejs20.x",
@@ -342,7 +342,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/bistro-nord-backend/dev/1752570481177-2025-07-15T09:08:01.177Z/bistro-nord-backend.zip"
+                "S3Key": "serverless/bistro-nord-backend/dev/1752570670476-2025-07-15T09:11:10.476Z/bistro-nord-backend.zip"
               },
               "Handler": "src/DoneWithAReservation/handler.DoneWithAReservationHandler",
               "Runtime": "nodejs20.x",
@@ -383,7 +383,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/bistro-nord-backend/dev/1752570481177-2025-07-15T09:08:01.177Z/bistro-nord-backend.zip"
+                "S3Key": "serverless/bistro-nord-backend/dev/1752570670476-2025-07-15T09:11:10.476Z/bistro-nord-backend.zip"
               },
               "Handler": "src/addMenuItem/handler.addMenuItemHandler",
               "Runtime": "nodejs20.x",
@@ -422,7 +422,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/bistro-nord-backend/dev/1752570481177-2025-07-15T09:08:01.177Z/bistro-nord-backend.zip"
+                "S3Key": "serverless/bistro-nord-backend/dev/1752570670476-2025-07-15T09:11:10.476Z/bistro-nord-backend.zip"
               },
               "Handler": "src/addMenuItem/handler.addMenuImageHandler",
               "Runtime": "nodejs20.x",
@@ -461,7 +461,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/bistro-nord-backend/dev/1752570481177-2025-07-15T09:08:01.177Z/bistro-nord-backend.zip"
+                "S3Key": "serverless/bistro-nord-backend/dev/1752570670476-2025-07-15T09:11:10.476Z/bistro-nord-backend.zip"
               },
               "Handler": "src/getMenuItems/handler.getMenuItemsHandler",
               "Runtime": "nodejs20.x",
@@ -493,84 +493,84 @@
               "MenuTableWriteDynamoDBRole"
             ]
           },
-          "BookATableLambdaVersionhXdCFOI4Y4ULbv9dI331F8MtFoWcrXosnnm3HHIRie4": {
+          "BookATableLambdaVersionf8iSkkltrY4tizOLBVbGP69NHv2I3q2lMV0AaF8wp1o": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "BookATableLambdaFunction"
               },
-              "CodeSha256": "10oay2dC9m6p5OGS6pytJi0N2/ZocTUNC0RLw5Ck7e8="
+              "CodeSha256": "fuEwpBnBr6lRtcjJinVf7ae70tSaaAffyz+Sp5LgX30="
             }
           },
-          "UpdateReservationLambdaVersion63nqIPPKUxcZytiSvuH0qNuZK0OCxJdcWwgIkjNLQ4": {
+          "UpdateReservationLambdaVersionvitU7Mr68dWiPQ4fwGFGoNStir3XSVkqPAc0VNFLFI": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "UpdateReservationLambdaFunction"
               },
-              "CodeSha256": "10oay2dC9m6p5OGS6pytJi0N2/ZocTUNC0RLw5Ck7e8="
+              "CodeSha256": "fuEwpBnBr6lRtcjJinVf7ae70tSaaAffyz+Sp5LgX30="
             }
           },
-          "GetAReservationLambdaVersionEpJI7YW0cQendNrMaBbP6vN3p8WDboN3NzzhhjdL4": {
+          "GetAReservationLambdaVersionApLfZyQkXxXnQebnktChcX3gMGBex7BIoCigBL5J8g": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "GetAReservationLambdaFunction"
               },
-              "CodeSha256": "10oay2dC9m6p5OGS6pytJi0N2/ZocTUNC0RLw5Ck7e8="
+              "CodeSha256": "fuEwpBnBr6lRtcjJinVf7ae70tSaaAffyz+Sp5LgX30="
             }
           },
-          "GetUsersReservationsLambdaVersionlBbkWrEMTmuMrUaGeIQTyZrY55yj9HziLGdAFMlleGs": {
+          "GetUsersReservationsLambdaVersionTc5IzxBw5YXdNQcr492zDYGtsDhtyIXPsEZYiNFpPk": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "GetUsersReservationsLambdaFunction"
               },
-              "CodeSha256": "10oay2dC9m6p5OGS6pytJi0N2/ZocTUNC0RLw5Ck7e8="
+              "CodeSha256": "fuEwpBnBr6lRtcjJinVf7ae70tSaaAffyz+Sp5LgX30="
             }
           },
-          "DoneWithAReservationLambdaVersionmNtaZ0u2WlHs3oguYjzH74FFmdJPaYr5nRiFdtBJk": {
+          "DoneWithAReservationLambdaVersionlljvqmGCA1NwKE5XREnIvVklu7dxU1j6LBZQdmqI": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "DoneWithAReservationLambdaFunction"
               },
-              "CodeSha256": "10oay2dC9m6p5OGS6pytJi0N2/ZocTUNC0RLw5Ck7e8="
+              "CodeSha256": "fuEwpBnBr6lRtcjJinVf7ae70tSaaAffyz+Sp5LgX30="
             }
           },
-          "AddMenuItemLambdaVersionlTNx7l51QMMd6c4rRZYvpzA4edUUgFaglbrrelUzZM": {
+          "AddMenuItemLambdaVersionGV0QtXBkW1GoRauk8oexEafsoTP9rBN26Abj6FAguQI": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AddMenuItemLambdaFunction"
               },
-              "CodeSha256": "10oay2dC9m6p5OGS6pytJi0N2/ZocTUNC0RLw5Ck7e8="
+              "CodeSha256": "fuEwpBnBr6lRtcjJinVf7ae70tSaaAffyz+Sp5LgX30="
             }
           },
-          "AddMenuImageLambdaVersionVwArdqCgsvgmAW5eSkjfbTfyLVx6CFa7SyW6joGv0jc": {
+          "AddMenuImageLambdaVersiondKFQ8NklfZgCqrIXRpakFAsML6E3FFJ4pO4rCZo": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AddMenuImageLambdaFunction"
               },
-              "CodeSha256": "10oay2dC9m6p5OGS6pytJi0N2/ZocTUNC0RLw5Ck7e8="
+              "CodeSha256": "fuEwpBnBr6lRtcjJinVf7ae70tSaaAffyz+Sp5LgX30="
             }
           },
-          "GetMenuItemsLambdaVersionYbSh4MtRaNf9VB75DfO5v8fwWvS2VaMntpRZYsrEY": {
+          "GetMenuItemsLambdaVersion1Kc9R5WuuUaM0gQvsaWMdmOA0HSvwoDTIswhEQMr4": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "GetMenuItemsLambdaFunction"
               },
-              "CodeSha256": "10oay2dC9m6p5OGS6pytJi0N2/ZocTUNC0RLw5Ck7e8="
+              "CodeSha256": "fuEwpBnBr6lRtcjJinVf7ae70tSaaAffyz+Sp5LgX30="
             }
           },
           "HttpApi": {
@@ -2168,7 +2168,7 @@
           "BookATableLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "BookATableLambdaVersionhXdCFOI4Y4ULbv9dI331F8MtFoWcrXosnnm3HHIRie4"
+              "Ref": "BookATableLambdaVersionf8iSkkltrY4tizOLBVbGP69NHv2I3q2lMV0AaF8wp1o"
             },
             "Export": {
               "Name": "sls-bistro-nord-backend-dev-BookATableLambdaFunctionQualifiedArn"
@@ -2177,7 +2177,7 @@
           "UpdateReservationLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "UpdateReservationLambdaVersion63nqIPPKUxcZytiSvuH0qNuZK0OCxJdcWwgIkjNLQ4"
+              "Ref": "UpdateReservationLambdaVersionvitU7Mr68dWiPQ4fwGFGoNStir3XSVkqPAc0VNFLFI"
             },
             "Export": {
               "Name": "sls-bistro-nord-backend-dev-UpdateReservationLambdaFunctionQualifiedArn"
@@ -2186,7 +2186,7 @@
           "GetAReservationLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "GetAReservationLambdaVersionEpJI7YW0cQendNrMaBbP6vN3p8WDboN3NzzhhjdL4"
+              "Ref": "GetAReservationLambdaVersionApLfZyQkXxXnQebnktChcX3gMGBex7BIoCigBL5J8g"
             },
             "Export": {
               "Name": "sls-bistro-nord-backend-dev-GetAReservationLambdaFunctionQualifiedArn"
@@ -2195,7 +2195,7 @@
           "GetUsersReservationsLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "GetUsersReservationsLambdaVersionlBbkWrEMTmuMrUaGeIQTyZrY55yj9HziLGdAFMlleGs"
+              "Ref": "GetUsersReservationsLambdaVersionTc5IzxBw5YXdNQcr492zDYGtsDhtyIXPsEZYiNFpPk"
             },
             "Export": {
               "Name": "sls-bistro-nord-backend-dev-GetUsersReservationsLambdaFunctionQualifiedArn"
@@ -2204,7 +2204,7 @@
           "DoneWithAReservationLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "DoneWithAReservationLambdaVersionmNtaZ0u2WlHs3oguYjzH74FFmdJPaYr5nRiFdtBJk"
+              "Ref": "DoneWithAReservationLambdaVersionlljvqmGCA1NwKE5XREnIvVklu7dxU1j6LBZQdmqI"
             },
             "Export": {
               "Name": "sls-bistro-nord-backend-dev-DoneWithAReservationLambdaFunctionQualifiedArn"
@@ -2213,7 +2213,7 @@
           "AddMenuItemLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AddMenuItemLambdaVersionlTNx7l51QMMd6c4rRZYvpzA4edUUgFaglbrrelUzZM"
+              "Ref": "AddMenuItemLambdaVersionGV0QtXBkW1GoRauk8oexEafsoTP9rBN26Abj6FAguQI"
             },
             "Export": {
               "Name": "sls-bistro-nord-backend-dev-AddMenuItemLambdaFunctionQualifiedArn"
@@ -2222,7 +2222,7 @@
           "AddMenuImageLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AddMenuImageLambdaVersionVwArdqCgsvgmAW5eSkjfbTfyLVx6CFa7SyW6joGv0jc"
+              "Ref": "AddMenuImageLambdaVersiondKFQ8NklfZgCqrIXRpakFAsML6E3FFJ4pO4rCZo"
             },
             "Export": {
               "Name": "sls-bistro-nord-backend-dev-AddMenuImageLambdaFunctionQualifiedArn"
@@ -2231,7 +2231,7 @@
           "GetMenuItemsLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "GetMenuItemsLambdaVersionYbSh4MtRaNf9VB75DfO5v8fwWvS2VaMntpRZYsrEY"
+              "Ref": "GetMenuItemsLambdaVersion1Kc9R5WuuUaM0gQvsaWMdmOA0HSvwoDTIswhEQMr4"
             },
             "Export": {
               "Name": "sls-bistro-nord-backend-dev-GetMenuItemsLambdaFunctionQualifiedArn"
@@ -2395,7 +2395,7 @@
         "timeout": 6,
         "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "BookATableLambdaVersionhXdCFOI4Y4ULbv9dI331F8MtFoWcrXosnnm3HHIRie4"
+        "versionLogicalId": "BookATableLambdaVersionf8iSkkltrY4tizOLBVbGP69NHv2I3q2lMV0AaF8wp1o"
       },
       "UpdateReservation": {
         "handler": "src/UpdateReservation/handler.UpdateReservationHandler",
@@ -2432,7 +2432,7 @@
         "timeout": 6,
         "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "UpdateReservationLambdaVersion63nqIPPKUxcZytiSvuH0qNuZK0OCxJdcWwgIkjNLQ4"
+        "versionLogicalId": "UpdateReservationLambdaVersionvitU7Mr68dWiPQ4fwGFGoNStir3XSVkqPAc0VNFLFI"
       },
       "GetAReservation": {
         "handler": "src/GetAReservation/handler.GetAReservationHandler",
@@ -2468,7 +2468,7 @@
         "timeout": 6,
         "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "GetAReservationLambdaVersionEpJI7YW0cQendNrMaBbP6vN3p8WDboN3NzzhhjdL4"
+        "versionLogicalId": "GetAReservationLambdaVersionApLfZyQkXxXnQebnktChcX3gMGBex7BIoCigBL5J8g"
       },
       "GetUsersReservations": {
         "handler": "src/GetUsersReservations/handler.GetUsersReservationsHandler",
@@ -2503,7 +2503,7 @@
         "timeout": 6,
         "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "GetUsersReservationsLambdaVersionlBbkWrEMTmuMrUaGeIQTyZrY55yj9HziLGdAFMlleGs"
+        "versionLogicalId": "GetUsersReservationsLambdaVersionTc5IzxBw5YXdNQcr492zDYGtsDhtyIXPsEZYiNFpPk"
       },
       "DoneWithAReservation": {
         "handler": "src/DoneWithAReservation/handler.DoneWithAReservationHandler",
@@ -2540,7 +2540,7 @@
         "timeout": 6,
         "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "DoneWithAReservationLambdaVersionmNtaZ0u2WlHs3oguYjzH74FFmdJPaYr5nRiFdtBJk"
+        "versionLogicalId": "DoneWithAReservationLambdaVersionlljvqmGCA1NwKE5XREnIvVklu7dxU1j6LBZQdmqI"
       },
       "addMenuItem": {
         "handler": "src/addMenuItem/handler.addMenuItemHandler",
@@ -2575,7 +2575,7 @@
         "timeout": 6,
         "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "AddMenuItemLambdaVersionlTNx7l51QMMd6c4rRZYvpzA4edUUgFaglbrrelUzZM"
+        "versionLogicalId": "AddMenuItemLambdaVersionGV0QtXBkW1GoRauk8oexEafsoTP9rBN26Abj6FAguQI"
       },
       "addMenuImage": {
         "handler": "src/addMenuItem/handler.addMenuImageHandler",
@@ -2610,7 +2610,7 @@
         "timeout": 6,
         "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "AddMenuImageLambdaVersionVwArdqCgsvgmAW5eSkjfbTfyLVx6CFa7SyW6joGv0jc"
+        "versionLogicalId": "AddMenuImageLambdaVersiondKFQ8NklfZgCqrIXRpakFAsML6E3FFJ4pO4rCZo"
       },
       "getMenuItems": {
         "handler": "src/getMenuItems/handler.getMenuItemsHandler",
@@ -2645,7 +2645,7 @@
         "timeout": 6,
         "runtime": "nodejs20.x",
         "vpc": {},
-        "versionLogicalId": "GetMenuItemsLambdaVersionYbSh4MtRaNf9VB75DfO5v8fwWvS2VaMntpRZYsrEY"
+        "versionLogicalId": "GetMenuItemsLambdaVersion1Kc9R5WuuUaM0gQvsaWMdmOA0HSvwoDTIswhEQMr4"
       }
     },
     "resources": {
@@ -3531,7 +3531,7 @@
         ],
         "artifactsS3KeyDirname": "serverless/bistro-nord-backend/dev/code-artifacts",
         "artifact": "/Users/srinivas/Documents/repos/bistro-nord-backend/.serverless/bistro-nord-backend.zip",
-        "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1752570481177-2025-07-15T09:08:01.177Z"
+        "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1752570670476-2025-07-15T09:11:10.476Z"
       },
       "layers": {
         "awssdk": {
@@ -3567,7 +3567,7 @@
     "artifact": "/Users/srinivas/Documents/repos/bistro-nord-backend/.serverless/bistro-nord-backend.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1752570481177-2025-07-15T09:08:01.177Z",
+    "artifactDirectoryName": "serverless/bistro-nord-backend/dev/1752570670476-2025-07-15T09:11:10.476Z",
     "artifact": "bistro-nord-backend.zip"
   }
 }

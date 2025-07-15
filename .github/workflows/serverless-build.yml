@@ -60,7 +60,7 @@ jobs:
       - name: Serverless Diff
         uses: serverless/github-action@v3.2
         with:
-            args: diff
+            args: diff --stage dev
 
   Serverless-Deploy:
     runs-on: ubuntu-latest
@@ -82,7 +82,7 @@ jobs:
 
       - name: Install Serverless Dependencies
         run: npm install
-         
+
       - name: Enter dir and deploy
         uses: serverless/github-action@v3.2
         with:

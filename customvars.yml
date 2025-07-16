@@ -26,6 +26,8 @@ IAM:
   MenuTableReadPolicy: MenuTableReadPolicy
   addMenuImageRole: addMenuImageRole
   addMenuImagePolicy: addMenuImagePolicy
+  getMenuImageRole: getMenuImageRole
+  getMenuImagePolicy: getMenuImagePolicy
 S3:
   BucketName: bistronord-backend-menuimages-bucket
   Sid: PublicReadS3Bucket

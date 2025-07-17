@@ -4,7 +4,7 @@ org: srinivaspradhan
 service: bistro-nord-backend
 
 plugins:
-  - serverless-plugin-diff
+  - serverless-diff-plugin
 
 provider:
   name: aws

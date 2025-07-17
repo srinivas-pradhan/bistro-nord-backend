@@ -1,5 +1,5 @@
 {
-  "devDependencies": {
-    "serverless-plugin-diff": "^3.0.0"
+  "dependencies": {
+    "serverless-diff-plugin": "^0.0.15"
   }
 }

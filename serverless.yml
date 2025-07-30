@@ -11,8 +11,6 @@ provider:
   runtime: nodejs20.x
   stackName: bistro-nord-backend-dev
   httpApi:
-    binaryMediaTypes:
-      - 'image/png'
     authorizers:
       JwtAuthorizer:
         type: jwt

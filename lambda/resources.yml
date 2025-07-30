@@ -119,12 +119,12 @@ addMenuImage:
     - { Ref: MiddysdkLambdaLayer }
   events:
     - httpApi:
-        method: POST
+        method: GET
         path: /addMenuImage
         authorizer:
           name: JwtAuthorizer
           scopes:
-            - ServerAccessScope/write
+            - ServerAccessScope/read
             
 getMenuItems:
   handler: src/getMenuItems/handler.getMenuItemsHandler

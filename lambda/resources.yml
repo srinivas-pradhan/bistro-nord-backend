@@ -111,7 +111,7 @@ addMenuItem:
 
 addMenuImage:
   handler: src/addMenuItem/handler.addMenuImageHandler
-  role: !GetAtt MenuTableWriteDynamoDBRole.Arn
+  role: !GetAtt addMenuImageRole.Arn
   environment:
       S3_BUCKET: ${file(./customvars.yml):S3.BucketName}
   layers:
@@ -124,11 +124,11 @@ addMenuImage:
         authorizer:
           name: JwtAuthorizer
           scopes:
-            - ServerAccessScope/read
+            - ServerAccessScope/write
             
 getMenuItems:
   handler: src/getMenuItems/handler.getMenuItemsHandler
-  role: !GetAtt MenuTableWriteDynamoDBRole.Arn
+  role: !GetAtt getMenuImageRole.Arn
   environment:
       TABLE_NAME: ${file(./customvars.yml):DynamoDB.MenuTable}
   layers:

@@ -1,69 +1,46 @@
-<!--
-title: 'AWS Simple HTTP Endpoint example in NodeJS'
-description: 'This template demonstrates how to make a simple HTTP API with Node.js running on AWS Lambda and API Gateway using the Serverless Framework.'
-layout: Doc
-framework: v4
-platform: AWS
-language: nodeJS
-authorLink: 'https://github.com/serverless'
-authorName: 'Serverless, Inc.'
-authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'
--->
+# Bistro-Nord Backend
 
-# Serverless Framework Node HTTP API on AWS
+## Project Overview
+The Bistro-Nord Backend is a serverless application designed to manage restaurant functionalities including reservations, menu management, and customer interactions. It leverages various AWS services to create a scalable and efficient backend.
 
-This template demonstrates how to make a simple HTTP API with Node.js running on AWS Lambda and API Gateway using the Serverless Framework.
-
-This template does not include any kind of persistence (database). For more advanced examples, check out the [serverless/examples repository](https://github.com/serverless/examples/) which includes Typescript, Mongo, DynamoDB and other examples.
-
-## Usage
-
-### Deployment
-
-In order to deploy the example, you need to run the following command:
+## Architecture
+The architecture of the Bistro-Nord Backend consists of AWS Lambda functions, API Gateway, DynamoDB for the database, and S3 for static file hosting. The following diagram illustrates the components:
 
 ```
-serverless deploy
+[API Gateway] --> [AWS Lambda Functions] --> [DynamoDB]
 ```
 
-After running deploy, you should see output similar to:
+## Setup Instructions
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/srinivas-pradhan/bistro-nord-backend.git
+   ```
+2. Navigate to the project folder:
+   ```bash
+   cd bistro-nord-backend
+   ```
+3. Install the necessary dependencies.
 
-```
-Deploying "serverless-http-api" to stage "dev" (us-east-1)
+## API Endpoints
+- **GET /api/menu**: Retrieve the restaurant menu.
+- **POST /api/reservations**: Create a new reservation.
+- **GET /api/reservations/{id}**: Retrieve reservation details.
 
-✔ Service deployed to stack serverless-http-api-dev (91s)
+## Deployment
+To deploy the Bistro-Nord Backend:
+1. Ensure you have the AWS CLI configured.
+2. Use the serverless framework:
+   ```bash
+   serverless deploy
+   ```
 
-endpoint: GET - https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/
-functions:
-  hello: serverless-http-api-dev-hello (1.6 kB)
-```
+## Development Guide
+- For local development, you can use the Serverless Offline plugin to simulate AWS services:
+   ```bash
+   serverless offline
+   ```
+- Test the functions locally before deployment.
 
-_Note_: In current form, after deployment, your API is public and can be invoked by anyone. For production deployments, you might want to configure an authorizer. For details on how to do that, refer to [HTTP API (API Gateway V2) event docs](https://www.serverless.com/framework/docs/providers/aws/events/http-api).
+## License
+This project is licensed under the MIT License.
 
-### Invocation
-
-After successful deployment, you can call the created application via HTTP:
-
-```
-curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/
-```
-
-Which should result in response similar to:
-
-```json
-{ "message": "Go Serverless v4! Your function executed successfully!" }
-```
-
-### Local development
-
-The easiest way to develop and test your function is to use the `dev` command:
-
-```
-serverless dev
-```
-
-This will start a local emulator of AWS Lambda and tunnel your requests to and from AWS Lambda, allowing you to interact with your function as if it were running in the cloud.
-
-Now you can invoke the function as before, but this time the function will be executed locally. Now you can develop your function locally, invoke it, and see the results immediately without having to re-deploy.
-
-When you are done developing, don't forget to run `serverless deploy` to deploy the function to the cloud.

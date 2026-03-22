@@ -29,6 +29,7 @@ const BookATable = async (event) => {
     status
   } = event.body;
 
+  let IncrementValue;
   const UnixDateTimeSeconds =  Math.round(Date.parse(datetime) / 1000);
   const DateVal = ValidateDate(UnixDateTimeSeconds);
 
@@ -61,6 +62,7 @@ const BookATable = async (event) => {
   }
 
   const LastIDinDB = await GetLastId();
+  console.log(LastIDinDB);
   
   if ( LastIDinDB.$metadata.httpStatusCode !== 200 ) {
     return {
@@ -74,8 +76,12 @@ const BookATable = async (event) => {
       })
     };
   };
-
-  const IncrementValue = Number(LastIDinDB.Item.Count.S) + 1
+  if (!LastIDinDB.Item){
+    IncrementValue = 1000000000;
+  }
+  else {
+    IncrementValue = Number(LastIDinDB.Item.Count.S) + 1
+  }
   const Booking = await PutDBItem(
     {
       "BookingRef": {

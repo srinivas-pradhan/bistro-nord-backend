@@ -10,7 +10,6 @@ import { GetAReservationSchema as Response } from "../core/middleware/ResponseVa
 const BookingNumber = process.env.BOOKING_NUMBER;
 
 const GetAReservation = async (event) => {
-    console.log("Yeah")
     if (!event.pathParameters.OrderId) {
         return {
             statusCode: 403,

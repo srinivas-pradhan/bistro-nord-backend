@@ -155,6 +155,33 @@ export const getMenuItemsSchema = {
   }
 };
 
+export const getMenuImageSchema = {
+  type:"object",
+  properties:{
+    pathParameters:{
+      type:"object",
+      properties:{
+        ImageName: { "type":"string", pattern: "^[a-z]+(?:[A-Z][a-z]*)*$" }
+      },
+      required:["ImageName"]
+    },
+    headers: {
+      type:"object",
+      properties: {
+        "Content-Type": {
+          "type":"string", 
+          "enum": [
+            "image/png",
+            "image/jpg",
+            "image/jpeg"
+          ] 
+        },
+        required:["Content-Type"]
+      }
+    }
+  }
+};
+
 // export const RestaurantIdMap = {
 //     "OTTAWA": {
 //         Code: "OTTA",

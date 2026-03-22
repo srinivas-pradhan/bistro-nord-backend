@@ -119,8 +119,8 @@ addMenuImage:
     - { Ref: MiddysdkLambdaLayer }
   events:
     - httpApi:
-        method: GET
-        path: /addMenuImage
+        method: POST
+        path: /addMenuImage/{ImageName}
         authorizer:
           name: JwtAuthorizer
           scopes:
@@ -128,7 +128,7 @@ addMenuImage:
             
 getMenuItems:
   handler: src/getMenuItems/handler.getMenuItemsHandler
-  role: !GetAtt getMenuImageRole.Arn
+  role: !GetAtt ReadMenuDynamoDBRole.Arn
   environment:
       TABLE_NAME: ${file(./customvars.yml):DynamoDB.MenuTable}
   layers:

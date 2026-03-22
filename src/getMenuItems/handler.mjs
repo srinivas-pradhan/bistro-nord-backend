@@ -8,8 +8,8 @@ import { getMenuItemsSchema as Request } from "../core/middleware/RequestValidat
 import { getMenuItemsSchema as Response } from "../core/middleware/ResponseValidation.mjs";
 
 const getMenuItems = async (event) => {
-    if (event.queryStringParameters.ItemType === 'All' ) {
-        console.log("ItemType: ", event.queryStringParameters.ItemType)
+    if (event.queryStringParameters.ItemType === 'All') {
+        console.log("ItemType: ", "Full Menu")
         try {
             const GetAllMenuItems = await ScanAllDBItems();
             let Menu = [];

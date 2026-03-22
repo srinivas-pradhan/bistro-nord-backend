@@ -2,123 +2,155 @@ openapi: 3.0.0
 info:
   title: Bistro-Nord-Backend
   version: 1.0.0
+  description: ''
 servers:
-  - url: {SERVER_URL}
-components:
-  securitySchemes:
-    oauth2Auth:
-      type: http
-      scheme: oauth2
+  - url: '{{app_url}}'
 paths:
+  /getMenuItems:
+    get:
+      summary: Get Menu Items
+      parameters:
+        - name: ItemType
+          in: query
+          required: false
+          deprecated: false
+          schema: {}
+          example: All
+      responses: {}
+      tags:
+        - Menu
+      security:
+        - OAuth2: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+  /addMenuItem:
+    post:
+      summary: Add Menu Item
+      responses: {}
+      tags:
+        - Menu
+      security:
+        - OAuth2_2: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                MenuItem:
+                  type: string
+                Description:
+                  type: string
+                ImageLink:
+                  type: string
+                  format: uri
+                Price:
+                  type: number
+                MenuItemType:
+                  type: string
+            example:
+              MenuItem: Food2
+              Description: Food for me 2
+              ImageLink: s3://url
+              Price: 8.99
+              MenuItemType: Cafe
+  /addMenuImage/itemName:
+    post:
+      summary: Add Menu Image
+      responses: {}
+      tags:
+        - Menu
+      security:
+        - OAuth2_2: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
   /bookATable:
     post:
-      tags:
-        - default
       summary: Book A Table
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              example:
-                fname: Srinivas
-                lname: Pradhan
-                email: srinivaspradhan@gmail.com
-                datetime: 2025-01-29 9:30 PM
-                count: 5
-                restaurantId: OTTA
-                status: ACTIVE
+      responses: {}
+      tags:
+        - Table Reservation
       security:
-        - oauth2Auth: []
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json: {}
+        - OAuth2_2: []
   /DoneWithAReservation/{BookingNumber}/{COMPLETE,CANCELLED}:
     post:
-      tags:
-        - default
       summary: Done With A Reservation
+      responses: {}
+      tags:
+        - Table Reservation
+      security:
+        - OAuth2_2: []
       requestBody:
         content:
           application/json:
             schema:
               type: object
-              example: ''
-      security:
-        - oauth2Auth: []
-      parameters:
-        - name: BookingNumber
-          in: path
-          schema:
-            type: string
-          required: true
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json: {}
   /UpdateReservation/{BookingNumber}:
     put:
-      tags:
-        - default
       summary: Update A Reservation
+      responses: {}
+      tags:
+        - Table Reservation
+      security:
+        - OAuth2_2: []
       requestBody:
         content:
           application/json:
             schema:
               type: object
-              example:
-                datetime: 2025-01-29 9:30 PM
-                count: 21
-                status: ACTIVE
-      security:
-        - oauth2Auth: []
-      parameters:
-        - name: BookingNumber
-          in: path
-          schema:
-            type: string
-          required: true
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json: {}
+              properties:
+                datetime:
+                  type: string
+                  format: style
+                count:
+                  type: integer
+                status:
+                  type: string
+            example:
+              datetime: 2026-05-29 9:30 PM
+              count: 4
+              status: ACTIVE
   /GetAReservation/{BookingNumber}:
     get:
-      tags:
-        - default
       summary: Get Reservation Details
-      security:
-        - oauth2Auth: []
-      parameters:
-        - name: BookingNumber
-          in: path
-          schema:
-            type: string
-          required: true
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json: {}
-  /GetUsersReservations/{UserID}:
-    get:
+      responses: {}
       tags:
-        - default
-      summary: Get Users Reservation
+        - Table Reservation
       security:
-        - oauth2Auth: []
-      parameters:
-        - name: UserID
-          in: path
-          schema:
-            type: string
-          required: true
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json: {}
+        - OAuth2: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+  /GetUsersReservations/{email}:
+    get:
+      summary: Get Users Reservation
+      responses: {}
+      tags:
+        - Table Reservation
+      security:
+        - OAuth2: []
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: '{{url}}'
+          scopes:
+            ServerAccessScope/read: ServerAccessScope/read
+    OAuth2_2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: '{{url}}'
+          scopes:
+            ServerAccessScope/write: ServerAccessScope/write
+

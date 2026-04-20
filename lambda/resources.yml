@@ -110,17 +110,18 @@ addMenuItem:
             - ServerAccessScope/write
 
 addMenuImage:
-  handler: src/addMenuItem/handler.addMenuImageHandler
+  handler: src/addMenuImage/handler.addMenuImageHandler
   role: !GetAtt addMenuImageRole.Arn
   environment:
       S3_BUCKET: ${file(./customvars.yml):S3.BucketName}
+      TABLE_NAME: ${file(./customvars.yml):DynamoDB.MenuTable}
   layers:
     - { Ref: AwssdkLambdaLayer }
     - { Ref: MiddysdkLambdaLayer }
   events:
     - httpApi:
         method: POST
-        path: /addMenuImage/{ImageName}
+        path: /addMenuImage
         authorizer:
           name: JwtAuthorizer
           scopes:

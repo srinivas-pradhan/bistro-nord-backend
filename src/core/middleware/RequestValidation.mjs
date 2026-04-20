@@ -137,19 +137,38 @@ export const addAddMenuItemSchema = {
 export const getMenuItemsSchema = {
   type:"object",
   properties:{
-    queryStringParameters:{
+    body: {
+      type: "object",
+      properties: {
+        MenuItem: { type: "string" },
+      },
+      required: [ "MenuItem"]
+    }
+  }
+};
+
+export const AddMenuImageSchema = {
+  type:"object",
+  properties:{
+    body: {
+      type: "object",
+      properties: {
+        MenuItem: { type: "string" },
+      },
+      required: [ "MenuItem"]
+    },
+    headers: {
       type:"object",
-      properties:{
-        ItemType: { 
+      properties: {
+        "Image-Type": {
           "type":"string", 
           "enum": [
-              "Cafe",
-              "Dining",
-              "Drinks",
-              "Desserts",
-              "All"
+            "image/png",
+            "image/jpg",
+            "image/jpeg"
           ] 
-        }
+        },
+        // required:["Content-Type"]
       }
     }
   }

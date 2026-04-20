@@ -142,6 +142,26 @@ export const getMenuItemsSchema = {
   },
 };
 
+export const AddMenuImageSchema = {
+  type: "object",
+  required: ["statusCode"],
+  properties: {
+    body: {
+      type: "object",
+      properties: {
+        val: { type: "string" },
+        Details: { type: "string"}
+      }
+    },
+    statusCode: {
+      type: "number",
+    },
+    headers: {
+      type: "object",
+    },
+  },
+};
+
 export const getMenuImageSchema = {
   type: "object",
   required: ["statusCode"],

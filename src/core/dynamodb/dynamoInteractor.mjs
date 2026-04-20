@@ -185,3 +185,27 @@ export const IncrementLastId = async function IncrementLastId(ItemCount, Table =
     }
 };
 
+export const QueryDBUsingMenuItemName = async function QueryDBUsingMenuItemName(Index = "MenuItem", Val, Table = Table_IN_Use) {
+    const input = {
+        "TableName": Table,
+        "IndexName": Index,
+        "Select": "ALL_ATTRIBUTES",
+        ExpressionAttributeNames: {
+            '#key': Index
+        },
+        "ExpressionAttributeValues": {
+            ":value": {
+            "S": Val
+            }
+        },
+        "KeyConditionExpression": '#key = :value',
+    };  
+    const command = new QueryCommand(input);      
+    try {
+        const results = await client.send(command);
+        return results;
+    } catch (error) {
+        console.log(error.name)
+        return error.name
+    }
+};
